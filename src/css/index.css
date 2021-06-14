@@ -1,0 +1,65 @@
+:root {
+  --main-dark: #9f875d;
+  --main-normal: #d9c6a4;
+  --main-light: #e9decc;
+  --main-light37: #e9decc37;
+  --main-bg: #f6f2ec;
+  --white: #ffffff;
+}
+
+html {
+  font-size: 62.5%; /* 10px */
+  box-sizing: border-box;
+}
+body {
+}
+#root {
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: cornflowerblue;
+}
+header {
+  display: flex;
+  height: 120px;
+  background-color: var(--white);
+}
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--main-light);
+}
+footer {
+  display: flex;
+  height: 5rem;
+  background-color: var(--main-normal);
+  justify-content: center;
+  align-items: center;
+}
+
+/* template */
+.header__logo {
+  display: flex;
+  background-image: url("https://fakeimg.pl/120x120/");
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 120px;
+  width: 120px;
+}
+.header__titles {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: rgb(139, 139, 226);
+}
+
+.main__banner {
+  background-image: url("https://fakeimg.pl/875x350/");
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 350px;
+}
