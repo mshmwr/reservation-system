@@ -1,0 +1,18 @@
+.btn {
+  background-color: var(--main-normal);
+  min-width: 10rem;
+  padding: 0.8rem 3rem;
+  border: 1px solid var(--main-normal);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  font-size: var(--heading-font-size);
+}
+
+.btn:hover {
+  background-color: var(--main-light);
+  border: 1px solid var(--main-normal);
+  transition: all 0.2s ease;
+}

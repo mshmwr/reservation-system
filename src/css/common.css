@@ -1,0 +1,24 @@
+:root {
+  /* color */
+  --main-dark: #9f875d;
+  --main-normal: #d9c6a4;
+  --main-light: #e9decc;
+  --main-light37: #e9decc37;
+  --main-bg: #f6f2ec;
+  --white: #ffffff;
+  --black: #000000;
+  /* font-size */
+  --title-font-size: 1.8rem;
+  --subtitle-font-size: 1.6rem;
+  --heading-font-size: 1.4rem;
+  --text-font-size: 1.2rem;
+
+  /* other */
+  --border-radius: 5px;
+  --div-margin: 0px auto 2rem auto;
+}
+
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
