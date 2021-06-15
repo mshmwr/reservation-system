@@ -1,10 +1,28 @@
 import React from "react";
+import "./Home.css";
+import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
+
+// import { Link } from "react-router-dom";
 function Home() {
   return (
-    <main>
-      <div className="main__banner"></div>
-      <div>pageeeeees</div>
-    </main>
+    <>
+      <div className="home__banner"></div>
+      <div className="home__welcome">
+        <p>Welcome</p>
+        <p>Welcometext</p>
+        <p>Welcometext</p>
+      </div>
+      <div className="home__content">
+        <div className="home__content__instruction">
+          <p>Title</p>
+          <p>text</p>
+        </div>
+        <Link to="/notice" className="home__content__btn">
+          <Button text="開始預約"></Button>
+        </Link>
+      </div>
+    </>
   );
 }
 export default Home;
