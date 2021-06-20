@@ -6,12 +6,15 @@
   --main-light37: #e9decc37;
   --main-bg: #f6f2ec;
   --white: #ffffff;
+  --light-gray: #f1f1f1;
   --black: #000000;
+
   /* font-size */
   --title-font-size: 1.8rem;
   --subtitle-font-size: 1.6rem;
   --heading-font-size: 1.4rem;
   --text-font-size: 1.2rem;
+  --line-height-multiple: 1.2;
 
   /* other */
   --border-radius: 5px;
@@ -23,6 +26,35 @@ html {
   box-sizing: border-box;
 }
 
+.common__title {
+  font-size: var(--title-font-size);
+}
+.common__subtitle {
+  font-size: var(--subtitle-font-size);
+}
+
+.common__heading {
+  font-size: var(--heading-font-size);
+}
+.common__text {
+  font-size: var(--text-font-size);
+}
+
+.common__block {
+  text-align: center;
+  margin: var(--div-margin);
+}
+
+.common__titleBlock {
+  margin: 2rem auto;
+  width: 60%;
+}
+
+.common__hidden {
+  display: none;
+}
+
+/* button submit style*/
 .common__submit {
   background-color: var(--main-normal);
   min-width: 5rem;
@@ -40,4 +72,26 @@ html {
   background-color: var(--main-light);
   border: 1px solid var(--main-normal);
   transition: all 0.2s ease;
+}
+
+/* scrollbar style */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--light-gray);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--main-light);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--main-normal);
 }

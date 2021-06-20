@@ -16,9 +16,8 @@ header {
 main {
   width: 100%;
   display: flex;
-  flex-direction: column;
   flex: 1;
-  align-items: center;
+  align-items: stretch;
 }
 footer {
   display: flex;
@@ -41,5 +40,4 @@ footer {
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: rgb(139, 139, 226);
 }

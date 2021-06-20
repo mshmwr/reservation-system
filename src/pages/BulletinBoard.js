@@ -58,7 +58,6 @@ export default class BulletinBoard extends Component {
             </div>
           ))}
         </div>
-        <div></div>
         <Link to="/" className="">
           <Button text="返回首頁"></Button>
         </Link>

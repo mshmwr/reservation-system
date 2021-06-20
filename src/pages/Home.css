@@ -34,6 +34,5 @@
 .home__content__btn {
   display: flex;
   justify-content: center;
-  margin: var(--div-margin);
   text-decoration: none;
 }
