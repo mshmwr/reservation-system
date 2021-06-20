@@ -3,10 +3,9 @@ import "./Home.css";
 import { Button } from "../components/Button";
 import { Link } from "react-router-dom";
 
-// import { Link } from "react-router-dom";
 function Home() {
   return (
-    <>
+    <div className="home">
       <div className="home__banner"></div>
       <div className="home__welcome">
         <p>Welcome</p>
@@ -25,7 +24,7 @@ function Home() {
           <Button text="前往留言版(臨時按鈕)"></Button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 export default Home;

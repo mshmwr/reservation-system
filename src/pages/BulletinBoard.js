@@ -37,7 +37,7 @@ export default class BulletinBoard extends Component {
   };
   render() {
     return (
-      <>
+      <div className="bulletinBoard">
         <div>BulletinBoard</div>
         <div className="bulletinBoard__form">
           <Form
@@ -62,7 +62,7 @@ export default class BulletinBoard extends Component {
         <Link to="/" className="">
           <Button text="返回首頁"></Button>
         </Link>
-      </>
+      </div>
     );
   }
 }

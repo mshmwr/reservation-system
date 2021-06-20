@@ -52,22 +52,20 @@ export default class Form extends Component {
   };
   render() {
     return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          {this.state.formInputList.map((inputItem) => (
-            <div key={inputItem.label} className="form__item">
-              <label>{inputItem.label}</label>
-              <input
-                value={inputItem.value}
-                type="text"
-                onChange={(e) => this.handleChange(inputItem, e.target.value)}
-              ></input>
-            </div>
-          ))}
+      <form onSubmit={this.handleSubmit}>
+        {this.state.formInputList.map((inputItem) => (
+          <div key={inputItem.label} className="form__item">
+            <label>{inputItem.label}</label>
+            <input
+              value={inputItem.value}
+              type="text"
+              onChange={(e) => this.handleChange(inputItem, e.target.value)}
+            ></input>
+          </div>
+        ))}
 
-          <input className="common__submit" type="submit" value="新增"></input>
-        </form>
-      </>
+        <input className="common__submit" type="submit" value="新增"></input>
+      </form>
     );
   }
 }
