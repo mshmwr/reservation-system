@@ -22,3 +22,22 @@ html {
   font-size: 10px;
   box-sizing: border-box;
 }
+
+.common__submit {
+  background-color: var(--main-normal);
+  min-width: 5rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--main-normal);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  font-size: var(--heading-font-size);
+}
+
+.common__submit:hover {
+  background-color: var(--main-light);
+  border: 1px solid var(--main-normal);
+  transition: all 0.2s ease;
+}

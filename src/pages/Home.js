@@ -21,6 +21,9 @@ function Home() {
         <Link to="/notice" className="home__content__btn">
           <Button text="開始預約"></Button>
         </Link>
+        <Link to="/bulletinBoard" className="home__content__btn">
+          <Button text="前往留言版(臨時按鈕)"></Button>
+        </Link>
       </div>
     </>
   );

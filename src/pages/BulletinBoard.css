@@ -1,0 +1,30 @@
+.bulletinBoard__form,
+.bulletinBoard__messageList {
+  display: flex;
+  justify-content: center;
+  margin: var(--div-margin);
+  text-decoration: none;
+  text-align: end;
+  width: 40%;
+}
+.bulletinBoard__messageList {
+  flex-wrap: wrap;
+}
+.bulletinBoard__messageList__message {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: var(--div-margin);
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+}
+.bulletinBoard__messageList__message > p {
+  display: flex;
+  margin: 0px 20px;
+  flex-grow: 1;
+  /* border-bottom: 1px var(--main-light) solid; */
+  /* background-color: var(--main-light); */
+  min-height: 4rem;
+  align-items: center;
+}

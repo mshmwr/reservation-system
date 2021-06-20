@@ -1,25 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Notice from "./pages/Notice";
+import Reservation from "./pages/Reservation";
+import BulletinBoard from "./pages/BulletinBoard";
 
-function App() {
-  return (
-    <Router>
-      <div className="container">
-        <Header />
-        <main>
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/notice" component={Notice}></Route>
-          </Switch>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <Router>
+        <div className="container">
+          <Header />
+          <main>
+            <Switch>
+              <Route exact path="/" component={Home}></Route>
+              <Route path="/notice" component={Notice}></Route>
+              <Route path="/reservation" component={Reservation}></Route>
+              <Route path="/bulletinBoard" component={BulletinBoard}></Route>
+            </Switch>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    );
+  }
 }
-
-export default App;
