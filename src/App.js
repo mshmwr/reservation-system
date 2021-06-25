@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
+import Home from "./HomePage/Home";
 import Notice from "./pages/Notice";
 import Reservation from "./pages/Reservation";
-import BulletinBoard from "./pages/BulletinBoard";
+import BulletinBoard from "./ListPage/BulletinBoard";
 
 export default class App extends Component {
   constructor() {
