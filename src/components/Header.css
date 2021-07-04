@@ -1,0 +1,18 @@
+.header__logo {
+  display: flex;
+  /* background-image: url("https://fakeimg.pl/120x120/"); */
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 120px;
+  width: 120px;
+}
+.header__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 2rem;
+}
+
+.header__content ul {
+  line-height: calc(var(--title-font-size) * var(--line-height-multiple));
+}

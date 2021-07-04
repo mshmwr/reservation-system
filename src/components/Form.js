@@ -33,15 +33,15 @@ export default class Form extends Component {
     e.preventDefault();
     this.getMessage();
   }
-
   getMessage = () => {
-    let message = "";
-    this.state.formInputList.forEach((item, index) => {
-      if (index !== 0) message += ",";
-      message += [item.value];
-    });
-    this.props.addToList(message);
-    this.clearInput();
+    console.log("handleSubmit");
+    console.log(this.props.getMessage);
+    if (this.props.getMessage !== undefined) {
+      this.props.getMessage(this.state.formInputList);
+    }
+    if (this.props.needSubmitButton !== false) {
+      this.clearInput();
+    }
   };
   clearInput = () => {
     const list = this.state.formInputList.slice();
@@ -51,6 +51,10 @@ export default class Form extends Component {
     this.setState({ list: list });
   };
   render() {
+    if (this.props.needSubmitButton === false) {
+      this.getMessage();
+    }
+
     return (
       <form onSubmit={this.handleSubmit}>
         {this.state.formInputList.map((inputItem) => (
@@ -63,8 +67,9 @@ export default class Form extends Component {
             ></input>
           </div>
         ))}
-
-        <input className="common__submit" type="submit" value="新增"></input>
+        {this.props.needSubmitButton === true ? (
+          <input className="common__submit" type="submit" value="新增"></input>
+        ) : null}
       </form>
     );
   }

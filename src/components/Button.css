@@ -7,7 +7,7 @@
   color: var(--black);
   cursor: pointer;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
   font-size: var(--heading-font-size);
 }
 

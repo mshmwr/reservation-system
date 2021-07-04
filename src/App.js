@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./HomePage/Home";
-import Notice from "./pages/Notice";
-import Reservation from "./pages/Reservation";
-import BulletinBoard from "./ListPage/BulletinBoard";
+import Home from "./pages/HomePage/Home";
+import Notice from "./pages/NoticePage/Notice";
+import Reservation from "./pages/ReservationPage/Reservation";
+import Thankyou from "./pages/ThankyouPage/Thankyou";
+import BulletinBoard from "./pages/ListPage/BulletinBoard";
 
 export default class App extends Component {
   constructor() {
@@ -23,6 +24,7 @@ export default class App extends Component {
               <Route exact path="/" component={Home}></Route>
               <Route path="/notice" component={Notice}></Route>
               <Route path="/reservation" component={Reservation}></Route>
+              <Route path="/thankyou" component={Thankyou}></Route>
               <Route path="/bulletinBoard" component={BulletinBoard}></Route>
             </Switch>
           </main>

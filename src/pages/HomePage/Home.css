@@ -1,6 +1,3 @@
-.home {
-  width: 100%;
-}
 .home__banner {
   height: 350px;
   width: 100%;
@@ -22,6 +19,12 @@
   width: 85%;
   margin: var(--div-margin);
 }
+.home__welcome__title {
+  margin: var(--div-margin);
+}
+.home__welcome ul {
+  line-height: calc(var(--text-font-size) * var(--line-height-multiple));
+}
 
 .home__content__instruction {
   width: 90%;
@@ -29,6 +32,16 @@
   flex-direction: column;
   flex-grow: 1;
   margin: var(--div-margin);
+}
+
+.home__content__instruction ul {
+  padding: 2rem 2rem 0px 2rem;
+  line-height: calc(var(--text-font-size) * var(--line-height-multiple));
+}
+
+.home__content__instruction li {
+  list-style-type: disc;
+  padding-bottom: 2rem;
 }
 
 .home__content__btn {

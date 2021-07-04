@@ -1,10 +1,6 @@
 .notice {
-  width: 100%;
   background-color: var(--main-light37);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
 }
 
 .notice__title {
@@ -19,7 +15,7 @@
   width: 90%;
   height: 350px;
   overflow: auto;
-  background-color: var(--white);
+  background-color: var(--main-bg);
   text-align: left;
 }
 
@@ -51,4 +47,27 @@
 
 .notice__form__accept > label {
   margin-left: 10px;
+}
+
+/* notice__list scrollbar style */
+
+/* width */
+.notice__list::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+.notice__list::-webkit-scrollbar-track {
+  background: var(--light-gray);
+}
+
+/* Handle */
+.notice__list::-webkit-scrollbar-thumb {
+  background: var(--main-light);
+  border: 1px solid var(--light-gray);
+}
+
+/* Handle on hover */
+.notice__list::-webkit-scrollbar-thumb:hover {
+  background: var(--main-normal);
 }

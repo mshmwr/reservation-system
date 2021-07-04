@@ -1,0 +1,91 @@
+.reservation__content__fillInStep {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation__content__fillInStep__title {
+  display: flex;
+  margin: 2rem;
+}
+.planBlock {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.planBlock__plan {
+  width: 50%;
+  margin: 0px 2rem;
+}
+.planBlock__plan__subtitle {
+  display: flex;
+}
+
+.planBlock__plan__item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.planBlock__plan__item__title {
+  display: flex;
+  width: 50%;
+}
+.planBlock__plan__item__content {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}
+
+.planBlock__input {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0px 2rem;
+}
+
+.planBlock__input__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.planBlock__input__info__label {
+  margin-right: 2rem;
+}
+.planBlock__input__info__value {
+  margin-left: 2rem;
+}
+
+.reservation__content__fillInStep__buttonGroup {
+  margin: 0 2rem 2rem 2rem;
+}
+
+@media screen and (max-width: 786px) {
+}
+
+@media screen and (max-width: 600px) {
+  .reservation__content__fillInStep__title,
+  .planBlock__plan__subtitle {
+    justify-content: center;
+  }
+  .planBlock {
+    flex-direction: column;
+    align-items: center;
+  }
+  .planBlock__plan {
+    margin: 2rem 0;
+  }
+  .planBlock__input {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .planBlock__plan,
+  .planBlock__input {
+    width: 60%;
+  }
+}

@@ -26,18 +26,3 @@ footer {
   justify-content: center;
   align-items: center;
 }
-
-/* template */
-.header__logo {
-  display: flex;
-  background-image: url("https://fakeimg.pl/120x120/");
-  background-size: cover;
-  background-position: 50% 50%;
-  height: 120px;
-  width: 120px;
-}
-.header__titles {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}

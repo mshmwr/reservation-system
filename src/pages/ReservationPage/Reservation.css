@@ -1,0 +1,8 @@
+.reservation {
+  background-color: var(--main-bg);
+}
+.reservation__content {
+  background-color: var(--main-light);
+  display: flex;
+  flex-grow: 1;
+}

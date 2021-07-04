@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Form from "../components/Form";
+import Form from "../../components/Form";
 import "./BulletinBoard.css";
-import { Button } from "../components/Button";
+import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
 
 export default class BulletinBoard extends Component {
@@ -17,7 +17,13 @@ export default class BulletinBoard extends Component {
     { label: "phone", value: "" },
     { label: "email", value: "" },
   ];
-  addToList = (message) => {
+  getMessage = (formInputList) => {
+    let message = "";
+    formInputList.forEach((item, index) => {
+      if (index !== 0) message += ",";
+      message += [item.value];
+    });
+
     const listInfos = this.state.listInfos.slice();
     listInfos.push({ num: `id${this.state.id}`, message: message });
     this.setState((state) => ({
@@ -35,6 +41,9 @@ export default class BulletinBoard extends Component {
       });
     };
   };
+  backClick = () => {
+    this.props.history.go(-1);
+  };
   render() {
     return (
       <div className="bulletinBoard">
@@ -42,7 +51,8 @@ export default class BulletinBoard extends Component {
         <div className="bulletinBoard__form">
           <Form
             formInputList={this.formInputList}
-            addToList={this.addToList}
+            getMessage={this.getMessage}
+            needSubmitButton={true}
           ></Form>
         </div>
         <div className="bulletinBoard__messageList">
@@ -61,6 +71,9 @@ export default class BulletinBoard extends Component {
         <Link to="/" className="">
           <Button text="返回首頁"></Button>
         </Link>
+        <button className={`btn`} onClick={this.backClick}>
+          返回上一頁
+        </button>
       </div>
     );
   }

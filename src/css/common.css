@@ -10,15 +10,21 @@
   --black: #000000;
 
   /* font-size */
-  --title-font-size: 1.8rem;
+  --title-font-size: 2rem;
   --subtitle-font-size: 1.6rem;
   --heading-font-size: 1.4rem;
   --text-font-size: 1.2rem;
-  --line-height-multiple: 1.2;
+  --line-height-multiple: 1.4;
 
   /* other */
   --border-radius: 5px;
   --div-margin: 0px auto 2rem auto;
+  --logo-height: 120px;
+  --logo-width: 120px;
+
+  /* RWD size*/
+  --mobile-width: 360px;
+  --tablet-width: 360px;
 }
 
 html {
@@ -39,15 +45,45 @@ html {
 .common__text {
   font-size: var(--text-font-size);
 }
+.common__font--bold {
+  font-weight: bold;
+}
 
 .common__block {
+  /*區塊+文字置中*/
   text-align: center;
   margin: var(--div-margin);
+}
+.common__block--bilateral {
+  margin: 2rem 0;
+}
+
+.common__interval--normal {
+  margin-bottom: 2rem;
+}
+.common__interval--shrink {
+  margin-bottom: 1rem;
 }
 
 .common__titleBlock {
   margin: 2rem auto;
-  width: 60%;
+  width: 90%;
+}
+
+.common__pageFrame {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
+.common__buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.common__buttonGroup Button {
+  margin: 0 0 0 10px;
 }
 
 .common__hidden {
@@ -72,26 +108,4 @@ html {
   background-color: var(--main-light);
   border: 1px solid var(--main-normal);
   transition: all 0.2s ease;
-}
-
-/* scrollbar style */
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: var(--light-gray);
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--main-light);
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--main-normal);
 }

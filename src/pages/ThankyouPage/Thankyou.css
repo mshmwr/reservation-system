@@ -1,0 +1,25 @@
+.thankyou {
+  background-color: var(--main-bg);
+}
+.thankyou__content {
+  background-color: var(--main-light);
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.thankyou__content__texts__text {
+  margin: 0 auto var(--text-font-size);
+}
+
+.thankyou__content__logo--img {
+  height: var(--logo-height);
+  width: var(--logo-width);
+}
+
+@media screen and (max-width: 600px) {
+  .thankyou__content__texts {
+    width: 90%;
+  }
+}
