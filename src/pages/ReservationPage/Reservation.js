@@ -8,7 +8,7 @@ import { Stepper } from "../../components/Stepper";
 
 function Reservation() {
   let history = useHistory();
-  const steps = ["select", "fillIn", "finish"];
+  const steps = data.stepper.steps;
 
   const backClick = () => {
     switch (step) {
@@ -44,23 +44,24 @@ function Reservation() {
   ]);
   return (
     <div className="reservation common__pageFrame">
-      <Stepper></Stepper>
+      <Stepper currentStep={step}></Stepper>
       <div className="reservation__content">
         {step === steps[0] ? (
           <SelectRegion
             backClick={backClick}
             nextClick={nextClick}
-            nextButtonText={data.reservationPage.button.selectStep.next}
+            nextButtonText={data.reservationPage.selectStep.button.next}
+            dataListItems={data.reservationPage.selectStep.listItems}
           ></SelectRegion>
         ) : (
           <FillInRegin
             titles={data.reservationPage.titles}
             subTitles={data.reservationPage.subTitles}
-            planItems={data.reservationPage.planItems}
+            planItems={data.reservationPage.fillInStep.planItems}
             formInputList={formInputList}
             backClick={backClick}
             nextClick={nextClick}
-            buttonTexts={data.reservationPage.button}
+            buttonTexts={data.reservationPage.fillInStep.button}
             steps={steps}
             step={step}
           ></FillInRegin>

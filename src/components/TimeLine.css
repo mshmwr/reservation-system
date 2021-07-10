@@ -1,0 +1,65 @@
+.board__reservationBoardItem__timeLine {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.timeLineCube {
+  display: flex;
+  width: 20%;
+  height: 2.5rem;
+  background-color: var(--white);
+  max-width: 2rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 0.5px solid var(--main-gray);
+  margin-left: -1px;
+}
+.timeLineCube:hover {
+  background-color: var(--light-gray);
+}
+.timeLineCube__left {
+  /* --borderWidth: 0.5px;
+  border-left: var(--borderWidth) solid var(--heavy-gray);
+  border-top: var(--borderWidth) solid var(--heavy-gray);
+  border-bottom: var(--borderWidth) solid var(--heavy-gray); */
+  /* margin-left: -0.5px; */
+  /* width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+  cursor: pointer; */
+}
+
+.timeLineCube__right {
+  /* --borderWidth: 0.5px;
+  border-right: var(--borderWidth) solid var(--heavy-gray);
+  border-top: var(--borderWidth) solid var(--heavy-gray);
+  border-bottom: var(--borderWidth) solid var(--heavy-gray); */
+  /* margin-left: 0.5px; */
+  /* width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0.5px solid var(--light-gray);
+  cursor: pointer; */
+}
+
+/* .timeLineCube--selected {
+  background-color: var(--main-gray);
+  border: none;
+} */
+/* .timeLineCube--selected:hover {
+  background-color: var(--heavy-gray);
+} */
+
+@media screen and (max-width: 1000px) {
+  .timeLineCube {
+    margin-bottom: 1rem;
+  }
+}
+
+.timeLineCube--selected-first {
+  background-color: seagreen;
+}
+.timeLineCube--selected-hovered {
+  background-color: yellowgreen;
+}

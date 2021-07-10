@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import data from "../../data.json";
 import { Stepper } from "../../components/Stepper";
 import "./Thankyou.css";
 function Thankyou() {
@@ -13,7 +14,7 @@ function Thankyou() {
 
   return (
     <div className="thankyou common__pageFrame">
-      <Stepper></Stepper>
+      <Stepper currentStep={data.stepper.steps[2]}></Stepper>
       <div className="thankyou__content">
         <div className="thankyou__content__title common__block common__title common__font--bold">
           {thankyouContents.title}

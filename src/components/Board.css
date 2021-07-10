@@ -1,0 +1,35 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 750px;
+  height: 100%;
+}
+
+.board__reservationBoardItem {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+
+.board__reservationBoardItem__room {
+  width: 10rem;
+  margin: 0 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .board {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .board {
+    width: 100%;
+  }
+  .board__reservationBoardItem {
+    flex-direction: column;
+  }
+  .board__reservationBoardItem__room {
+    margin: 0 auto 2rem;
+  }
+}

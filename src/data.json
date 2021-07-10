@@ -1,10 +1,15 @@
 {
   "header":{
-    "logoUrl":"https://fakeimg.pl/120x120/","headerTitle":"木谷音樂中⼼","headerSubtitle":"kitani music center"},
+    "logoUrl":"https://fakeimg.pl/120x120/","headerTitle":"音樂中⼼","headerSubtitle":"kitani music center"
+  },
+  "stepper":{
+    "steps": ["select", "fillIn", "finish"],
+    "steps_CH": ["選擇日期與時段", "填入預約資訊", "完成預約申請"]
+  },
   "homePage":{
     "logoUrl":"",
     "bannerUrl":"",
-    "welcomeTitle":"歡迎使⽤木谷音樂中⼼線上預約系統",
+    "welcomeTitle":"歡迎使⽤音樂中⼼線上預約系統",
     "welcomeTexts":["營業時間：每日 09：00 ~ 22：00", "※每日最終入場時間為營業結束前3小時。","※早場最晚入場時間為10:00" ],
     "instructionTitle":"使用說明",
     "instructionTexts":["預約前下列注意事項請詳閱遵守"],
@@ -14,7 +19,7 @@
   "noticePage":{
     "noticeTitle":["注意事項"],
     "noticeSubtitles": [
-    "為了保護您以及木谷音樂中心雙方的權益，",
+    "為了保護您以及音樂中心雙方的權益，",
     "請先詳細閱讀以下預約注意事項並確認同意後，再進行預約步驟"],
     "noticeList":[
     "全面禁菸、禁酒、禁檳榔、禁賭博，若店員發現且警告無效會請求立即離場，不予退費。",
@@ -34,17 +39,33 @@
     "button":{"next":"前往預約"}
   },
   "reservationPage":{
-    "titles":["", "填入預約資訊", "填入預約資訊"], "subTitles":["", "當日方案", "預約總確認"],
-    "planItems":[
-      { "title": "日期", "content": "2021.03.01"},
-      { "title": "包廂", "content": "1A包廂" },
-      { "title": "預約人數", "content": "3" },
-      { "title": "開始時間", "content": "10:00" },
-      { "title": "唱歌時數", "content": "3" }
-    ],
-    "button":{
-      "selectStep":{"next":"下一步"},
-      "fillInStep":{"next":"下一步","back":"上一步"},
-      "finishStep":{"next":"確認送出","back":"上一步"}}
+    "titles":["", "填入預約資訊", "填入預約資訊"], 
+    "subTitles":["", "當日方案", "預約總確認"],
+    "selectStep":{
+      "roomList":[
+        {"id":"A","title":"A包廂", "subtitle":"F1", "machine":"((JOYSOUND))"},
+        {"id":"B","title":"B包廂", "subtitle":"MAX GO", "machine":"((DAM))"},{"id":"C","title":"C包廂", "subtitle":"XG7000", "machine":"((JOYSOUND))"}],
+      "listItems":[
+        {"name":"room","label":"包廂","content":"1A包廂"},
+        {"name":"startTime","label":"開始時段","content":"10:00"},
+        {"name":"duration","label":"唱歌時數","content":"3"},
+        {"name":"attendence","label":"選擇人數","content":["選擇人數","1","2","3","4","5","6","7","8","9"]
+        }
+      ],
+      "button":{"next":"下一步"}
+    },
+    "fillInStep":{
+      "planItems":[
+        { "title": "日期", "content": "2021.03.01"},
+        { "title": "包廂", "content": "1A包廂" },
+        { "title": "預約人數", "content": "3" },
+        { "title": "開始時間", "content": "10:00" },
+        { "title": "唱歌時數", "content": "3" }
+      ],
+      "button":{"next":"下一步","back":"上一步"}
+    },
+    "finishStep":{
+      "button":{"next":"確認送出","back":"上一步"}
+    }
   }
 }

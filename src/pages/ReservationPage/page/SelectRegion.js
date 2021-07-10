@@ -1,4 +1,5 @@
 import React from "react";
+import { Board } from "../../../components/Board";
 import { Button } from "../../../components/Button";
 import "./SelectRegion.css";
 
@@ -7,36 +8,42 @@ export const SelectRegion = ({
   nextClick,
   nextButtonText,
   backButtonText,
+  dataListItems,
 }) => {
   return (
     <div className="reservation__content__selectStep">
       <div className="reservation__content__selectStep__calenderBlock">
         <input type="date" className="calenderBlock__day"></input>
-        <div className="calenderBlock__reservationBoard common__block">
-          ReservationBoard
-        </div>
+        <Board></Board>
       </div>
 
       <div className="reservation__content__selectStep__resultBlock">
         <div className="resultBlock__select">
-          <p className="resultBlock__select__room resultBlock__select--item">
-            select__room
-          </p>
-          <p className="resultBlock__select__startTime resultBlock__select--item">
-            select__startTime
-          </p>
-          <p className="resultBlock__select__duration resultBlock__select--item">
-            select__duration
-          </p>
-          <select className="resultBlock__select__attandeance resultBlock__select--item">
-            <option>選擇人數</option>
-            <option>Dog</option>
-            <option>Cat</option>
-            <option>Hamster</option>
-            <option>Parrot</option>
-            <option>Spider</option>
-            <option>Goldfish</option>
-          </select>
+          {dataListItems.map((item, index) => {
+            if (Array.isArray(item.content)) {
+              return (
+                <select
+                  key={`item${index}`}
+                  className="resultBlock__select__attandeance resultBlock__select__item"
+                >
+                  {item.content.map((text, index) => (
+                    <option key={`text${index}`}>{text}</option>
+                  ))}
+                </select>
+              );
+            } else {
+              return (
+                <div key={`item${index}`} className="resultBlock__select__item">
+                  <div className="resultBlock__select__item__label">
+                    {item.label}
+                  </div>
+                  <div className="resultBlock__select__item__content">
+                    {item.content}
+                  </div>
+                </div>
+              );
+            }
+          })}
         </div>
         <div className="resultBlock__buttonGroup common__buttonGroup">
           {backButtonText === undefined ? null : (

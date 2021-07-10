@@ -66,28 +66,16 @@ export const FillInRegin = ({
 
       <div className="reservation__content__fillInStep__buttonGroup common__buttonGroup">
         {step === steps[1] ? (
-          <Button
-            text={buttonTexts.fillInStep.back}
-            clickEvent={backClick}
-          ></Button>
+          <Button text={buttonTexts.back} clickEvent={backClick}></Button>
         ) : (
-          <Button
-            text={buttonTexts.finishStep.back}
-            clickEvent={backClick}
-          ></Button>
+          <Button text={buttonTexts.back} clickEvent={backClick}></Button>
         )}
 
         {step === steps[1] ? (
-          <Button
-            text={buttonTexts.fillInStep.next}
-            clickEvent={nextClick}
-          ></Button>
+          <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
         ) : (
           <Link to="/thankyou">
-            <Button
-              text={buttonTexts.finishStep.next}
-              clickEvent={nextClick}
-            ></Button>
+            <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
           </Link>
         )}
       </div>

@@ -34,8 +34,6 @@ export default class Form extends Component {
     this.getMessage();
   }
   getMessage = () => {
-    console.log("handleSubmit");
-    console.log(this.props.getMessage);
     if (this.props.getMessage !== undefined) {
       this.props.getMessage(this.state.formInputList);
     }
