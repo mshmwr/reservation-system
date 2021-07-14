@@ -14,6 +14,7 @@ export const FillInRegin = ({
   buttonTexts,
   steps,
   step,
+  selectedData,
 }) => {
   return (
     <div className="reservation__content__fillInStep">
@@ -33,7 +34,7 @@ export const FillInRegin = ({
               >
                 <div className="planBlock__plan__item__title">{item.title}</div>
                 <div className="planBlock__plan__item__content">
-                  {item.content}
+                  {selectedData[item.name]}
                 </div>
               </div>
             ))}

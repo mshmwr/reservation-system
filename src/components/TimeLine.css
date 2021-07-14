@@ -6,10 +6,11 @@
 }
 .timeLineCube {
   display: flex;
-  width: 20%;
+  width: 100%;
+  /* width: 20%;
+  max-width: 2rem; */
   height: 2.5rem;
   background-color: var(--white);
-  max-width: 2rem;
   cursor: pointer;
   box-sizing: border-box;
   border: 0.5px solid var(--main-gray);
@@ -62,4 +63,36 @@
 }
 .timeLineCube--selected-hovered {
   background-color: yellowgreen;
+}
+
+.timeLineCube--reserved {
+  background-color: slategrey;
+  pointer-events: none;
+}
+
+.board__reservationBoardItem__timeLine__cube {
+  width: 20%;
+  max-width: 2rem;
+}
+
+.board__reservationBoardItem__reservedUser {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.reservedUserCube {
+  display: flex;
+  /* width: 20%;
+  max-width: 2rem; */
+  height: 2.5rem;
+  width: 100%;
+  background-color: var(--white);
+  box-sizing: border-box;
+  margin-left: -1px;
+}
+
+.reservedUserCube--reserved {
+  background-color: rgb(126, 191, 255);
 }

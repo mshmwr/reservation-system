@@ -43,29 +43,77 @@
     "subTitles":["", "當日方案", "預約總確認"],
     "selectStep":{
       "roomList":[
-        {"id":"A","title":"A包廂", "subtitle":"F1", "machine":"((JOYSOUND))"},
-        {"id":"B","title":"B包廂", "subtitle":"MAX GO", "machine":"((DAM))"},{"id":"C","title":"C包廂", "subtitle":"XG7000", "machine":"((JOYSOUND))"}],
+        {
+          "id":"A",
+          "title":"A包廂",
+          "subtitle":"F1", 
+          "machine":"((JOYSOUND))"
+        },
+        {
+          "id":"B",
+          "title":"B包廂", 
+          "subtitle":"MAX GO", 
+          "machine":"((DAM))"
+        },
+        {
+          "id":"C",
+          "title":"C包廂", 
+          "subtitle":"XG7000", 
+          "machine":"((JOYSOUND))"
+        }
+      ],
       "listItems":[
-        {"name":"room","label":"包廂","content":"1A包廂"},
-        {"name":"startTime","label":"開始時段","content":"10:00"},
-        {"name":"duration","label":"唱歌時數","content":"3"},
-        {"name":"attendence","label":"選擇人數","content":["選擇人數","1","2","3","4","5","6","7","8","9"]
+        {"name":"room","label":"包廂","content":""},
+        {"name":"startTime","label":"開始時段","content":""},
+        {"name":"duration","label":"唱歌時數","content":""},
+        {"name":"attendence","label":"選擇人數","content":["唱歌人數","1","2","3","4","5","6","7","8","9"]
         }
       ],
       "button":{"next":"下一步"}
     },
     "fillInStep":{
       "planItems":[
-        { "title": "日期", "content": "2021.03.01"},
-        { "title": "包廂", "content": "1A包廂" },
-        { "title": "預約人數", "content": "3" },
-        { "title": "開始時間", "content": "10:00" },
-        { "title": "唱歌時數", "content": "3" }
+        { "name":"date",
+          "title": "日期", "content": "2021.03.01"},
+        { "name":"room",
+          "title": "包廂", "content": "1A包廂" },
+        { "name":"attendence",
+          "title": "預約人數", "content": "3" },
+        {"name":"startTime",
+          "title": "開始時間", "content": "10:00" },
+        { "name":"duration",
+          "title": "唱歌時數", "content": "3" }
       ],
       "button":{"next":"下一步","back":"上一步"}
     },
     "finishStep":{
       "button":{"next":"確認送出","back":"上一步"}
     }
-  }
+  },
+  "reservedData":[
+    {
+      "date": "2021.03.01",
+      "room": "A" ,
+      "time": "10:00" ,
+      "duration": 3 
+    },
+    {
+      "date": "2021.03.01",
+      "room": "A" ,
+      "time": "14:00" ,
+      "duration": 3.5
+    },
+    {
+      "date": "2021.03.01",
+      "room": "B" ,
+      "time": "10:00" ,
+      "duration": 3
+    },
+    {
+      "date": "2021.03.01",
+      "room": "C" ,
+      "time": "10:00" ,
+      "duration": 3
+    }
+  ]
 }

@@ -1,40 +1,56 @@
 import React, { useState } from "react";
 import "./TimeLine.css";
-import { TimeLineOrder } from "./TimeLineOrder";
 
 //------------------------------------
 export const TimeLine = ({
   roomId,
+  timeRegion,
+  timeRegionMapping,
   switchCurrentRoom,
   lineCubeState,
-  initRoomListLineCube,
+  setRoomCubes,
   roomList,
   setLineCubeState,
   currentRoom,
 }) => {
-  console.log("TimeLine");
+  const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
+
   const cubeClickHandler = (e) => {
-    console.log(roomId);
     const cubeId = e.target.id;
-    console.log(cubeId);
+    if (cubeId === "") return;
+    if (roomId === cubeId) return;
     let needInit = switchCurrentRoom(roomId, cubeId);
     callSetLineCubeState(cubeId, needInit);
-    changeCubeHover(cubeId);
+    changeCubeHover(cubeId, needInit);
   };
-  const changeCubeHover = (cubeId) => {
+
+  const changeCubeHover = (cubeId, needInit) => {
     if (hoverCube_clicked_first >= 0 && hoverCube_clicked_second >= 0) {
-      hoverCube_clicked_first = TIME_REGION_MAPPING.indexOf(cubeId);
+      //起點 和 終點 皆已選擇，本次點擊當作是新的點擊
+      hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
       hoverCube_clicked_second = -1;
-      setCubeHover(initCubeHover);
+      setCubeHover(initCubeHover(timeRegion));
       return;
     }
     if (hoverCube_clicked_first >= 0 && hoverCube_clicked_second === -1) {
-      hoverCube_clicked_second = TIME_REGION_MAPPING.indexOf(cubeId);
-      callSetLineCubeState(cubeId);
+      //已選擇了起點
+      if (needInit) {
+        //起點 和 終點 之間有已經被預約的時間區塊: reset
+        console.log("起點 和 終點 之間有已經被預約的時間區塊: reset");
+        hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
+        hoverCube_clicked_second = -1;
+        setCubeHover(initCubeHover(timeRegion));
+        callSetLineCubeState(cubeId, needInit);
+        return;
+      }
+      //起點 和 終點 之間沒有已經被預約的時間區塊
+      hoverCube_clicked_second = timeRegionMapping.indexOf(cubeId);
+      callSetLineCubeState(cubeId, needInit);
     }
     if (hoverCube_clicked_first === -1) {
-      hoverCube_clicked_first = TIME_REGION_MAPPING.indexOf(cubeId);
-      callSetLineCubeState(cubeId);
+      //還沒選擇 起點 和 終點
+      hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
+      callSetLineCubeState(cubeId, needInit);
     }
   };
 
@@ -44,42 +60,58 @@ export const TimeLine = ({
       if (
         `${cube.roomId}${cube.cubeId}${cube.label}` === `${roomId}${cubeId}`
       ) {
-        cube.value = !cube.value;
+        cube.isSelected = true;
       }
     });
     if (needInit) {
-      console.log("needInit");
-      let initLinesCube = initRoomListLineCube(
+      // console.log("needInit" + ", roomId=" + roomId);
+      let initLinesCube = setRoomCubes(
         roomList.filter((room) => room.id !== roomId)
       );
       setLineCubeState({ ...initLinesCube, [roomId]: cubesState });
       return;
     }
-    console.log("not needInit");
+    // console.log("not needInit");
     setLineCubeState({ ...lineCubeState, [roomId]: cubesState });
   };
   const handleBoxToggle = (cubeId) => {
-    const cube = cubeHover.slice();
-    hoverCube_hovered = TIME_REGION_MAPPING.indexOf(cubeId);
+    /*
+      起點 < cube 會設定 isSelected = true <= 目前指到的 cube 的位置 (hover) 
+    */
+    const cubes = cubeHover.slice();
+    const cubesState = lineCubeState[roomId].slice();
+    hoverCube_hovered = timeRegionMapping.indexOf(cubeId); //目前指到的 cube 的位置
     if (hoverCube_clicked_first >= 0 && hoverCube_clicked_second >= 0) {
-      return;
+      return; //起點和終點都選了
     }
-    cube.forEach((item) => {
+    let isMeetReservedCube = false; //是否已經碰到被預約的cube
+    cubes.forEach((cube, index) => {
+      if (isMeetReservedCube) {
+        //已經碰到被預約的cube，不再繼續hover
+        return;
+      }
       if (hoverCube_clicked_first === -1) {
+        return; //還沒選起點
+      }
+
+      if (cube.index < hoverCube_clicked_first) {
+        return; //cube的位置 < 起點的位置
+      }
+      if (
+        cubesState[index].isReserved &&
+        hoverCube_hovered > cubesState[index].index
+      ) {
+        isMeetReservedCube = true;
+        return; //碰到已預約的cube
+      }
+      if (cube.index <= hoverCube_hovered) {
+        cube.isSelected = true; //cube的位置 < 目前指到的 cube 的位置
         return;
       }
-      if (item.index < hoverCube_clicked_first) {
-        return;
-      }
-      if (item.index <= hoverCube_hovered) {
-        item.value = true;
-        return;
-      }
-      item.value = false;
+      cube.isSelected = false;
     });
-    setCubeHover(cube);
+    setCubeHover(cubes);
   };
-  const [cubeHover, setCubeHover] = useState(initCubeHover);
 
   return (
     <div
@@ -87,50 +119,50 @@ export const TimeLine = ({
       id={roomId}
       onClick={cubeClickHandler}
     >
-      {console.log(currentRoom.slice())}
       {lineCubeState[roomId].map((cube, index) => (
         <div
-          onMouseOver={() => handleBoxToggle(`${cube.cubeId}${cube.label}`)}
           key={`${cube.cubeId}${cube.label}`}
-          className={`timeLineCube
+          className="board__reservationBoardItem__timeLine__cube"
+        >
+          <div
+            className={`reservedUserCube
+                        ${cube.isReserved ? "reservedUserCube--reserved" : ""}
+                      `}
+          >
+            {index % 2 ? null : `${cube.cubeId}`}
+          </div>
+          <div
+            onMouseOver={() => handleBoxToggle(`${cube.cubeId}${cube.label}`)}
+            className={`timeLineCube
           ${index % 2 ? "timeLineCube__right" : "timeLineCube__left"}
 
           ${
             roomId === currentRoom.slice()[0].roomId &&
-            cubeHover.slice()[index].value
+            cubeHover.slice()[index].isSelected
               ? "timeLineCube--selected-hovered"
               : null
           }
 
+          ${cube.isReserved ? "timeLineCube--reserved" : ""}
           `}
-          id={`${cube.cubeId}${cube.label}`}
-        >
-          {index % 2 ? null : `${cube.cubeId}`}
+            id={`${cube.cubeId}${cube.label}`}
+          >
+            {index % 2 ? null : `${cube.cubeId}`}
+          </div>
         </div>
       ))}
     </div>
   );
 };
 
-const TIME_REGION = [
-  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-];
-const TIME_REGION_MAPPING = (() => {
-  let time_mapping = [];
-  TIME_REGION.forEach((time) => {
-    time_mapping.push(`${time}L`);
-    time_mapping.push(`${time}R`);
-  });
-  return time_mapping;
-})();
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
 let hoverCube_hovered = -1;
 
-const initCubeHover = () => {
+const initCubeHover = (timeRegion) => {
   let hover = [];
   let times = [];
-  TIME_REGION.forEach((time) => {
+  timeRegion.forEach((time) => {
     times.push(time);
     times.push(time);
   });
@@ -138,14 +170,16 @@ const initCubeHover = () => {
     if (!(index % 2)) {
       hover.push({
         id: `${time}L`,
-        value: false,
+        isSelected: false,
         index: index,
+        isClicked: false,
       });
     } else {
       hover.push({
         id: `${time}R`,
-        value: false,
+        isSelected: false,
         index: index,
+        isClicked: false,
       });
     }
   });

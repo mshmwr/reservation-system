@@ -42,6 +42,7 @@ function Reservation() {
     { label: "E-mail", value: "" },
     //TODO(問助教):黑科技，把 formInputList 傳進 form 之後，他就get到值了，不用 setFormInputList 也可以，不要問我為什麼，我才是最想知道的那個人QQ
   ]);
+  const [selectedData, setSelectedData] = useState({});
   return (
     <div className="reservation common__pageFrame">
       <Stepper currentStep={step}></Stepper>
@@ -52,6 +53,7 @@ function Reservation() {
             nextClick={nextClick}
             nextButtonText={data.reservationPage.selectStep.button.next}
             dataListItems={data.reservationPage.selectStep.listItems}
+            setSelectedData={setSelectedData}
           ></SelectRegion>
         ) : (
           <FillInRegin
@@ -64,6 +66,7 @@ function Reservation() {
             buttonTexts={data.reservationPage.fillInStep.button}
             steps={steps}
             step={step}
+            selectedData={selectedData}
           ></FillInRegin>
         )}
       </div>
