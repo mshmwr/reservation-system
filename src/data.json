@@ -41,25 +41,33 @@
   "reservationPage":{
     "titles":["", "填入預約資訊", "填入預約資訊"], 
     "subTitles":["", "當日方案", "預約總確認"],
+    "userinfoform":[  
+      { "name":"name","label": "姓名", "value": "" },
+      { "name":"phone","label": "手機", "value": "" },
+      { "name":"email","label": "E-mail", "value": "" }
+    ],
     "selectStep":{
       "roomList":[
         {
           "id":"A",
           "title":"A包廂",
           "subtitle":"F1", 
-          "machine":"((JOYSOUND))"
+          "machine":"((JOYSOUND))",
+          "value":100
         },
         {
           "id":"B",
           "title":"B包廂", 
           "subtitle":"MAX GO", 
-          "machine":"((DAM))"
+          "machine":"((DAM))",
+          "value":200
         },
         {
           "id":"C",
           "title":"C包廂", 
           "subtitle":"XG7000", 
-          "machine":"((JOYSOUND))"
+          "machine":"((JOYSOUND))",
+          "value":300
         }
       ],
       "listItems":[

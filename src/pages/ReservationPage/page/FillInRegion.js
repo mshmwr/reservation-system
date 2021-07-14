@@ -8,6 +8,7 @@ export const FillInRegin = ({
   subTitles,
   planItems,
   formInputList,
+  setFormInputList,
   getUserInput,
   backClick,
   nextClick,

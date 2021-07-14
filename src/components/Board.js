@@ -25,7 +25,7 @@ export const Board = ({ setPlanData }) => {
 
     if (firstRoom.roomId === secondRoom.roomId) {
       //當作是新的點擊
-      console.log("新的點擊" + firstRoom.roomId);
+      console.log("新的點擊");
       newRoom = [{ roomId: roomId, cubeId: cubeId, index: cubeIdIndex }, empty];
       setCurrentRoom(newRoom);
       needInit = true;
@@ -37,7 +37,7 @@ export const Board = ({ setPlanData }) => {
       排除後，currentRoom只會剩下這種情況: [{"roomId", "cubeId"}, {"", ""}]
       因為 e.g. roomId=A (first) 和 roomId=B (second) 的情況並不存在
     */
-    let needReset = false;
+    let needResetRoom = false;
     let isSelectFinished = false;
     switch (firstRoom.roomId) {
       case roomId:
@@ -60,17 +60,17 @@ export const Board = ({ setPlanData }) => {
         */
         //condition 1:兩次點的是同一個時間方塊
         if (firstCubeIdNum === cubeIdNum) {
-          needReset = true;
+          needResetRoom = true;
           break;
         }
         //condition 2: 如果有已經被預約的時間區塊: reset
         for (let i = firstCubeIdNum; i <= cubeIdNum; i++) {
           if (RESERVED_DATA_INDEXS[roomId].includes(i)) {
-            needReset = true;
+            needResetRoom = true;
             break;
           }
         }
-        if (needReset) {
+        if (needResetRoom) {
           console.log("有已經被預約的時間區塊: reset");
           break;
         }
@@ -99,6 +99,8 @@ export const Board = ({ setPlanData }) => {
             empty,
           ];
           setCurrentRoom(newRoom);
+          needInit = true;
+          console.log("新的點擊");
         }
         break;
 
@@ -114,7 +116,7 @@ export const Board = ({ setPlanData }) => {
         break;
     }
 
-    if (needReset) {
+    if (needResetRoom) {
       newRoom = [empty, empty];
       setCurrentRoom(newRoom);
       needInit = true;

@@ -9,6 +9,7 @@ import { Stepper } from "../../components/Stepper";
 function Reservation() {
   let history = useHistory();
   const steps = data.stepper.steps;
+  const userInfoForm = data.reservationPage.userinfoform;
 
   const backClick = () => {
     switch (step) {
@@ -32,16 +33,16 @@ function Reservation() {
         setStep(steps[2]);
         break;
       default:
+        console.log(selectedData);
+        console.log(filterFormData(formInputList));
+        //TODO: 這邊要送值到server
         break;
     }
   };
   const [step, setStep] = useState(steps[0]);
-  const [formInputList, setFormInputList] = useState([
-    { label: "姓名", value: "" },
-    { label: "手機", value: "" },
-    { label: "E-mail", value: "" },
-    //TODO(問助教):黑科技，把 formInputList 傳進 form 之後，他就get到值了，不用 setFormInputList 也可以，不要問我為什麼，我才是最想知道的那個人QQ
-  ]);
+  const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
+  const [formInputList, setFormInputList] = useState(copyUserInfoForm);
+  //TODO(問助教):黑科技，把 formInputList 傳進 form 之後，他就get到值了，不用 setFormInputList 也可以，不要問我為什麼，我才是最想知道的那個人QQ
   const [selectedData, setSelectedData] = useState({});
   return (
     <div className="reservation common__pageFrame">
@@ -61,6 +62,7 @@ function Reservation() {
             subTitles={data.reservationPage.subTitles}
             planItems={data.reservationPage.fillInStep.planItems}
             formInputList={formInputList}
+            setFormInputList={setFormInputList}
             backClick={backClick}
             nextClick={nextClick}
             buttonTexts={data.reservationPage.fillInStep.button}
@@ -75,3 +77,11 @@ function Reservation() {
 }
 
 export default Reservation;
+
+const filterFormData = (formInputList) => {
+  let data = {};
+  formInputList.forEach((item) => {
+    data[item.name] = item.value;
+  });
+  return data;
+};

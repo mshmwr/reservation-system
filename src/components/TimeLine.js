@@ -30,13 +30,17 @@ export const TimeLine = ({
       hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
       hoverCube_clicked_second = -1;
       setCubeHover(initCubeHover(timeRegion));
+      console.log("新的點擊");
       return;
     }
     if (hoverCube_clicked_first >= 0 && hoverCube_clicked_second === -1) {
       //已選擇了起點
       if (needInit) {
-        //起點 和 終點 之間有已經被預約的時間區塊: reset
-        console.log("起點 和 終點 之間有已經被預約的時間區塊: reset");
+        /*  兩種情況
+          1.  起點 和 終點 之間有已經被預約的時間區塊: reset
+          2.  點選的時間區塊是 前次點選 > 當次點選，當作是新的點擊: reset
+        */
+        console.log("當次操作的選擇無效: reset");
         hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
         hoverCube_clicked_second = -1;
         setCubeHover(initCubeHover(timeRegion));
@@ -44,11 +48,13 @@ export const TimeLine = ({
         return;
       }
       //起點 和 終點 之間沒有已經被預約的時間區塊
+      console.log("選擇完成");
       hoverCube_clicked_second = timeRegionMapping.indexOf(cubeId);
       callSetLineCubeState(cubeId, needInit);
     }
     if (hoverCube_clicked_first === -1) {
       //還沒選擇 起點 和 終點
+      console.log("第一次選擇");
       hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
       callSetLineCubeState(cubeId, needInit);
     }
