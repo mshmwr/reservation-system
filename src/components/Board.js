@@ -17,6 +17,7 @@ export const Board = ({ setPlanData }) => {
     let needInit = false;
     const firstRoom = currentRoom.slice()[0];
     const secondRoom = currentRoom.slice()[1];
+    console.log(firstRoom.roomId + ", " + secondRoom.roomId);
     const empty = { roomId: "", cubeId: "", index: -1 };
     //取得 index
     const firstCubeIdIndex = TIME_REGION_MAPPING.indexOf(firstRoom.cubeId);
@@ -42,8 +43,9 @@ export const Board = ({ setPlanData }) => {
     switch (firstRoom.roomId) {
       case roomId:
         //取得 num
-        const firstCubeIdNum = parseInt(firstRoom.cubeId.replace(myRe, ""), 10);
-        const cubeIdNum = parseInt(cubeId.replace(myRe, ""), 10);
+        const firstCubeIdIndex = TIME_REGION_MAPPING.indexOf(firstRoom.cubeId);
+        const cubeIdIndex = TIME_REGION_MAPPING.indexOf(cubeId);
+
         //本次點擊 和 前次點擊 的 roomId 一樣
         console.log("本次點擊 和 前次點擊 的 roomId 一樣");
         /* 會有三種情況:
@@ -59,12 +61,12 @@ export const Board = ({ setPlanData }) => {
                 小於: newRoom = [{ [roomId]: roomId, [cubeId]: cubeId }, empty];//當作是新的點擊
         */
         //condition 1:兩次點的是同一個時間方塊
-        if (firstCubeIdNum === cubeIdNum) {
+        if (firstRoom.cubeId === cubeId) {
           needResetRoom = true;
           break;
         }
         //condition 2: 如果有已經被預約的時間區塊: reset
-        for (let i = firstCubeIdNum; i <= cubeIdNum; i++) {
+        for (let i = firstCubeIdIndex; i <= cubeIdIndex; i++) {
           if (RESERVED_DATA_INDEXS[roomId].includes(i)) {
             needResetRoom = true;
             break;
@@ -76,7 +78,7 @@ export const Board = ({ setPlanData }) => {
         }
 
         //condition 3: 如果沒有已經被預約的時間區塊
-        if (cubeIdNum > firstCubeIdNum) {
+        if (cubeIdIndex > firstCubeIdIndex) {
           newRoom = [
             firstRoom,
             { roomId: roomId, cubeId: cubeId, index: cubeIdIndex },
@@ -86,14 +88,14 @@ export const Board = ({ setPlanData }) => {
           setPlanData({
             room: roomId,
             duration: duration,
-            startTime: `${firstCubeIdNum}:${
+            startTime: `${firstCubeIdIndex}:${
               firstRoom.cubeId.includes("L") ? "00" : "30"
             }`,
           }); //{ room: "A包廂", duration: 3, startTime: "11:00" };
           isSelectFinished = true;
           console.log("選擇完成");
         }
-        if (cubeIdNum < firstCubeIdNum) {
+        if (cubeIdIndex < firstCubeIdIndex) {
           newRoom = [
             { roomId: roomId, cubeId: cubeId, index: cubeIdIndex },
             empty,
@@ -200,6 +202,7 @@ const setRoomCubes = (roomList) => {
     RESERVED_DATA_INDEXS,
     initLineCubeStates
   );
+  // console.log(cubeStates);
   return cubeStates;
 };
 
@@ -276,24 +279,34 @@ const ROOM_LIST = data.reservationPage.selectStep.roomList;
 const RESERVED_DATA = data.reservedData;
 /* reservedData
   [
-    [
-      { "date": "2021.03.01"},
-      { "room": "A" },
-      { "time": "10:00" },
-      { "duration": "3" }
-    ],
-    [
-      { "date": "2021.03.01"},
-      { "room": "B" },
-      { "time": "10:00" },
-      { "duration": "3" }
-    ],
-    [
-      { "date": "2021.03.01"},
-      { "room": "C" },
-      { "time": "10:00" },
-      { "duration": "3" }
-    ]
+    {
+      "date": "2021.03.01",
+      "room": "A" ,
+      "time": "10:00" ,
+      "duration": 3 ,
+      "name": "Amyyyyyyy"
+    },
+    {
+      "date": "2021.03.01",
+      "room": "A" ,
+      "time": "14:00" ,
+      "duration": 3.5,
+      "name": "Mr.Chen's birthday"
+    },
+    {
+      "date": "2021.03.01",
+      "room": "B" ,
+      "time": "10:00" ,
+      "duration": 3,
+      "name": "Let's go party! party!!!!" 
+    },
+    {
+      "date": "2021.03.01",
+      "room": "C" ,
+      "time": "10:00" ,
+      "duration": 3,
+      "name": "Singing" 
+    }
   ]
 */
 
@@ -304,5 +317,6 @@ const RESERVED_DATA_INDEXS = (() => {
     });
   });
   let indexs = transferTimeToIndex(roomDatas);
+  // console.log(indexs);
   return indexs;
 })();

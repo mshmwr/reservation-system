@@ -103,25 +103,29 @@
       "date": "2021.03.01",
       "room": "A" ,
       "time": "10:00" ,
-      "duration": 3 
+      "duration": 3 ,
+      "name": "Amyyyyyyy"
     },
     {
       "date": "2021.03.01",
       "room": "A" ,
       "time": "14:00" ,
-      "duration": 3.5
+      "duration": 3.5,
+      "name": "Mr.Chen's birthday"
     },
     {
       "date": "2021.03.01",
       "room": "B" ,
       "time": "10:00" ,
-      "duration": 3
+      "duration": 3,
+      "name": "Let's go party! party!!!!" 
     },
     {
       "date": "2021.03.01",
       "room": "C" ,
       "time": "10:00" ,
-      "duration": 3
+      "duration": 3,
+      "name": "Singing" 
     }
   ]
 }

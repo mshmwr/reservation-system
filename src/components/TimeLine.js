@@ -13,10 +13,12 @@ export const TimeLine = ({
   setLineCubeState,
   currentRoom,
 }) => {
+  // console.log(lineCubeState);
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
+    // console.log(roomId + ", " + cubeId);
     if (cubeId === "") return;
     if (roomId === cubeId) return;
     let needInit = switchCurrentRoom(roomId, cubeId);
@@ -130,13 +132,6 @@ export const TimeLine = ({
           key={`${cube.cubeId}${cube.label}`}
           className="board__reservationBoardItem__timeLine__cube"
         >
-          <div
-            className={`reservedUserCube
-                        ${cube.isReserved ? "reservedUserCube--reserved" : ""}
-                      `}
-          >
-            {index % 2 ? null : `${cube.cubeId}`}
-          </div>
           <div
             onMouseOver={() => handleBoxToggle(`${cube.cubeId}${cube.label}`)}
             className={`timeLineCube
