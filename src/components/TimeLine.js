@@ -18,7 +18,7 @@ export const TimeLine = ({
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
-    // console.log(roomId + ", " + cubeId);
+    console.log(roomId + ", " + cubeId);
     if (cubeId === "") return;
     if (roomId === cubeId) return;
     let needInit = switchCurrentRoom(roomId, cubeId);
