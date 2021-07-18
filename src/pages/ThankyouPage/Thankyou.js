@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import data from "../../data.json";
 import { Stepper } from "../../components/Stepper";
 import "./Thankyou.css";

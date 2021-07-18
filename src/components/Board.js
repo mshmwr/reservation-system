@@ -1,14 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Board.css";
 import data from "../data.json";
 import { TimeLine } from "./TimeLine";
+import { getReservedData } from "../apis/reservedDataApi";
 
 export const Board = ({ setPlanData }) => {
-  const [currentRoom, setCurrentRoom] = useState([
-    { roomId: "", cubeId: "", index: -1 },
-    { roomId: "", cubeId: "", index: -1 },
-  ]); //[前次點擊, 本次點擊]
-  const [lineCubeState, setLineCubeState] = useState(setRoomCubes(ROOM_LIST));
+  useEffect(async () => {
+    const fetchData = async () => {
+      let data = await getReservedData();
+      if (data === null) {
+        console.log("fetch data is null: using fake data");
+        data = data.reservedData;
+      }
+      setReservedData(data);
+      setInit(data); //dataTest.reservedData
+    };
+    fetchData();
+  }, []);
+  const setInit = (data) => {
+    setLineCubeState(
+      setRoomCubes(
+        ROOM_LIST,
+        cubeInitData,
+        getReserverdDataIndex(data),
+        getReserverdDataUsernames(data)
+      )
+    );
+  };
+
+  const handleRoomCubes = (roomList) => {
+    console.log(roomList);
+    return setRoomCubes(
+      roomList,
+      cubeInitData,
+      getReserverdDataIndex(reservedData),
+      getReserverdDataUsernames(reservedData)
+    );
+  };
+
+  const ROOM_LIST = data.reservationPage.selectStep.roomList;
+  /* roomList
+    {
+      "id":"A",
+      "title":"A包廂",
+      "subtitle":"F1", 
+      "machine":"((JOYSOUND))"
+    },
+  */
+  const TIME_REGION = [
+    9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+  ];
+  const TIME_REGION_MAPPING = (() => {
+    let time_mapping = [];
+    TIME_REGION.forEach((time) => {
+      time_mapping.push(`${time}L`);
+      time_mapping.push(`${time}R`);
+    });
+    return time_mapping;
+  })();
+  let cubeInitData = {
+    startNum: TIME_REGION[0],
+    endNum: TIME_REGION[TIME_REGION.length - 1],
+  };
+
+  const getRoomDatas = (timeRegion, reservedData) => {
+    return ROOM_LIST.map((room) => {
+      return convertTimeToIndex(timeRegion, reservedData)
+        .slice()
+        .filter((data) => {
+          return data.room === room.id;
+        });
+    });
+  };
+
+  const getReserverdDataIndex = (reservedData) => {
+    let indexs = transferTimeToIndex(
+      getRoomDatas(TIME_REGION, reservedData),
+      TIME_REGION_MAPPING,
+      ROOM_LIST
+    );
+    return indexs;
+  };
+  const getReserverdDataUsernames = (reservedData) => {
+    let usernames = transferTimeToUsername(
+      getRoomDatas(TIME_REGION, reservedData),
+      TIME_REGION_MAPPING,
+      ROOM_LIST
+    );
+    return usernames;
+  };
 
   const switchCurrentRoom = (roomId, cubeId) => {
     /*
@@ -42,10 +122,6 @@ export const Board = ({ setPlanData }) => {
     let isSelectFinished = false;
     switch (firstRoom.roomId) {
       case roomId:
-        //取得 num
-        // const firstCubeIdIndex = TIME_REGION_MAPPING.indexOf(firstRoom.cubeId);
-        // const cubeIdIndex = TIME_REGION_MAPPING.indexOf(cubeId);
-
         //本次點擊 和 前次點擊 的 roomId 一樣
         console.log("本次點擊 和 前次點擊 的 roomId 一樣");
         /* 會有三種情況:
@@ -67,11 +143,7 @@ export const Board = ({ setPlanData }) => {
         }
         //condition 2: 如果有已經被預約的時間區塊: reset
         for (let i = firstCubeIdIndex; i <= cubeIdIndex; i++) {
-          // if (RESERVED_DATA_INDEXS[roomId].includes(i)) {
-          //   needResetRoom = true;
-          //   break;
-          // }
-          if (RESERVED_DATA_INDEXS[roomId][i]) {
+          if (getReserverdDataIndex(reservedData)[roomId][i]) {
             needResetRoom = true;
             break;
           }
@@ -136,6 +208,13 @@ export const Board = ({ setPlanData }) => {
     }
     return needInit;
   };
+  const [reservedData, setReservedData] = useState(null);
+  const [lineCubeState, setLineCubeState] = useState({});
+
+  const [currentRoom, setCurrentRoom] = useState([
+    { roomId: "", cubeId: "", index: -1 },
+    { roomId: "", cubeId: "", index: -1 },
+  ]); //[前次點擊, 本次點擊]
 
   return (
     <div className="board common__block">
@@ -151,17 +230,19 @@ export const Board = ({ setPlanData }) => {
             </p>
           </div>
           <div className="board__reservationBoardItem__reservedBoard">
-            <TimeLine
-              roomId={room.id}
-              timeRegion={TIME_REGION}
-              timeRegionMapping={TIME_REGION_MAPPING}
-              switchCurrentRoom={switchCurrentRoom}
-              lineCubeState={lineCubeState}
-              setRoomCubes={setRoomCubes}
-              roomList={ROOM_LIST}
-              setLineCubeState={setLineCubeState}
-              currentRoom={currentRoom}
-            ></TimeLine>
+            {Object.keys(lineCubeState).length !== 0 ? (
+              <TimeLine
+                roomId={room.id}
+                timeRegion={TIME_REGION}
+                timeRegionMapping={TIME_REGION_MAPPING}
+                switchCurrentRoom={switchCurrentRoom}
+                lineCubeState={lineCubeState}
+                setRoomCubes={handleRoomCubes}
+                roomList={ROOM_LIST}
+                setLineCubeState={setLineCubeState}
+                currentRoom={currentRoom}
+              ></TimeLine>
+            ) : null}
           </div>
         </div>
       ))}
@@ -204,30 +285,131 @@ const initLineCube = (start, end, roomId) => {
   return lineCube;
 };
 
-const setRoomCubes = (roomList) => {
-  let initLineCubeStates = initRoomListLineCube(roomList);
-  let cubeStates = fillReservedData(roomList, initLineCubeStates);
-  return cubeStates;
-};
-
-const initRoomListLineCube = (roomList) => {
+const initRoomListLineCube = (roomList, cubeInitData) => {
   let state = {};
   roomList.forEach((room) => {
-    let lineCube = initLineCube(START_NUM, END_NUM, room.id);
+    let lineCube = initLineCube(
+      cubeInitData.startNum,
+      cubeInitData.endNum,
+      room.id
+    );
     state[room.id] = lineCube;
   });
   return state;
 };
 
-const fillReservedData = (roomList, lineCubeStates) => {
+const transferTimeToIndex = (roomDatas, timeRegionMapping, roomList) => {
+  let reservedIndexs = {};
+  roomDatas.forEach((roomData, index) => {
+    let regionReserved = new Array(timeRegionMapping.length).fill(false);
+
+    let roomId = "";
+    if (roomData.length === 0) {
+      roomId = roomList[index].id;
+      reservedIndexs[roomId] = regionReserved;
+      return;
+    }
+    roomData.forEach((data) => {
+      roomId = data.room;
+      for (let i = 0; i < timeRegionMapping.length; i++) {
+        if (i >= data.startIndex && i <= data.endIndex) {
+          regionReserved[i] = true;
+        }
+      }
+    });
+    reservedIndexs[roomId] = regionReserved;
+  });
+  return reservedIndexs;
+};
+const transferTimeToUsername = (roomDatas, timeRegionMapping, roomList) => {
+  let reservedUsernames = {};
+  roomDatas.forEach((roomData, index) => {
+    let usernames = new Array(timeRegionMapping.length).fill("");
+    let roomId = "";
+    if (roomData.length === 0) {
+      roomId = roomList[index].id;
+      reservedUsernames[roomId] = usernames;
+      return;
+    }
+    roomData.forEach((data) => {
+      roomId = data.room;
+      for (let i = 0; i < timeRegionMapping.length; i++) {
+        if (i >= data.startIndex && i <= data.endIndex) {
+          usernames[i] = data.name;
+        }
+      }
+    });
+    reservedUsernames[roomId] = usernames;
+  });
+  return reservedUsernames;
+};
+
+const myRe = /\D+/g;
+
+// const RESERVED_DATA = data.reservedData;
+/* reservedData
+    [
+      {
+        "date": "2021.03.01",
+        "room": "A" ,
+        "time": "10:00" ,
+        "duration": 3 ,
+        "name": "Amy"
+      },
+      {
+        "date": "2021.03.01",
+        "room": "A" ,
+        "time": "14:00" ,
+        "duration": 3.5,
+        "name": "Mr.Chen's birthday"
+      },
+      {
+        "date": "2021.03.01",
+        "room": "B" ,
+        "time": "10:00" ,
+        "duration": 3,
+        "name": "Let's go party! party!!!!" 
+      },
+      {
+        "date": "2021.03.01",
+        "room": "C" ,
+        "time": "10:00" ,
+        "duration": 3,
+        "name": "Singing" 
+      }
+    ]
+  */
+const convertTimeToIndex = (timeRegion, reservedData) => {
+  let reservedDataIndexs = [];
+  reservedData.forEach((data) => {
+    let hr = data.time.split(":")[0];
+    let min = data.time.split(":")[1];
+    let startIndex =
+      timeRegion.indexOf(parseInt(hr, 10)) * 2 + (min === "00" ? 0 : 1);
+    let endIndex = startIndex + (data.duration / 0.5 - 1);
+    reservedDataIndexs.push({
+      ...data,
+      startIndex: startIndex,
+      endIndex: endIndex,
+    });
+  });
+  return reservedDataIndexs;
+};
+
+const fillReservedData = (
+  roomList,
+  lineCubeStates,
+  reservedDataIndexs,
+  reservedDataUsernames
+) => {
   let cubeStates = {};
   let lineCubeState = null;
   let reservedIndex = null;
   let username = null;
   roomList.forEach((room) => {
     lineCubeState = lineCubeStates[room.id].slice();
-    reservedIndex = RESERVED_DATA_INDEXS[room.id].slice();
-    username = RESERVED_DATA_USERNAMES[room.id].slice();
+    reservedIndex = reservedDataIndexs[room.id].slice();
+    username = reservedDataUsernames[room.id].slice();
     lineCubeState.forEach((cube) => {
       if (reservedIndex[cube.index]) {
         cube.isReserved = true;
@@ -240,128 +422,18 @@ const fillReservedData = (roomList, lineCubeStates) => {
   });
   return cubeStates;
 };
-
-const transferTimeToIndex = (roomDatas) => {
-  let reservedIndexs = {};
-  roomDatas.forEach((roomData) => {
-    let regionReserved = new Array(TIME_REGION_MAPPING.length).fill(false);
-    let roomId = "";
-    roomData.forEach((data) => {
-      roomId = data.room;
-      for (let i = 0; i < TIME_REGION_MAPPING.length; i++) {
-        if (i >= data.startIndex && i <= data.endIndex) {
-          regionReserved[i] = true;
-        }
-      }
-    });
-    reservedIndexs[roomId] = regionReserved;
-  });
-  return reservedIndexs;
+const setRoomCubes = (
+  roomList,
+  cubeInitData,
+  reservedDataIndexs,
+  reservedDataUsernames
+) => {
+  let initLineCubeStates = initRoomListLineCube(roomList, cubeInitData);
+  let cubeStates = fillReservedData(
+    roomList,
+    initLineCubeStates,
+    reservedDataIndexs,
+    reservedDataUsernames
+  );
+  return cubeStates;
 };
-const transferTimeToUsername = (roomDatas) => {
-  let reservedUsernames = {};
-  roomDatas.forEach((roomData) => {
-    let usernames = new Array(TIME_REGION_MAPPING.length).fill("");
-    let roomId = "";
-    roomData.forEach((data) => {
-      roomId = data.room;
-      for (let i = 0; i < TIME_REGION_MAPPING.length; i++) {
-        if (i >= data.startIndex && i <= data.endIndex) {
-          usernames[i] = data.name;
-        }
-      }
-    });
-    reservedUsernames[roomId] = usernames;
-  });
-  return reservedUsernames;
-};
-
-const TIME_REGION = [
-  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-];
-const START_NUM = TIME_REGION[0];
-const END_NUM = TIME_REGION[TIME_REGION.length - 1];
-const TIME_REGION_MAPPING = (() => {
-  let time_mapping = [];
-  TIME_REGION.forEach((time) => {
-    time_mapping.push(`${time}L`);
-    time_mapping.push(`${time}R`);
-  });
-  return time_mapping;
-})();
-const myRe = /\D+/g;
-const ROOM_LIST = data.reservationPage.selectStep.roomList;
-/* roomList
-  {
-    "id":"A",
-    "title":"A包廂",
-    "subtitle":"F1", 
-    "machine":"((JOYSOUND))"
-  },
-*/
-const RESERVED_DATA = data.reservedData;
-/* reservedData
-  [
-    {
-      "date": "2021.03.01",
-      "room": "A" ,
-      "time": "10:00" ,
-      "duration": 3 ,
-      "name": "Amy"
-    },
-    {
-      "date": "2021.03.01",
-      "room": "A" ,
-      "time": "14:00" ,
-      "duration": 3.5,
-      "name": "Mr.Chen's birthday"
-    },
-    {
-      "date": "2021.03.01",
-      "room": "B" ,
-      "time": "10:00" ,
-      "duration": 3,
-      "name": "Let's go party! party!!!!" 
-    },
-    {
-      "date": "2021.03.01",
-      "room": "C" ,
-      "time": "10:00" ,
-      "duration": 3,
-      "name": "Singing" 
-    }
-  ]
-*/
-
-const convertTimeToIndex = () => {
-  let reservedDataIndexs = [];
-  RESERVED_DATA.forEach((data) => {
-    let hr = data.time.split(":")[0];
-    let min = data.time.split(":")[1];
-    let startIndex =
-      TIME_REGION.indexOf(parseInt(hr, 10)) * 2 + (min === "00" ? 0 : 1);
-    let endIndex = startIndex + (data.duration / 0.5 - 1);
-    reservedDataIndexs.push({
-      ...data,
-      startIndex: startIndex,
-      endIndex: endIndex,
-    });
-  });
-  return reservedDataIndexs;
-};
-const ROOM_DATAS = ROOM_LIST.map((room) => {
-  return convertTimeToIndex()
-    .slice()
-    .filter((data) => {
-      return data.room === room.id;
-    });
-});
-const RESERVED_DATA_INDEXS = (() => {
-  let indexs = transferTimeToIndex(ROOM_DATAS);
-  return indexs;
-})();
-
-const RESERVED_DATA_USERNAMES = (() => {
-  let usernames = transferTimeToUsername(ROOM_DATAS);
-  return usernames;
-})();

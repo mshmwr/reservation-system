@@ -82,7 +82,7 @@
     "fillInStep":{
       "planItems":[
         { "name":"date",
-          "title": "日期", "content": "2021.03.01"},
+          "title": "日期", "content": "2021.07.24"},
         { "name":"room",
           "title": "包廂", "content": "1A包廂" },
         { "name":"attendence",
@@ -100,32 +100,40 @@
   },
   "reservedData":[
     {
-      "date": "2021.03.01",
+      "date": "2021.07.24",
       "room": "A" ,
       "time": "10:00" ,
       "duration": 3 ,
-      "name": "Amyyyyyyy"
+      "name": "Amyyyyyyy",
+      "order_status":"reserved",
+      "order_id":"1"
     },
     {
-      "date": "2021.03.01",
+      "date": "2021.07.24",
       "room": "A" ,
       "time": "14:00" ,
       "duration": 3.5,
-      "name": "Mr.Chen's birthday"
+      "name": "Mr.Chen's birthday",
+      "order_status":"reserved",
+      "order_id":"2"
     },
     {
-      "date": "2021.03.01",
+      "date": "2021.07.24",
       "room": "B" ,
       "time": "10:00" ,
       "duration": 3,
-      "name": "Let's go party! party!!!!" 
+      "name": "Let's go party! party!!!!" ,
+      "order_status":"reserved",
+      "order_id":"3"
     },
     {
-      "date": "2021.03.01",
+      "date": "2021.07.24",
       "room": "C" ,
       "time": "10:00" ,
       "duration": 3,
-      "name": "Singing" 
+      "name": "Singing" ,
+      "order_status":"reserved",
+      "order_id":"4"
     }
   ]
 }

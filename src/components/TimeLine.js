@@ -72,14 +72,14 @@ export const TimeLine = ({
       }
     });
     if (needInit) {
-      // console.log("needInit" + ", roomId=" + roomId);
       let initLinesCube = setRoomCubes(
         roomList.filter((room) => room.id !== roomId)
       );
+      console.log(initLinesCube);
       setLineCubeState({ ...initLinesCube, [roomId]: cubesState });
       return;
     }
-    // console.log("not needInit");
+    console.log("not needInit");
     setLineCubeState({ ...lineCubeState, [roomId]: cubesState });
   };
   const handleBoxToggle = (cubeId) => {
