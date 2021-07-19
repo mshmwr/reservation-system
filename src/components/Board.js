@@ -11,6 +11,7 @@ export const Board = ({ calenderDate, setPlanData }) => {
       if (data === null) {
         console.log("fetch data is null: using fake data");
         data = data.reservedData;
+        console.log(data);
       }
       setReservedData(data);
       setInit(data); //dataTest.reservedData
@@ -168,7 +169,7 @@ export const Board = ({ calenderDate, setPlanData }) => {
           setPlanData({
             room: roomId,
             duration: duration,
-            startTime: `${firstCubeIdNum}:${
+            start_time: `${firstCubeIdNum}:${
               firstRoom.cubeId.includes("L") ? "00" : "30"
             }`,
           }); //{ room: "A包廂", duration: 3, startTime: "11:00" };
@@ -382,8 +383,8 @@ const myRe = /\D+/g;
 const convertTimeToIndex = (timeRegion, reservedData) => {
   let reservedDataIndexs = [];
   reservedData.forEach((data) => {
-    let hr = data.time.split(":")[0];
-    let min = data.time.split(":")[1];
+    let hr = data.start_time.split(":")[0];
+    let min = data.start_time.split(":")[1];
     let startIndex =
       timeRegion.indexOf(parseInt(hr, 10)) * 2 + (min === "00" ? 0 : 1);
     let endIndex = startIndex + (data.duration / 0.5 - 1);

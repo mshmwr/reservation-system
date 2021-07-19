@@ -84,7 +84,7 @@ export const SelectRegion = ({
                 </select>
               );
             } else {
-              //div
+              //draw div
               return (
                 <div key={`item${index}`} className="resultBlock__select__item">
                   <div className="resultBlock__select__item__label">

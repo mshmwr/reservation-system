@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { SelectRegion } from "./page/SelectRegion";
 import { FillInRegin } from "./page/FillInRegion";
 import { Stepper } from "../../components/Stepper";
+import { postReservedData } from "../../apis/reservedDataApi";
 
 function Reservation() {
   let history = useHistory();
@@ -24,7 +25,7 @@ function Reservation() {
         break;
     }
   };
-  const nextClick = () => {
+  const nextClick = async () => {
     switch (step) {
       case steps[0]:
         setStep(steps[1]);
@@ -33,9 +34,16 @@ function Reservation() {
         setStep(steps[2]);
         break;
       default:
-        console.log(selectedData);
-        console.log(filterFormData(formInputList));
-        //TODO: 這邊要送值到server
+        const orderStatusData = { order_status: "applied" };
+        const sendData = {
+          ...selectedData,
+          ...filterFormData(formInputList),
+          ...orderStatusData,
+        };
+        let data = await postReservedData({ data: sendData });
+        if (data === null) {
+          console.log("fetch data is null: using fake data");
+        }
         break;
     }
   };

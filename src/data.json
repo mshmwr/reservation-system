@@ -72,7 +72,7 @@
       ],
       "listItems":[
         {"name":"room","label":"包廂","content":""},
-        {"name":"startTime","label":"開始時段","content":""},
+        {"name":"start_time","label":"開始時段","content":""},
         {"name":"duration","label":"唱歌時數","content":""},
         {"name":"attendence","label":"選擇人數","content":["唱歌人數","1","2","3","4","5","6","7","8","9"]
         }
@@ -87,7 +87,7 @@
           "title": "包廂", "content": "1A包廂" },
         { "name":"attendence",
           "title": "預約人數", "content": "3" },
-        {"name":"startTime",
+        {"name":"start_time",
           "title": "開始時間", "content": "10:00" },
         { "name":"duration",
           "title": "唱歌時數", "content": "3" }
@@ -100,7 +100,7 @@
   },
   "reservedData":[
     {
-      "date": "2021.07.24",
+      "date": "2021-07-24",
       "room": "A" ,
       "time": "10:00" ,
       "duration": 3 ,
@@ -109,7 +109,7 @@
       "order_id":"1"
     },
     {
-      "date": "2021.07.24",
+      "date": "2021-07-24",
       "room": "A" ,
       "time": "14:00" ,
       "duration": 3.5,
@@ -118,7 +118,7 @@
       "order_id":"2"
     },
     {
-      "date": "2021.07.24",
+      "date": "2021-07-24",
       "room": "B" ,
       "time": "10:00" ,
       "duration": 3,
@@ -127,7 +127,7 @@
       "order_id":"3"
     },
     {
-      "date": "2021.07.24",
+      "date": "2021-07-24",
       "room": "C" ,
       "time": "10:00" ,
       "duration": 3,
