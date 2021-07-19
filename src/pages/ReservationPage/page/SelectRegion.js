@@ -64,7 +64,7 @@ export const SelectRegion = ({
           defaultValue={TODAY_DATE}
           min={TODAY_DATE}
         ></input>
-        <Board setPlanData={setPlanData}></Board>
+        <Board setPlanData={setPlanData} calenderDate={dateData}></Board>
       </div>
 
       <div className="reservation__content__selectStep__resultBlock">

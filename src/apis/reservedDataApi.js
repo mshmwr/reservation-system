@@ -1,6 +1,9 @@
-const getReservedData = () => {
+const getReservedData = (date) => {
   console.log("fetchReservedData");
-  return fetch("http://localhost:3100/reservation_data?room=A", {
+  date = date.replace(/-/g, ".");
+  let url = "http://localhost:3100/reservation_data?date=" + date;
+  console.log(url);
+  return fetch(url, {
     method: "GET",
   })
     .then((response) => {

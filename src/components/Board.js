@@ -4,10 +4,10 @@ import data from "../data.json";
 import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
 
-export const Board = ({ setPlanData }) => {
+export const Board = ({ calenderDate, setPlanData }) => {
   useEffect(async () => {
     const fetchData = async () => {
-      let data = await getReservedData();
+      let data = await getReservedData(calenderDate.date);
       if (data === null) {
         console.log("fetch data is null: using fake data");
         data = data.reservedData;
@@ -16,7 +16,7 @@ export const Board = ({ setPlanData }) => {
       setInit(data); //dataTest.reservedData
     };
     fetchData();
-  }, []);
+  }, [calenderDate]);
   const setInit = (data) => {
     setLineCubeState(
       setRoomCubes(
