@@ -1,6 +1,6 @@
 {
   "name": "reservation-system",
-  "homepage": "https://mshmwr.github.io/reservation-system",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

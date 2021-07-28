@@ -1,0 +1,6 @@
+.management__timeline {
+  width: 100%;
+  height: 200px;
+  background-color: #ff3838;
+  position: fixed;
+}

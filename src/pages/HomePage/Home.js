@@ -51,6 +51,9 @@ function Home() {
         {/* <Link to="/bulletinBoard" className="common__block home__content__btn">
           <Button text="前往留言版(臨時按鈕)"></Button>
         </Link> */}
+        <Link to="/management" className="common__block home__content__btn">
+          <Button text="前往後台"></Button>
+        </Link>
       </div>
     </div>
   );

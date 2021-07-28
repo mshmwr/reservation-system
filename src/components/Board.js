@@ -7,7 +7,7 @@ import { getReservedData } from "../apis/reservedDataApi";
 export const Board = ({ calenderDate, setPlanData }) => {
   useEffect(async () => {
     const fetchData = async () => {
-      let data = await getReservedData(calenderDate.date);
+      let data = await getReservedData(calenderDate.date, undefined);
       if (data === null) {
         console.log("fetch data is null: using fake data");
         data = data.reservedData;
@@ -30,7 +30,6 @@ export const Board = ({ calenderDate, setPlanData }) => {
   };
 
   const handleRoomCubes = (roomList) => {
-    console.log(roomList);
     return setRoomCubes(
       roomList,
       cubeInitData,
@@ -312,6 +311,7 @@ const transferTimeToIndex = (roomDatas, timeRegionMapping, roomList) => {
     }
     roomData.forEach((data) => {
       roomId = data.room;
+      if (data.startIndex === -1) return;
       for (let i = 0; i < timeRegionMapping.length; i++) {
         if (i >= data.startIndex && i <= data.endIndex) {
           regionReserved[i] = true;
@@ -334,6 +334,7 @@ const transferTimeToUsername = (roomDatas, timeRegionMapping, roomList) => {
     }
     roomData.forEach((data) => {
       roomId = data.room;
+      if (data.startIndex === -1) return;
       for (let i = 0; i < timeRegionMapping.length; i++) {
         if (i >= data.startIndex && i <= data.endIndex) {
           usernames[i] = data.name;
@@ -386,14 +387,21 @@ const convertTimeToIndex = (timeRegion, reservedData) => {
     let hr = data.start_time.split(":")[0];
     let min = data.start_time.split(":")[1];
     let startIndex =
-      timeRegion.indexOf(parseInt(hr, 10)) * 2 + (min === "00" ? 0 : 1);
-    let endIndex = startIndex + (data.duration / 0.5 - 1);
+      data.order_status === "reserved"
+        ? timeRegion.indexOf(parseInt(hr, 10)) * 2 + (min === "00" ? 0 : 1)
+        : -1;
+    let endIndex =
+      data.order_status === "reserved"
+        ? startIndex + (data.duration / 0.5 - 1)
+        : -1;
+
     reservedDataIndexs.push({
       ...data,
       startIndex: startIndex,
       endIndex: endIndex,
     });
   });
+  // console.log(reservedDataIndexs);
   return reservedDataIndexs;
 };
 
@@ -412,6 +420,7 @@ const fillReservedData = (
     reservedIndex = reservedDataIndexs[room.id].slice();
     username = reservedDataUsernames[room.id].slice();
     lineCubeState.forEach((cube) => {
+      console.log(reservedIndex[cube.index]);
       if (reservedIndex[cube.index]) {
         cube.isReserved = true;
         cube.name = username[cube.index];

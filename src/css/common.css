@@ -10,6 +10,7 @@
   --main-gray: #cecece;
   --heavy-gray: #b8b8b8;
   --black: #000000;
+  --light-red: rgb(255, 132, 132);
 
   /* font-size */
   --title-font-size: 2rem;
@@ -27,10 +28,14 @@
   /* RWD size*/
   --mobile-width: 360px;
   --tablet-width: 360px;
+
+  /* z-index */
+  --zIndex-dialog: 5;
+  --zIndex-dialogBox: 7;
 }
 
 html {
-  font-size: 10px;
+  font-size: 16px;
   box-sizing: border-box;
 }
 

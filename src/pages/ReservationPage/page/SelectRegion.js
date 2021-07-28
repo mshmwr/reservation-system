@@ -78,8 +78,8 @@ export const SelectRegion = ({
                   key={`item${index}`}
                   className="resultBlock__select__attandeance resultBlock__select__item"
                 >
-                  {item.content.map((text, index) => (
-                    <option key={`text${index}`}>{text}</option>
+                  {item.content.map((text) => (
+                    <option key={text}>{text}</option>
                   ))}
                 </select>
               );

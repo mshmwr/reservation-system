@@ -63,9 +63,6 @@
   margin: 0 2rem 2rem 2rem;
 }
 
-@media screen and (max-width: 786px) {
-}
-
 @media screen and (max-width: 600px) {
   .reservation__content__fillInStep__title,
   .planBlock__plan__subtitle {
