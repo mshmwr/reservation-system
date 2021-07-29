@@ -10,7 +10,9 @@
   --main-gray: #cecece;
   --heavy-gray: #b8b8b8;
   --black: #000000;
-  --light-red: rgb(255, 132, 132);
+  --light-red: #ff8484;
+  --main-red: #fa3c3c;
+  --light-green: #02bd1b;
 
   /* font-size */
   --title-font-size: 2rem;

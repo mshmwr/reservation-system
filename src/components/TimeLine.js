@@ -75,7 +75,6 @@ export const TimeLine = ({
       let initLinesCube = setRoomCubes(
         roomList.filter((room) => room.id !== roomId)
       );
-      console.log(initLinesCube);
       setLineCubeState({ ...initLinesCube, [roomId]: cubesState });
       return;
     }

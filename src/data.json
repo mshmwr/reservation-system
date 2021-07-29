@@ -67,6 +67,8 @@
     }
   },
   "reservationPage": {
+    "startTime": 9,
+    "endTime": 24,
     "titles": [
       "",
       "填入預約資訊",

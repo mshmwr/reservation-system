@@ -76,13 +76,16 @@
   overflow-x: hidden;
 }
 .calendar__dates__date__entries__col--applied {
-  background-color: var(--heavy-gray);
+  background-color: var(--main-normal);
 }
 .calendar__dates__date__entries__col--reserved {
-  background-color: var(--main-light);
+  background-color: var(--light-green);
 }
 .calendar__dates__date__entries__col--canceled {
-  background-color: var(--light-red);
+  background-color: var(--heavy-gray);
+}
+.calendar__dates__date__entries__col--conflicted {
+  background-color: var(--main-red);
 }
 
 .dialog__dialogMask {
@@ -178,6 +181,9 @@
 .board__buttons__button--primary {
   font-size: var(--text-font-size);
 }
+.board__buttons__button--disabled {
+  cursor: auto;
+}
 
 .dialog__confirmButton {
   width: 50%;
@@ -186,6 +192,15 @@
   min-width: auto;
   background-color: var(--main-bg);
   font-size: initial;
+}
+.dialog__confirmButton--disabled {
+  background-color: var(--main-bg);
+  color: var(--main-gray);
+  cursor: auto;
+}
+
+.dialog__confirmButton--disabled:hover {
+  background-color: var(--main-bg);
 }
 
 @media screen and (max-width: 600px) {

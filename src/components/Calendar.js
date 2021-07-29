@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../components/Button";
 import { getReservedData, patchReservedData } from "../apis/reservedDataApi";
+import {
+  getRoomDatas,
+  getEachTimeReservedStatus,
+  getConstData,
+  convertDataTimeToIndex,
+} from "./Board";
 import multiLang_CHT from "../data.json";
 import "./Calendar.css";
 
@@ -153,11 +159,32 @@ const reverseDate = (date) => {
   return dates.join("-");
 };
 
+const checkConflicted = (data, reservedStatus, timeRegion) => {
+  //取得當筆資料，把data裡面的時間轉換成index
+  let currentDataTimeIndexArr = [];
+  const indexsData = convertDataTimeToIndex(timeRegion, data)[0];
+  const startIndex = indexsData.startIndex;
+  const endIndex = indexsData.endIndex;
+  if (startIndex !== -1 && endIndex !== -1) {
+    for (let i = startIndex; i <= endIndex; i++) {
+      currentDataTimeIndexArr.push(i);
+    }
+  }
+  //check is conflicted
+  const isAppliedData = data.order_status === "applied";
+  const isTimeRegionOverlapped = currentDataTimeIndexArr.some(
+    (timeIndex) => reservedStatus[data.room][timeIndex] === true
+  );
+  const isConflicted = isAppliedData && isTimeRegionOverlapped;
+  return isConflicted;
+};
+
 const showOrderDialog = (
   isShow,
   orderId,
   closeClickHandler,
-  setNeedRefreshPage
+  setNeedRefreshPage,
+  currentOrderIsConflicted
 ) => {
   const [orderData, setOrderData] = useState(null);
   const [orderStatusButton, setOrderStatusButton] = useState(null);
@@ -178,7 +205,7 @@ const showOrderDialog = (
     setOrderStatusButton(e.target.id);
     selectedOrderStatusButton = option;
   };
-  const sendOrderStatusClickHandler = () => {
+  const orderStatusConfirmButtonClickHandler = () => {
     const target_column = "order_status";
     const target_value = selectedOrderStatusButton;
     const order_id = orderId;
@@ -194,6 +221,32 @@ const showOrderDialog = (
     //refresh page (fetch again)
     setNeedRefreshPage(true);
   };
+
+  const checkOrderStatusButtonIsDisable = (
+    orderStatus,
+    option,
+    orderIsConflicted,
+    originOrderStatusButton
+  ) => {
+    if (originOrderStatusButton === "canceled") {
+      return true; //不能按
+    }
+    if (orderIsConflicted && option === "reserved") {
+      return true; //不能按
+    }
+    if (orderStatus === option) {
+      return true; //不能按
+    }
+    return false;
+  };
+  const checkConfirmButtonIsDisable = (orderStatus, option) => {
+    console.log(orderStatus + "," + option);
+    if (orderStatus === option) {
+      return true; //不能按
+    }
+    return false;
+  };
+
   useEffect(async () => {
     fetchData();
   }, [orderId]);
@@ -241,9 +294,27 @@ const showOrderDialog = (
                                   originOrderStatusButton === option
                                     ? "common__font--bold board__buttons__button--primary"
                                     : ""
-                                }`}
+                                }
+                                ${
+                                  checkOrderStatusButtonIsDisable(
+                                    orderStatusButton,
+                                    option,
+                                    currentOrderIsConflicted,
+                                    originOrderStatusButton
+                                  )
+                                    ? "board__buttons__button--disabled"
+                                    : ""
+                                }
+                                `}
                                 disabled={`${
-                                  orderStatusButton === option ? "disabled" : ""
+                                  checkOrderStatusButtonIsDisable(
+                                    orderStatusButton,
+                                    option,
+                                    currentOrderIsConflicted,
+                                    originOrderStatusButton
+                                  )
+                                    ? "disabled"
+                                    : ""
                                 }`}
                                 onClick={(e) =>
                                   changeOrderStatusClickHandler(e, option)
@@ -254,8 +325,27 @@ const showOrderDialog = (
                             );
                           })}
                           <button
-                            className="btn dialog__confirmButton"
-                            onClick={sendOrderStatusClickHandler}
+                            type="button"
+                            className={`btn dialog__confirmButton
+                            ${
+                              checkConfirmButtonIsDisable(
+                                orderStatusButton,
+                                originOrderStatusButton
+                              )
+                                ? "dialog__confirmButton--disabled"
+                                : ""
+                            }
+                            
+                            `}
+                            onClick={orderStatusConfirmButtonClickHandler}
+                            disabled={`${
+                              checkConfirmButtonIsDisable(
+                                orderStatusButton,
+                                orderData[0].order_status
+                              )
+                                ? "disabled"
+                                : ""
+                            }`}
                           >
                             {multiLang_CHT.managementPage.dialog.confirmButton}
                           </button>
@@ -273,12 +363,16 @@ const showOrderDialog = (
   }
 };
 
+const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
+  getConstData();
+
 const showDateReservedData = (
   columnDate,
   needRefreshPage,
-  setNeedRefreshPage
+  setNeedRefreshPage,
+  dateClickHandler
 ) => {
-  const [dateData, setDateData] = useState(null);
+  const [dateDatas, setDateDatas] = useState(null);
   const fetchData = async () => {
     let data = await getReservedData(columnDate, undefined);
     if (data.length === 0) {
@@ -286,30 +380,53 @@ const showDateReservedData = (
     }
 
     setNeedRefreshPage(false);
-    setDateData(data);
+    setDateDatas(data);
   };
   useEffect(async () => {
     fetchData();
   }, [needRefreshPage]);
 
+  const switchOrderStatus = (order_status) => {
+    switch (order_status) {
+      case "reserved":
+        return "calendar__dates__date__entries__col--reserved";
+      case "canceled":
+        return "calendar__dates__date__entries__col--canceled";
+      default:
+        return "calendar__dates__date__entries__col--applied";
+    }
+  };
+
+  const reservedStatus =
+    dateDatas !== null
+      ? getEachTimeReservedStatus(
+          getRoomDatas(ROOM_LIST, TIME_REGION, dateDatas),
+          TIME_REGION_MAPPING,
+          ROOM_LIST
+        )
+      : null;
+
   return (
     <div className="calendar__dates__date__entries">
-      {dateData === null || dateData.length === 0
+      {dateDatas === null || dateDatas.length === 0
         ? "no reserved"
-        : dateData.map((item) => (
+        : dateDatas.map((item) => (
             <div
               key={item.order_id}
               className={`calendar__dates__date__entries__col 
               ${
-                item.order_status === "applied"
-                  ? "calendar__dates__date__entries__col--applied"
-                  : item.order_status === "reserved"
-                  ? "calendar__dates__date__entries__col--reserved"
-                  : "calendar__dates__date__entries__col--canceled"
+                checkConflicted(item, reservedStatus, TIME_REGION)
+                  ? "calendar__dates__date__entries__col--conflicted"
+                  : switchOrderStatus(item.order_status)
               }
-              
               `}
               id={item.order_id}
+              onClick={(e) =>
+                dateClickHandler(
+                  e,
+                  checkConflicted(item, reservedStatus, TIME_REGION)
+                )
+              }
             >
               {`${item.room}-${item.start_time}-${item.duration}hr`}
             </div>
@@ -331,16 +448,17 @@ const Calendar = () => {
 
   const [showDialog, setShowDialog] = useState(false);
   const [needRefreshPage, setNeedRefreshPage] = useState(false);
+  const [currentOrderIsConflicted, setCurrentOrderIsConflicted] =
+    useState(false);
   const [orderId, setOrderId] = useState("0");
-  const dateClickHandler = (e, date) => {
-    console.log("dateClickHandler, date=" + date);
-    console.log(e.target.id);
+  const dateClickHandler = (e, isConflicted) => {
     const targetId = e.target.id;
     if (targetId === "") {
       return;
     }
     setShowDialog(true);
     setOrderId(e.target.id);
+    setCurrentOrderIsConflicted(isConflicted);
   };
   const closeClickHandler = () => {
     setShowDialog(false);
@@ -353,7 +471,8 @@ const Calendar = () => {
         showDialog,
         orderId,
         closeClickHandler,
-        setNeedRefreshPage
+        setNeedRefreshPage,
+        currentOrderIsConflicted
       )}
       <div className="calendar__month">
         <Button text="prev" clickEvent={getPrevMonth}></Button>{" "}
@@ -379,7 +498,6 @@ const Calendar = () => {
               <div
                 key={col.date}
                 className={`${col.classes} calendar__dates__date calendar__dates__item`}
-                onClick={(e) => dateClickHandler(e, col.date)}
               >
                 <div className="common__font--bold common__heading">
                   <div className="calendar__dates__date__number calendar__dates__today">
@@ -389,14 +507,14 @@ const Calendar = () => {
                 {showDateReservedData(
                   reverseDate(col.date),
                   needRefreshPage,
-                  setNeedRefreshPage
+                  setNeedRefreshPage,
+                  dateClickHandler
                 )}
               </div>
             ) : (
               <div
                 key={col.date}
                 className={`${col.classes} calendar__dates__date calendar__dates__item`}
-                onClick={(e) => dateClickHandler(e, col.date)}
               >
                 <div className="calendar__dates__date__number common__font--bold common__heading">
                   {col.value}
