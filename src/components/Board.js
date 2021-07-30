@@ -280,14 +280,13 @@ const Board = ({ calenderDate, setPlanData }) => {
 
   useEffect(async () => {
     const fetchData = async () => {
-      let data = await getReservedData(calenderDate.date, undefined);
-      if (data === null) {
-        console.log("fetch data is null: using fake data");
-        data = data.reservedData;
-        console.log(data);
+      const fetchedData = await getReservedData(calenderDate.date, undefined);
+      const resultData = fetchedData.result;
+      if (resultData === null) {
+        console.log("fetch data is null");
       }
-      setReservedData(data);
-      setInit(data); //dataTest.reservedData
+      setReservedData(resultData);
+      setInit(resultData);
     };
     fetchData();
   }, [calenderDate]);

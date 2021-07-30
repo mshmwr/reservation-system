@@ -37,26 +37,30 @@ const getReservedData = (date, order_id) => {
     .then((result) => {
       //處理資料
       const parsedData = JSON.parse(result).data;
-      let datas = [];
-      parsedData.forEach((data) => {
-        datas.push({
-          room: data.room,
-          duration: data.duration,
-          start_time: data.start_time,
-          attendence: data.attendence,
-          date: data.date,
-          name: data.name,
-          phone: data.phone,
-          email: data.email,
-          order_status: data.order_status,
-          order_id: data.order_id,
-        });
-      });
-      console.log(datas);
-
-      return datas;
+      console.log(parsedData);
+      return parsedData;
+      // const resultData = parsedData.result;
+      // let datas = [];
+      // resultData.forEach((data) => {
+      //   datas.push({
+      //     room: data.room,
+      //     duration: data.duration,
+      //     start_time: data.start_time,
+      //     attendence: data.attendence,
+      //     date: data.date,
+      //     name: data.name,
+      //     phone: data.phone,
+      //     email: data.email,
+      //     order_status: data.order_status,
+      //     order_id: data.order_id,
+      //   });
+      // });
+      // console.log(datas);
+      // return datas;
     });
 };
+
+const convertReservedDataResultTo = (parsedData) => {};
 
 //送出訂位資訊
 const postReservedData = (data = {}) => {

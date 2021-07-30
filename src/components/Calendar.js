@@ -192,14 +192,16 @@ const showOrderDialog = (
   let selectedOrderStatusButton = orderStatusButton;
   const fetchData = async () => {
     console.log("fetch data Order 有沒有在工作RRR");
-    let data = await getReservedData(undefined, orderId);
-    if (data.length === 0) {
+    const fetchedData = await getReservedData(undefined, orderId); //only one record
+    const resultData = fetchedData.result;
+    if (resultData.length === 0) {
       console.log("fetch data is empty array");
     } else {
-      setOrderStatusButton(data[0].order_status);
-      setOriginOrderStatusButton(data[0].order_status);
+      setOrderStatusButton(resultData[0].order_status);
+      setOriginOrderStatusButton(resultData[0].order_status);
     }
-    setOrderData(data);
+
+    setOrderData(resultData);
   };
   const changeOrderStatusClickHandler = (e, option) => {
     setOrderStatusButton(e.target.id);
@@ -276,6 +278,7 @@ const showOrderDialog = (
                       {data.options === undefined ? (
                         <p className="calendar__dialog__table__item__value">
                           {item[data.key]}
+                          123
                         </p>
                       ) : (
                         <div className="board__buttons">
@@ -374,13 +377,13 @@ const showDateReservedData = (
 ) => {
   const [dateDatas, setDateDatas] = useState(null);
   const fetchData = async () => {
-    let data = await getReservedData(columnDate, undefined);
-    if (data.length === 0) {
+    const fetchedData = await getReservedData(columnDate, undefined);
+    const resultData = fetchedData.result;
+    if (resultData.length === 0) {
       console.log("fetch data is empty array");
     }
-
     setNeedRefreshPage(false);
-    setDateDatas(data);
+    setDateDatas(resultData);
   };
   useEffect(async () => {
     fetchData();
