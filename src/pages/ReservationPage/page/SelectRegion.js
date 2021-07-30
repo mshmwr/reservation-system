@@ -12,7 +12,7 @@ export const SelectRegion = ({
   setSelectedData,
 }) => {
   const [planData, setPlanData] = useState({});
-  const [dateData, setDateData] = useState({ date: TODAY_DATE });
+  const [dateData, setDateData] = useState(TODAY_DATE);
   const [attendenceData, setAttendenceData] = useState({});
 
   const next = () => {
@@ -23,7 +23,7 @@ export const SelectRegion = ({
     nextClick();
   };
   const handleDateChange = (e) => {
-    setDateData({ date: e.target.value });
+    setDateData(e.target.value);
   };
   const handleAttendenceChange = (e) => {
     if (Number.isNaN(parseInt(e.target.value, 10))) {

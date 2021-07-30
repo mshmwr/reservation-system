@@ -280,7 +280,10 @@ const Board = ({ calenderDate, setPlanData }) => {
 
   useEffect(async () => {
     const fetchData = async () => {
-      const fetchedData = await getReservedData(calenderDate.date, undefined);
+      const fetchedData = await getReservedData(calenderDate, undefined);
+      if (fetchedData === null) {
+        return;
+      }
       const resultData = fetchedData.result;
       if (resultData === null) {
         console.log("fetch data is null");

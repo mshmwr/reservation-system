@@ -14,7 +14,7 @@ function Management() {
   return (
     <div className=" management common__pageFrame">
       Management
-      {/* <Board setPlanData={setPlanData} calenderDate={dateData} /> */}
+      <Board setPlanData={setPlanData} calenderDate={dateData} />
       <Calendar />
     </div>
   );

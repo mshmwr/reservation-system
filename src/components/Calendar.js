@@ -193,6 +193,9 @@ const showOrderDialog = (
   const fetchData = async () => {
     console.log("fetch data Order 有沒有在工作RRR");
     const fetchedData = await getReservedData(undefined, orderId); //only one record
+    if (fetchedData === null) {
+      return;
+    }
     const resultData = fetchedData.result;
     if (resultData.length === 0) {
       console.log("fetch data is empty array");
@@ -378,6 +381,9 @@ const showDateReservedData = (
   const [dateDatas, setDateDatas] = useState(null);
   const fetchData = async () => {
     const fetchedData = await getReservedData(columnDate, undefined);
+    if (fetchedData === null) {
+      return;
+    }
     const resultData = fetchedData.result;
     if (resultData.length === 0) {
       console.log("fetch data is empty array");

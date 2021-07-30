@@ -11,9 +11,11 @@ const requestParameters = {
 };
 //取得訂位資訊
 const getReservedData = (date, order_id) => {
-  // console.log("fetch getReservedData");
   // date = date.replace(/-/g, ".");
   // let url = "http://localhost:3100/reservation_data?data[date]=" + date;
+  if (date === undefined && order_id === undefined) {
+    return null;
+  }
   let urlVar = "";
   if (date !== undefined) {
     urlVar += urlVar === "" ? `data[date]=${date}` : `&data[date]=${date}`;
@@ -37,30 +39,9 @@ const getReservedData = (date, order_id) => {
     .then((result) => {
       //處理資料
       const parsedData = JSON.parse(result).data;
-      console.log(parsedData);
       return parsedData;
-      // const resultData = parsedData.result;
-      // let datas = [];
-      // resultData.forEach((data) => {
-      //   datas.push({
-      //     room: data.room,
-      //     duration: data.duration,
-      //     start_time: data.start_time,
-      //     attendence: data.attendence,
-      //     date: data.date,
-      //     name: data.name,
-      //     phone: data.phone,
-      //     email: data.email,
-      //     order_status: data.order_status,
-      //     order_id: data.order_id,
-      //   });
-      // });
-      // console.log(datas);
-      // return datas;
     });
 };
-
-const convertReservedDataResultTo = (parsedData) => {};
 
 //送出訂位資訊
 const postReservedData = (data = {}) => {
