@@ -9,6 +9,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.thankyou__content__title {
+  margin: 2rem auto;
+}
+
 .thankyou__content__texts__text {
   margin: 0 auto var(--text-font-size);
 }

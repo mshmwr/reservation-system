@@ -26,7 +26,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 1;
+  opacity: 0.95;
   background-color: var(--main-bg);
 }
 
@@ -45,16 +45,15 @@
 
 .management__frame__selectBlock__item {
   margin: 1rem 0;
-}
-
-.management__frame__selectBlock__item label {
-  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .management__frame__timeline__board {
   --left: 6rem;
   padding-left: var(--left);
-  padding-top: 2rem;
+  padding-top: 1rem;
   width: calc(100% - var(--left));
   margin: 0 2rem;
   box-sizing: border-box;
@@ -116,6 +115,16 @@
     width: calc(100% - var(--scrollbar-width) * 2);
     max-width: calc(100% - var(--scrollbar-width) * 2);
     height: 3rem;
+  }
+
+  .management__frame__selectBlock {
+    flex-direction: row;
+  }
+  .management__frame__selectBlock__item {
+    margin-right: 1rem;
+  }
+  .management__frame__selectBlock__item label {
+    margin-right: 10px;
   }
   .management__frame__timeline__board {
     --left: 0px;

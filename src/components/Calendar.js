@@ -157,6 +157,8 @@ const Calendar = ({
   needRefreshPage,
   setNeedRefreshPage,
   selectedRoom = "",
+  setManagementSelectedDate,
+  managementSelectedDate,
 }) => {
   const {
     daysShort,
@@ -172,7 +174,7 @@ const Calendar = ({
   const [currentOrderIsConflicted, setCurrentOrderIsConflicted] =
     useState(false);
   const [orderId, setOrderId] = useState("");
-  const dateClickHandler = (e, isConflicted) => {
+  const dateClickHandler = (e, isConflicted, managementSelectedDate) => {
     const targetId = e.target.id;
     if (targetId === "") {
       return;
@@ -180,15 +182,11 @@ const Calendar = ({
     setShowDialog(true);
     setOrderId(e.target.id);
     setCurrentOrderIsConflicted(isConflicted);
+    setManagementSelectedDate(managementSelectedDate);
   };
   const closeClickHandler = () => {
     setShowDialog(false);
     setOrderId("");
-  };
-
-  const prevMonthClickHanlder = () => {
-    getPrevMonth();
-    // setNeedRefreshPage(true);
   };
 
   return (
@@ -199,9 +197,10 @@ const Calendar = ({
         closeClickHandler={closeClickHandler}
         setNeedRefreshPage={setNeedRefreshPage}
         currentOrderIsConflicted={currentOrderIsConflicted}
+        managementSelectedDate={managementSelectedDate}
       />
       <div className="calendar__month">
-        <Button text="prev" clickEvent={prevMonthClickHanlder}></Button>{" "}
+        <Button text="prev" clickEvent={getPrevMonth}></Button>{" "}
         <p className="common__subtitle common__font--bold">
           {`${
             monthNames[selectedDate.getMonth()]
@@ -237,6 +236,7 @@ const Calendar = ({
                   setNeedRefreshPage={setNeedRefreshPage}
                   dateClickHandler={dateClickHandler}
                   selectedRoom={selectedRoom}
+                  setManagementSelectedDate={setManagementSelectedDate}
                 />
               </div>
             ) : (
@@ -247,15 +247,14 @@ const Calendar = ({
                 <div className="calendar__dates__date__number common__font--bold common__heading">
                   {col.value}
                 </div>
-                <div className="calendar__dates__date__entries">
-                  <CalendarDateReservedData
-                    columnDate={reverseDate(col.date)}
-                    needRefreshPage={needRefreshPage}
-                    setNeedRefreshPage={setNeedRefreshPage}
-                    dateClickHandler={dateClickHandler}
-                    selectedRoom={selectedRoom}
-                  />
-                </div>
+
+                <CalendarDateReservedData
+                  columnDate={reverseDate(col.date)}
+                  needRefreshPage={needRefreshPage}
+                  setNeedRefreshPage={setNeedRefreshPage}
+                  dateClickHandler={dateClickHandler}
+                  selectedRoom={selectedRoom}
+                />
               </div>
             );
           })

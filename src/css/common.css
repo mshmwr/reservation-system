@@ -50,6 +50,7 @@ html {
 }
 .common__subtitle {
   font-size: var(--subtitle-font-size);
+  line-height: var(--subtitle-font-size);
 }
 
 .common__heading {

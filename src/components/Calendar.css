@@ -96,7 +96,7 @@
   top: 0px;
   background: var(--black);
   opacity: 0.15;
-  z-index: var(--zIndex-dialogMask);
+  z-index: var(--zIndex-dialog);
 }
 
 .dialog__dialogContent {
@@ -108,7 +108,7 @@
   height: var(--dialog-height);
   left: calc((100% - var(--dialog-height)) / 2);
   top: calc((100% - var(--dialog-height)) / 2);
-  z-index: var(--zIndex-dialog);
+  z-index: var(--zIndex-dialogBox);
 }
 .dialog__icon {
   position: absolute;

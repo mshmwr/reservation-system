@@ -16,3 +16,10 @@
   border: 1px solid var(--main-normal);
   transition: all 0.2s ease;
 }
+
+@media screen and (max-width: 360px) {
+  .btn {
+    min-width: auto;
+    padding: 0.8rem 1rem;
+  }
+}

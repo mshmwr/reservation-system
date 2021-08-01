@@ -16,7 +16,7 @@ function Thankyou() {
     <div className="thankyou common__pageFrame">
       <Stepper currentStep={data.stepper.steps[2]}></Stepper>
       <div className="thankyou__content">
-        <div className="thankyou__content__title common__block common__title common__font--bold">
+        <div className="thankyou__content__title common__title common__font--bold">
           {thankyouContents.title}
         </div>
         <div className="thankyou__content__texts common__block common__subtitle common__font--bold">
@@ -26,7 +26,7 @@ function Thankyou() {
             </p>
           ))}
         </div>
-        <div className="thankyou__content__logo">
+        <div className="thankyou__content__logo common__block">
           {/* <img src={require("../../img/logo_120_120.png")} alt="Background" /> */}
           {/* TODO: 這邊要判斷拿的圖片是網址還是本地 */}
           <img

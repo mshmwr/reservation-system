@@ -38,6 +38,7 @@
   width: 80%;
   background-color: var(--main-normal);
   margin: 0 auto 2rem auto;
+  font-size: inherit;
 }
 .resultBlock__select select {
   padding-left: 1.4rem;

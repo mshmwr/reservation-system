@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "./Management.css";
 import Calendar from "../../components/Calendar";
-import { Board } from "../../components/Board";
+import { Board, getConstData } from "../../components/Board";
 import { TODAY_DATE } from "../../utils/Date";
+
+const { ROOM_LIST } = getConstData();
 
 function Management() {
   const dateData = TODAY_DATE;
 
-  const [needRefreshPage, setNeedRefreshPage] = useState(false); //1
-  const [selectedRoom, setSelectedRoom] = useState(""); //1
-  const [showTimeLineBoard, setShowTimeLineBoard] = useState(false); //1
+  const [needRefreshPage, setNeedRefreshPage] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState("");
+  const [managementSelectedDate, setManagementSelectedDate] =
+    useState(TODAY_DATE);
+  const [showTimeLineBoard, setShowTimeLineBoard] = useState(false);
   const handleRoomSelectChange = (e) => {
     setSelectedRoom(e.target.value);
   };
@@ -17,6 +21,9 @@ function Management() {
     setShowTimeLineBoard(!showTimeLineBoard);
   };
 
+  const handleManagementDateChange = (e) => {
+    setManagementSelectedDate(e.target.value);
+  };
   return (
     <div className="management common__pageFrame">
       <div className="management__closeIcon" onClick={closeClickHandler}>
@@ -30,28 +37,34 @@ function Management() {
         <div className={`management__frame__bg`} />
         <div className="management__frame__selectBlock">
           <div className="management__frame__selectBlock__item">
-            <label>Select Room</label>
+            <label className="common__font--bold">Select Room</label>
             <select onChange={handleRoomSelectChange}>
               <option value="" className="">
                 all rooms
               </option>
-              <option value="A" className="">
-                A
-              </option>
-              <option value="B" className="">
-                B
-              </option>
-              <option value="C" className="">
-                C
-              </option>
+              {ROOM_LIST.map((room) => (
+                <option key={room.id} value={`${room.id}`} className="">
+                  {room.title}
+                </option>
+              ))}
             </select>
+          </div>
+          <div className="management__frame__selectBlock__item">
+            <label className="common__font--bold">Selected Date</label>
+
+            <input
+              onChange={handleManagementDateChange}
+              type="date"
+              className=""
+              value={managementSelectedDate}
+            ></input>
           </div>
         </div>
 
         <div className={`management__frame__timeline`}>
           <div className="management__frame__timeline__board">
             <Board
-              calenderDate={dateData}
+              calenderDate={managementSelectedDate}
               selectedRoom={selectedRoom}
               needRefreshPage={needRefreshPage}
               isReadOnly={true}
@@ -63,6 +76,8 @@ function Management() {
         needRefreshPage={needRefreshPage}
         setNeedRefreshPage={setNeedRefreshPage}
         selectedRoom={selectedRoom}
+        setManagementSelectedDate={setManagementSelectedDate}
+        managementSelectedDate={managementSelectedDate}
       />
     </div>
   );

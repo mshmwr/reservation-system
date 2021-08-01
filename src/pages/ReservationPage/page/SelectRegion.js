@@ -80,7 +80,7 @@ export const SelectRegion = ({
                 <select
                   onChange={handleAttendenceChange}
                   key={`item${item}`}
-                  className="resultBlock__select__attandeance resultBlock__select__item"
+                  className="resultBlock__select__item "
                 >
                   {item.content.map((text) => (
                     <option key={text}>{text}</option>

@@ -25,6 +25,7 @@ export const CalendarOrderDialog = ({
   closeClickHandler,
   setNeedRefreshPage,
   currentOrderIsConflicted,
+  selectedDate,
 }) => {
   const [orderData, setOrderData] = useState(null);
   const [orderStatusButton, setOrderStatusButton] = useState(null);
@@ -95,7 +96,7 @@ export const CalendarOrderDialog = ({
 
   useEffect(async () => {
     fetchData();
-  }, [orderId]);
+  }, [orderId, selectedDate]);
 
   if (isShow) {
     return (

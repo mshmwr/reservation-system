@@ -6,8 +6,7 @@ import {
   getRoomDatas,
   getEachTimeReservedStatus,
 } from "./Board";
-const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
-  getConstData();
+const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = getConstData();
 
 const checkConflicted = (data, reservedStatus, timeRegion) => {
   //取得當筆資料，把data裡面的時間轉換成index
@@ -75,7 +74,6 @@ export const CalendarDateReservedData = ({
 
   return (
     <div className="calendar__dates__date__entries">
-      {/* {console.log(dateDatas)} */}
       {dateDatas === null || dateDatas.length === 0
         ? "no reserved"
         : dateDatas
@@ -98,7 +96,8 @@ export const CalendarDateReservedData = ({
                 onClick={(e) =>
                   dateClickHandler(
                     e,
-                    checkConflicted(item, reservedStatus, TIME_REGION)
+                    checkConflicted(item, reservedStatus, TIME_REGION),
+                    item.date
                   )
                 }
               >

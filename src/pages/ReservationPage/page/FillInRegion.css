@@ -57,6 +57,7 @@
 }
 .planBlock__input__info__value {
   margin-left: 2rem;
+  word-break: break-all;
 }
 
 .reservation__content__fillInStep__buttonGroup {
