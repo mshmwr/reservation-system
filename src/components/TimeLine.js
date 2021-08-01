@@ -12,6 +12,7 @@ export const TimeLine = ({
   roomList,
   setLineCubeState,
   currentRoom,
+  isReadOnly,
 }) => {
   // console.log(lineCubeState);
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
@@ -122,7 +123,10 @@ export const TimeLine = ({
 
   return (
     <div
-      className="board__reservationBoardItem__timeLine"
+      className={`board__reservationBoardItem__timeLine ${
+        isReadOnly ? "common__disablePointerEvent" : ""
+      }
+      `}
       id={roomId}
       onClick={cubeClickHandler}
     >

@@ -19,7 +19,7 @@ export const SelectRegion = ({
     if (!checkCanNext()) {
       return;
     }
-    setSelectedData({ ...planData, ...attendenceData, ...dateData });
+    setSelectedData({ ...planData, ...attendenceData, date: dateData });
     nextClick();
   };
   const handleDateChange = (e) => {
@@ -64,18 +64,22 @@ export const SelectRegion = ({
           defaultValue={TODAY_DATE}
           min={TODAY_DATE}
         ></input>
-        <Board setPlanData={setPlanData} calenderDate={dateData}></Board>
+        <Board
+          setPlanData={setPlanData}
+          calenderDate={dateData}
+          isReadOnly={false}
+        ></Board>
       </div>
 
       <div className="reservation__content__selectStep__resultBlock">
         <div className="resultBlock__select">
-          {dataListItems.map((item, index) => {
+          {dataListItems.map((item) => {
             if (Array.isArray(item.content)) {
               //option list
               return (
                 <select
                   onChange={handleAttendenceChange}
-                  key={`item${index}`}
+                  key={`item${item}`}
                   className="resultBlock__select__attandeance resultBlock__select__item"
                 >
                   {item.content.map((text) => (
@@ -86,7 +90,7 @@ export const SelectRegion = ({
             } else {
               //draw div
               return (
-                <div key={`item${index}`} className="resultBlock__select__item">
+                <div key={`item${item}`} className="resultBlock__select__item">
                   <div className="resultBlock__select__item__label">
                     {item.label}
                   </div>

@@ -1,8 +1,9 @@
 .board {
   display: flex;
   flex-direction: column;
-  width: 750px;
+  width: 100%;
   height: 100%;
+  text-align: center;
 }
 
 .board__reservationBoardItem {
@@ -20,15 +21,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 1024px) {
-  .board {
-    width: 80%;
-  }
-}
 @media screen and (max-width: 600px) {
-  .board {
-    width: 100%;
-  }
   .board__reservationBoardItem {
     flex-direction: column;
   }

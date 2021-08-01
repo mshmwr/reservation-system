@@ -274,13 +274,23 @@ const getConstData = () => {
   };
 };
 
-const Board = ({ calenderDate, setPlanData }) => {
+const Board = ({
+  calenderDate = "",
+  setPlanData,
+  selectedRoom = "",
+  isReadOnly,
+  needRefreshPage,
+}) => {
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     getConstData();
 
   useEffect(async () => {
     const fetchData = async () => {
-      const fetchedData = await getReservedData(calenderDate, undefined);
+      const fetchedData = await getReservedData(
+        calenderDate,
+        undefined,
+        selectedRoom
+      );
       if (fetchedData === null) {
         return;
       }
@@ -292,7 +302,7 @@ const Board = ({ calenderDate, setPlanData }) => {
       setInit(resultData);
     };
     fetchData();
-  }, [calenderDate]);
+  }, [calenderDate, needRefreshPage]);
   const setInit = (data) => {
     setLineCubeState(
       setRoomCubes(
@@ -333,7 +343,6 @@ const Board = ({ calenderDate, setPlanData }) => {
       TIME_REGION_MAPPING,
       ROOM_LIST
     );
-    console.log(reservedStatus);
     return reservedStatus;
   };
   const getReserverdDataUsernames = (data) => {
@@ -470,10 +479,13 @@ const Board = ({ calenderDate, setPlanData }) => {
     { roomId: "", cubeId: "", index: -1 },
     { roomId: "", cubeId: "", index: -1 },
   ]); //[前次點擊, 本次點擊]
-
   return (
-    <div className="board common__block">
-      {ROOM_LIST.map((room, index) => (
+    <div className="board">
+      {ROOM_LIST.filter((room) =>
+        selectedRoom === ""
+          ? room.id !== selectedRoom
+          : room.id === selectedRoom
+      ).map((room, index) => (
         <div
           key={`boardItem${index}`}
           className="board__reservationBoardItem common__interval--normal"
@@ -496,6 +508,7 @@ const Board = ({ calenderDate, setPlanData }) => {
                 roomList={ROOM_LIST}
                 setLineCubeState={setLineCubeState}
                 currentRoom={currentRoom}
+                isReadOnly={isReadOnly}
               ></TimeLine>
             ) : null}
           </div>

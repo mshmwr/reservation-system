@@ -10,26 +10,28 @@ const requestParameters = {
   referrer: "no-referrer",
 };
 //取得訂位資訊
-const getReservedData = (date, order_id) => {
+const getReservedData = (date = "", order_id = "", room = "") => {
   // date = date.replace(/-/g, ".");
   // let url = "http://localhost:3100/reservation_data?data[date]=" + date;
-  if (date === undefined && order_id === undefined) {
+  if (date === "" && order_id === "") {
     return null;
   }
   let urlVar = "";
-  if (date !== undefined) {
+  if (date !== "") {
     urlVar += urlVar === "" ? `data[date]=${date}` : `&data[date]=${date}`;
   }
-  if (order_id !== undefined) {
+  if (order_id !== "") {
     urlVar +=
       urlVar === ""
         ? `data[order_id]=${order_id}`
         : `&data[order_id]=${order_id}`;
   }
-
+  if (room !== "") {
+    urlVar += `&data[room]=${room}`;
+  }
   // let url = "http://localhost:3100/reservation_data?data[date]=" + date;
   let url = "http://localhost:3100/reservation_data?" + urlVar;
-  console.log(url);
+  // console.log(url);
   return fetch(url, {
     method: "GET",
   })
@@ -45,7 +47,8 @@ const getReservedData = (date, order_id) => {
 
 //送出訂位資訊
 const postReservedData = (data = {}) => {
-  console.log("fetch postReservedData");
+  // console.log("fetch postReservedData");
+  // console.log(data);
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = "http://localhost:3100/reservation_data";
   const method = { method: "POST" };
@@ -63,7 +66,7 @@ const postReservedData = (data = {}) => {
 
 //修改訂位資訊
 const patchReservedData = (data = {}) => {
-  console.log("fetch patchReservedData");
+  // console.log("fetch patchReservedData");
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = "http://localhost:3100/reservation_data";
   const method = { method: "PATCH" };

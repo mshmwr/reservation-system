@@ -53,7 +53,7 @@
 
 /* width */
 .notice__list::-webkit-scrollbar {
-  width: 15px;
+  width: var(--scrollbar-width);
 }
 
 /* Track */

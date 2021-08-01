@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "../components/Button";
-import { getReservedData, patchReservedData } from "../apis/reservedDataApi";
-import {
-  getRoomDatas,
-  getEachTimeReservedStatus,
-  getConstData,
-  convertDataTimeToIndex,
-} from "./Board";
-import multiLang_CHT from "../data.json";
 import "./Calendar.css";
+import { CalendarDateReservedData } from "./CalendarDateReservedData";
+import { CalendarOrderDialog } from "./CalandarOrderDialog";
 
 const daysShortArr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const monthNamesArr = [
@@ -159,292 +153,11 @@ const reverseDate = (date) => {
   return dates.join("-");
 };
 
-const checkConflicted = (data, reservedStatus, timeRegion) => {
-  //取得當筆資料，把data裡面的時間轉換成index
-  let currentDataTimeIndexArr = [];
-  const indexsData = convertDataTimeToIndex(timeRegion, data)[0];
-  const startIndex = indexsData.startIndex;
-  const endIndex = indexsData.endIndex;
-  if (startIndex !== -1 && endIndex !== -1) {
-    for (let i = startIndex; i <= endIndex; i++) {
-      currentDataTimeIndexArr.push(i);
-    }
-  }
-  //check is conflicted
-  const isAppliedData = data.order_status === "applied";
-  const isTimeRegionOverlapped = currentDataTimeIndexArr.some(
-    (timeIndex) => reservedStatus[data.room][timeIndex] === true
-  );
-  const isConflicted = isAppliedData && isTimeRegionOverlapped;
-  return isConflicted;
-};
-
-const showOrderDialog = (
-  isShow,
-  orderId,
-  closeClickHandler,
-  setNeedRefreshPage,
-  currentOrderIsConflicted
-) => {
-  const [orderData, setOrderData] = useState(null);
-  const [orderStatusButton, setOrderStatusButton] = useState(null);
-  const [originOrderStatusButton, setOriginOrderStatusButton] = useState(null);
-  let selectedOrderStatusButton = orderStatusButton;
-  const fetchData = async () => {
-    console.log("fetch data Order 有沒有在工作RRR");
-    const fetchedData = await getReservedData(undefined, orderId); //only one record
-    if (fetchedData === null) {
-      return;
-    }
-    const resultData = fetchedData.result;
-    if (resultData.length === 0) {
-      console.log("fetch data is empty array");
-    } else {
-      setOrderStatusButton(resultData[0].order_status);
-      setOriginOrderStatusButton(resultData[0].order_status);
-    }
-
-    setOrderData(resultData);
-  };
-  const changeOrderStatusClickHandler = (e, option) => {
-    setOrderStatusButton(e.target.id);
-    selectedOrderStatusButton = option;
-  };
-  const orderStatusConfirmButtonClickHandler = () => {
-    const target_column = "order_status";
-    const target_value = selectedOrderStatusButton;
-    const order_id = orderId;
-    const patchData = {
-      data: {
-        target_column: target_column,
-        target_value: target_value,
-        order_id: order_id,
-      },
-    };
-    patchReservedData(patchData);
-    closeClickHandler();
-    //refresh page (fetch again)
-    setNeedRefreshPage(true);
-  };
-
-  const checkOrderStatusButtonIsDisable = (
-    orderStatus,
-    option,
-    orderIsConflicted,
-    originOrderStatusButton
-  ) => {
-    if (originOrderStatusButton === "canceled") {
-      return true; //不能按
-    }
-    if (orderIsConflicted && option === "reserved") {
-      return true; //不能按
-    }
-    if (orderStatus === option) {
-      return true; //不能按
-    }
-    return false;
-  };
-  const checkConfirmButtonIsDisable = (orderStatus, option) => {
-    console.log(orderStatus + "," + option);
-    if (orderStatus === option) {
-      return true; //不能按
-    }
-    return false;
-  };
-
-  useEffect(async () => {
-    fetchData();
-  }, [orderId]);
-
-  if (isShow) {
-    return (
-      <div className="dialog">
-        <div className="dialog__dialogMask" />
-        <div className="dialog__dialogContent">
-          <div className="dialog__icon" onClick={closeClickHandler}>
-            <img />
-          </div>
-          {/* {console.log(orderData)} */}
-          {orderData === null || orderData.length === 0
-            ? "no reserved"
-            : orderData.map((item) => (
-                <div key={item.order_id} className="calendar__dialog__table">
-                  {multiLang_CHT.orderTableList.map((data) => (
-                    <div
-                      key={data.key}
-                      className="calendar__dialog__table__item"
-                    >
-                      <p className="calendar__dialog__table__item__label">
-                        {data.label}
-                      </p>
-
-                      {data.options === undefined ? (
-                        <p className="calendar__dialog__table__item__value">
-                          {item[data.key]}
-                          123
-                        </p>
-                      ) : (
-                        <div className="board__buttons">
-                          {data.options.map((option) => {
-                            return (
-                              <button
-                                type="button"
-                                key={option}
-                                id={option}
-                                className={`btn board__buttons__button ${
-                                  orderStatusButton === option
-                                    ? "board__buttons__button--selected"
-                                    : ""
-                                } 
-                                ${
-                                  originOrderStatusButton === option
-                                    ? "common__font--bold board__buttons__button--primary"
-                                    : ""
-                                }
-                                ${
-                                  checkOrderStatusButtonIsDisable(
-                                    orderStatusButton,
-                                    option,
-                                    currentOrderIsConflicted,
-                                    originOrderStatusButton
-                                  )
-                                    ? "board__buttons__button--disabled"
-                                    : ""
-                                }
-                                `}
-                                disabled={`${
-                                  checkOrderStatusButtonIsDisable(
-                                    orderStatusButton,
-                                    option,
-                                    currentOrderIsConflicted,
-                                    originOrderStatusButton
-                                  )
-                                    ? "disabled"
-                                    : ""
-                                }`}
-                                onClick={(e) =>
-                                  changeOrderStatusClickHandler(e, option)
-                                }
-                              >
-                                {option}
-                              </button>
-                            );
-                          })}
-                          <button
-                            type="button"
-                            className={`btn dialog__confirmButton
-                            ${
-                              checkConfirmButtonIsDisable(
-                                orderStatusButton,
-                                originOrderStatusButton
-                              )
-                                ? "dialog__confirmButton--disabled"
-                                : ""
-                            }
-                            
-                            `}
-                            onClick={orderStatusConfirmButtonClickHandler}
-                            disabled={`${
-                              checkConfirmButtonIsDisable(
-                                orderStatusButton,
-                                orderData[0].order_status
-                              )
-                                ? "disabled"
-                                : ""
-                            }`}
-                          >
-                            {multiLang_CHT.managementPage.dialog.confirmButton}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ))}
-        </div>
-      </div>
-    );
-  } else {
-    return null;
-  }
-};
-
-const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
-  getConstData();
-
-const showDateReservedData = (
-  columnDate,
+const Calendar = ({
   needRefreshPage,
   setNeedRefreshPage,
-  dateClickHandler
-) => {
-  const [dateDatas, setDateDatas] = useState(null);
-  const fetchData = async () => {
-    const fetchedData = await getReservedData(columnDate, undefined);
-    if (fetchedData === null) {
-      return;
-    }
-    const resultData = fetchedData.result;
-    if (resultData.length === 0) {
-      console.log("fetch data is empty array");
-    }
-    setNeedRefreshPage(false);
-    setDateDatas(resultData);
-  };
-  useEffect(async () => {
-    fetchData();
-  }, [needRefreshPage]);
-
-  const switchOrderStatus = (order_status) => {
-    switch (order_status) {
-      case "reserved":
-        return "calendar__dates__date__entries__col--reserved";
-      case "canceled":
-        return "calendar__dates__date__entries__col--canceled";
-      default:
-        return "calendar__dates__date__entries__col--applied";
-    }
-  };
-
-  const reservedStatus =
-    dateDatas !== null
-      ? getEachTimeReservedStatus(
-          getRoomDatas(ROOM_LIST, TIME_REGION, dateDatas),
-          TIME_REGION_MAPPING,
-          ROOM_LIST
-        )
-      : null;
-
-  return (
-    <div className="calendar__dates__date__entries">
-      {dateDatas === null || dateDatas.length === 0
-        ? "no reserved"
-        : dateDatas.map((item) => (
-            <div
-              key={item.order_id}
-              className={`calendar__dates__date__entries__col 
-              ${
-                checkConflicted(item, reservedStatus, TIME_REGION)
-                  ? "calendar__dates__date__entries__col--conflicted"
-                  : switchOrderStatus(item.order_status)
-              }
-              `}
-              id={item.order_id}
-              onClick={(e) =>
-                dateClickHandler(
-                  e,
-                  checkConflicted(item, reservedStatus, TIME_REGION)
-                )
-              }
-            >
-              {`${item.room}-${item.start_time}-${item.duration}hr`}
-            </div>
-          ))}
-    </div>
-  );
-};
-
-const Calendar = () => {
+  selectedRoom = "",
+}) => {
   const {
     daysShort,
     monthNames,
@@ -456,10 +169,9 @@ const Calendar = () => {
   } = useCalendar();
 
   const [showDialog, setShowDialog] = useState(false);
-  const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [currentOrderIsConflicted, setCurrentOrderIsConflicted] =
     useState(false);
-  const [orderId, setOrderId] = useState("0");
+  const [orderId, setOrderId] = useState("");
   const dateClickHandler = (e, isConflicted) => {
     const targetId = e.target.id;
     if (targetId === "") {
@@ -474,17 +186,22 @@ const Calendar = () => {
     setOrderId("");
   };
 
+  const prevMonthClickHanlder = () => {
+    getPrevMonth();
+    // setNeedRefreshPage(true);
+  };
+
   return (
     <div className="calendar">
-      {showOrderDialog(
-        showDialog,
-        orderId,
-        closeClickHandler,
-        setNeedRefreshPage,
-        currentOrderIsConflicted
-      )}
+      <CalendarOrderDialog
+        isShow={showDialog}
+        orderId={orderId}
+        closeClickHandler={closeClickHandler}
+        setNeedRefreshPage={setNeedRefreshPage}
+        currentOrderIsConflicted={currentOrderIsConflicted}
+      />
       <div className="calendar__month">
-        <Button text="prev" clickEvent={getPrevMonth}></Button>{" "}
+        <Button text="prev" clickEvent={prevMonthClickHanlder}></Button>{" "}
         <p className="common__subtitle common__font--bold">
           {`${
             monthNames[selectedDate.getMonth()]
@@ -513,12 +230,14 @@ const Calendar = () => {
                     {col.value}
                   </div>
                 </div>
-                {showDateReservedData(
-                  reverseDate(col.date),
-                  needRefreshPage,
-                  setNeedRefreshPage,
-                  dateClickHandler
-                )}
+
+                <CalendarDateReservedData
+                  columnDate={reverseDate(col.date)}
+                  needRefreshPage={needRefreshPage}
+                  setNeedRefreshPage={setNeedRefreshPage}
+                  dateClickHandler={dateClickHandler}
+                  selectedRoom={selectedRoom}
+                />
               </div>
             ) : (
               <div
@@ -529,7 +248,13 @@ const Calendar = () => {
                   {col.value}
                 </div>
                 <div className="calendar__dates__date__entries">
-                  {reverseDate(col.date)}
+                  <CalendarDateReservedData
+                    columnDate={reverseDate(col.date)}
+                    needRefreshPage={needRefreshPage}
+                    setNeedRefreshPage={setNeedRefreshPage}
+                    dateClickHandler={dateClickHandler}
+                    selectedRoom={selectedRoom}
+                  />
                 </div>
               </div>
             );

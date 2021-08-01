@@ -26,12 +26,16 @@
   --div-margin: 0px auto 2rem auto;
   --logo-height: 120px;
   --logo-width: 120px;
+  --scrollbar-width: 15px;
+  --icon-width: 14px;
 
   /* RWD size*/
   --mobile-width: 360px;
   --tablet-width: 360px;
 
   /* z-index */
+  --zIndex-managementSelectionBlock: 1;
+  --zIndex-managementIcon: 3;
   --zIndex-dialog: 5;
   --zIndex-dialogBox: 7;
 }
@@ -94,9 +98,13 @@ html {
 .common__buttonGroup Button {
   margin: 0 0 0 10px;
 }
-
+/* event */
 .common__hidden {
   display: none;
+}
+
+.common__disablePointerEvent {
+  pointer-events: none;
 }
 
 /* button submit style*/

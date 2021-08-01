@@ -8,7 +8,9 @@
 .reservation__content__selectStep__calenderBlock {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   margin: 0px 2rem;
+  box-sizing: border-box;
 }
 .calenderBlock__day {
   height: 30px;
@@ -18,7 +20,7 @@
 .reservation__content__selectStep__resultBlock {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: 300px;
   margin: 2rem 2rem;
 }
 
@@ -42,7 +44,7 @@
 }
 .resultBlock__select__item__label {
   width: 20%;
-  min-width: 10rem;
+  min-width: 8rem;
   padding-left: 2rem;
 }
 .resultBlock__select__item__content {
@@ -65,6 +67,14 @@
   .common__buttonGroup {
     justify-content: center;
   }
+  .reservation__content__selectStep__calenderBlock {
+    margin: 0 1rem;
+  }
+  .reservation__content__selectStep__resultBlock {
+    width: 100%;
+    margin: 0 0 2rem 0;
+  }
+
   .calenderBlock__day {
     height: 60px;
     margin: 2rem auto;
