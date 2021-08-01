@@ -4,15 +4,15 @@
   flex-direction: row;
 }
 
-/* calenderBlock */
-.reservation__content__selectStep__calenderBlock {
+/* calendarBlock */
+.reservation__content__selectStep__calendarBlock {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   margin: 0px 2rem;
   box-sizing: border-box;
 }
-.calenderBlock__day {
+.calendarBlock__day {
   height: 30px;
   margin: 1rem auto;
 }
@@ -62,13 +62,13 @@
   .reservation__content__selectStep {
     flex-direction: column;
   }
-  .calenderBlock__reservationBoard {
+  .calendarBlock__reservationBoard {
     width: 100%;
   }
   .common__buttonGroup {
     justify-content: center;
   }
-  .reservation__content__selectStep__calenderBlock {
+  .reservation__content__selectStep__calendarBlock {
     margin: 0 1rem;
   }
   .reservation__content__selectStep__resultBlock {
@@ -76,7 +76,7 @@
     margin: 0 0 2rem 0;
   }
 
-  .calenderBlock__day {
+  .calendarBlock__day {
     height: 60px;
     margin: 2rem auto;
   }

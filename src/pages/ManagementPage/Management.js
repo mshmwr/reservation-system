@@ -64,7 +64,7 @@ function Management() {
         <div className={`management__frame__timeline`}>
           <div className="management__frame__timeline__board">
             <Board
-              calenderDate={managementSelectedDate}
+              calendarDate={managementSelectedDate}
               selectedRoom={selectedRoom}
               needRefreshPage={needRefreshPage}
               isReadOnly={true}

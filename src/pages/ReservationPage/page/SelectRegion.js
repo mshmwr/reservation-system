@@ -56,17 +56,17 @@ export const SelectRegion = ({
   };
   return (
     <div className="reservation__content__selectStep">
-      <div className="reservation__content__selectStep__calenderBlock">
+      <div className="reservation__content__selectStep__calendarBlock">
         <input
           onChange={handleDateChange}
           type="date"
-          className="calenderBlock__day"
+          className="calendarBlock__day"
           defaultValue={TODAY_DATE}
           min={TODAY_DATE}
         ></input>
         <Board
           setPlanData={setPlanData}
-          calenderDate={dateData}
+          calendarDate={dateData}
           isReadOnly={false}
         ></Board>
       </div>

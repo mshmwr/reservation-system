@@ -275,7 +275,7 @@ const getConstData = () => {
 };
 
 const Board = ({
-  calenderDate = "",
+  calendarDate = "",
   setPlanData,
   selectedRoom = "",
   isReadOnly,
@@ -287,7 +287,7 @@ const Board = ({
   useEffect(async () => {
     const fetchData = async () => {
       const fetchedData = await getReservedData(
-        calenderDate,
+        calendarDate,
         undefined,
         selectedRoom
       );
@@ -302,7 +302,7 @@ const Board = ({
       setInit(resultData);
     };
     fetchData();
-  }, [calenderDate, needRefreshPage]);
+  }, [calendarDate, needRefreshPage]);
   const setInit = (data) => {
     setLineCubeState(
       setRoomCubes(
