@@ -3,12 +3,11 @@ import "./Management.css";
 import Calendar from "../../components/Calendar";
 import { Board, getConstData } from "../../components/Board";
 import { TODAY_DATE } from "../../utils/Date";
+import Hamburger from "../../components/Hamburger";
 
 const { ROOM_LIST } = getConstData();
 
 function Management() {
-  const dateData = TODAY_DATE;
-
   const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState("");
   const [managementSelectedDate, setManagementSelectedDate] =
@@ -26,9 +25,7 @@ function Management() {
   };
   return (
     <div className="management common__pageFrame">
-      <div className="management__closeIcon" onClick={closeClickHandler}>
-        <div className="management__closeIcon__hamburger" />
-      </div>
+      <Hamburger clickHandler={closeClickHandler} />
       <div
         className={`management__frame ${
           showTimeLineBoard ? "" : "common__hidden"

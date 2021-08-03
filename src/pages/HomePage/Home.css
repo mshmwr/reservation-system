@@ -47,5 +47,28 @@
 .home__content__btn {
   display: flex;
   justify-content: center;
+  align-items: center;
   text-decoration: none;
+  flex-direction: column;
+}
+/* ---- */
+
+.featureButtonGroup {
+  position: fixed;
+  z-index: var(--zIndex-managementIcon);
+  padding: 1rem 1rem 0 1rem;
+  width: 150px;
+  min-height: 50px;
+  right: 20px;
+  top: 55px;
+  background-color: var(--main-light37);
+  border: 1px solid var(--main-normal);
+}
+.featureButtonGroup .common__block {
+  margin-bottom: 1rem;
+}
+
+.featureButtonGroup Button {
+  padding: 0.2rem 0;
+  min-width: 8rem;
 }

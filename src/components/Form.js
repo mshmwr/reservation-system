@@ -16,6 +16,7 @@ export default class Form extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputClick = this.handleInputClick.bind(this);
   }
 
   handleChange(formItem, targetValue) {
@@ -33,6 +34,7 @@ export default class Form extends Component {
     e.preventDefault();
     this.getMessage();
   }
+
   getMessage = () => {
     if (this.props.getMessage !== undefined) {
       this.props.getMessage(this.state.formInputList);
@@ -48,6 +50,12 @@ export default class Form extends Component {
     });
     this.setState({ list: list });
   };
+  handleInputClick = () => {
+    if (this.props.setInputClick !== undefined) {
+      this.props.setInputClick(true);
+    }
+  };
+
   render() {
     if (this.props.needSubmitButton === false) {
       this.getMessage();
@@ -59,6 +67,7 @@ export default class Form extends Component {
           <div key={inputItem.label} className="form__item">
             <label>{inputItem.label}</label>
             <input
+              onClick={this.handleInputClick}
               value={inputItem.value}
               type="text"
               onChange={(e) => this.handleChange(inputItem, e.target.value)}

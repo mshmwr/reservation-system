@@ -58,7 +58,7 @@
   margin: 0 auto;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1000px) {
   .reservation__content__selectStep {
     flex-direction: column;
   }

@@ -1,0 +1,52 @@
+.closeIcon {
+  position: fixed;
+  z-index: var(--zIndex-managementIcon);
+  width: 30px;
+  height: 30px;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  background-color: var(--main-light37);
+  border: 1px solid var(--main-normal);
+}
+.closeIcon__hamburger {
+  width: 14px;
+  height: 1px;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: calc(25% + 1px);
+  display: block;
+  background-color: var(--main-light);
+}
+
+.closeIcon__hamburger::before {
+  width: var(--icon-width);
+  height: 1px;
+  content: "";
+  position: relative;
+  top: calc(var(--icon-width) / 3);
+  display: block;
+  background-color: var(--main-light);
+}
+
+.closeIcon__hamburger::after {
+  width: var(--icon-width);
+  height: 1px;
+  content: "";
+  position: relative;
+  top: calc(var(--icon-width) / 3 * (-1) - 1px);
+  display: block;
+  background-color: var(--main-light);
+}
+
+.closeIcon:hover {
+  background-color: var(--light-gray);
+}
+@media screen and (max-width: 600px) {
+  .closeIcon {
+    right: 20px;
+    top: 10px;
+    border: 1px solid var(--main-light);
+  }
+}

@@ -8,6 +8,7 @@ import Reservation from "./pages/ReservationPage/Reservation";
 import Thankyou from "./pages/ThankyouPage/Thankyou";
 import Management from "./pages/ManagementPage/Management";
 import BulletinBoard from "./pages/ListPage/BulletinBoard";
+import MemberSystem from "./pages/MemberSystemPage/MemberSystem";
 
 export default class App extends Component {
   constructor() {
@@ -28,6 +29,7 @@ export default class App extends Component {
               <Route path="/thankyou" component={Thankyou}></Route>
               <Route path="/bulletinBoard" component={BulletinBoard}></Route>
               <Route path="/management" component={Management}></Route>
+              <Route path="/memberSystem" component={MemberSystem}></Route>
             </Switch>
           </main>
           <Footer />

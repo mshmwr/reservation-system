@@ -1,14 +1,17 @@
-const requestParameters = {
-  cache: "no-cache",
-  credentials: "same-origin",
-  headers: {
-    "user-agent": "Mozilla/4.0 MDN Example",
-    "content-type": "application/json",
-  },
-  mode: "cors",
-  redirect: "follow",
-  referrer: "no-referrer",
-};
+// const requestParameters = {
+//   cache: "no-cache",
+//   credentials: "same-origin",
+//   headers: {
+//     "user-agent": "Mozilla/4.0 MDN Example",
+//     "content-type": "application/json",
+//   },
+//   mode: "cors",
+//   redirect: "follow",
+//   referrer: "no-referrer",
+// };
+
+import { requestParameters } from "../utils/API";
+
 //取得訂位資訊
 const getReservedData = (date = "", order_id = "", room = "") => {
   // date = date.replace(/-/g, ".");
