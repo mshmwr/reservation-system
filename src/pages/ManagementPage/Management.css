@@ -4,7 +4,8 @@
   width: 100%;
   top: 0;
   left: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -21,14 +22,13 @@
 
 .management__frame__selectBlock {
   position: absolute;
-  max-width: 6rem;
-  width: 20%;
+  width: 8rem;
   height: 100%;
   padding: 0 0.5rem;
   background-color: var(--main-normal67);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   z-index: var(--zIndex-managementSelectionBlock);
 }
 
@@ -36,15 +36,27 @@
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  height: 2.5rem;
+}
+.management__frame__selectBlock__item input,
+.management__frame__selectBlock__item select,
+.management__frame__selectBlock__item Button {
+  width: 8rem;
+  box-sizing: border-box;
+  height: 2rem;
+  font-size: initial;
+}
+.management__frame__selectBlock__item .btn {
+  min-width: auto;
+  padding: 0;
 }
 
 .management__frame__timeline__board {
-  --left: 6rem;
-  padding-left: var(--left);
+  --left: 8rem;
+  margin-left: var(--left);
   padding-top: 1rem;
   width: calc(100% - var(--left));
-  margin: 0 2rem;
   box-sizing: border-box;
 }
 
@@ -64,7 +76,7 @@
   .management__frame__selectBlock {
     width: calc(100% - var(--scrollbar-width) * 2);
     max-width: calc(100% - var(--scrollbar-width) * 2);
-    height: 3rem;
+    height: auto;
   }
 
   .management__frame__selectBlock {
@@ -73,13 +85,28 @@
   .management__frame__selectBlock__item {
     margin-right: 1rem;
   }
-  .management__frame__selectBlock__item label {
-    margin-right: 10px;
+  .management__frame__selectBlock__item input,
+  .management__frame__selectBlock__item select,
+  .management__frame__selectBlock__item Button {
+    width: auto;
+    max-width: 8rem;
+  }
+  .management__frame__selectBlock__item .btn {
+    height: auto;
   }
   .management__frame__timeline__board {
     --left: 0px;
     width: 100%;
-    padding: 4rem 2rem 0 2rem;
+    padding: 5rem 2rem 0 2rem;
     box-sizing: border-box;
   }
 }
+@media screen and (max-width: 360px) {
+  .moveHamburger .hamburgerIcon {
+    right: 20px;
+    top: 240px;
+    transition: top 2s;
+    /* 280px */
+  }
+}
+/* ---- */

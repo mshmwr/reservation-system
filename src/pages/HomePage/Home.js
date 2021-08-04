@@ -38,23 +38,24 @@ function Home() {
       {showWindow && (
         <div className="orderResultWindow">
           <CloseIcon clickHandler={closeWindowClickHandler} />
-          {/* <div className="closeIcon" onClick={closeWindowClickHandler}>
-            <div className="closeIcon__close" />
-          </div> */}
-          {orderSearchResultArr.map((item) => (
-            <div key={item.order_id} className="orderResultWindow__table">
-              {multiLang_CHT.orderTableList.map((data) => (
-                <div key={data.key} className="orderResultWindow__table__item">
-                  <p className="orderResultWindow__table__item__label">
-                    {data.label}
-                  </p>
-                  <p className="orderResultWindow__table__item__value">
-                    {item[data.key]}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ))}
+          {orderSearchResultArr.length !== 0 &&
+            orderSearchResultArr.map((item) => (
+              <div key={item.order_id} className="orderResultWindow__table">
+                {multiLang_CHT.orderTableList.map((data) => (
+                  <div
+                    key={data.key}
+                    className="orderResultWindow__table__item"
+                  >
+                    <p className="orderResultWindow__table__item__label">
+                      {data.label}
+                    </p>
+                    <p className="orderResultWindow__table__item__value">
+                      {item[data.key]}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ))}
         </div>
       )}
 

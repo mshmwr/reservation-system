@@ -5,6 +5,7 @@ import { Board, getConstData } from "../../components/Board";
 import { TODAY_DATE } from "../../utils/Date";
 import Hamburger from "../../components/Hamburger";
 import multiLang_CHT from "../../data.json";
+import Button from "../../components/Button";
 
 const { ROOM_LIST } = getConstData();
 
@@ -24,12 +25,16 @@ function Management() {
   const handleManagementDateChange = (e) => {
     setManagementSelectedDate(e.target.value);
   };
+
+  const logoutButtonClickHandler = () => {};
   return (
     <div className="management common__pageFrame">
-      <Hamburger
-        isShowItem={showTimeLineBoard}
-        clickHandler={closeClickHandler}
-      />
+      <div className={showTimeLineBoard ? "moveHamburger" : ""}>
+        <Hamburger
+          isShowItem={showTimeLineBoard}
+          clickHandler={closeClickHandler}
+        />
+      </div>
       <div
         className={`management__frame ${
           showTimeLineBoard ? "" : "common__hidden"
@@ -59,6 +64,12 @@ function Management() {
               className=""
               value={managementSelectedDate}
             ></input>
+          </div>
+          <div className="management__frame__selectBlock__item">
+            <Button
+              text={multiLang_CHT.memberSystemPage.card.instruction.logout}
+              clickEvent={logoutButtonClickHandler}
+            />
           </div>
         </div>
 

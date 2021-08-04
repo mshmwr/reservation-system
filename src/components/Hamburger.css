@@ -4,10 +4,12 @@
   width: 30px;
   height: 30px;
   right: 20px;
-  top: 20px;
+  top: 10px;
   cursor: pointer;
   background-color: var(--main-bg);
   border: 1px solid var(--main-normal);
+
+  transition: top 2s;
 }
 /* normal hamburger */
 .hamburgerIcon__hamburger--normal {

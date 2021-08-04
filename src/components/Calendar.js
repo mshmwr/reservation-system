@@ -200,13 +200,13 @@ const Calendar = ({
         managementSelectedDate={managementSelectedDate}
       />
       <div className="calendar__month">
-        <Button text="prev" clickEvent={getPrevMonth}></Button>{" "}
+        <Button text="prev" clickEvent={getPrevMonth} />
         <p className="common__subtitle common__font--bold">
           {`${
             monthNames[selectedDate.getMonth()]
           }-${selectedDate.getFullYear()}`}
         </p>
-        <Button text="next" clickEvent={getNextMonth}></Button>
+        <Button text="next" clickEvent={getNextMonth} />
       </div>
       <div className="calendar__dates">
         {daysShort.map((day) => (
