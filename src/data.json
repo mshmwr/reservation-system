@@ -239,6 +239,10 @@
       "label": "唱歌時數"
     },
     {
+      "key": "attendence",
+      "label": "唱歌人數"
+    },
+    {
       "key": "order_status",
       "label": "訂單狀態",
       "options": [

@@ -14,10 +14,10 @@ const requestParameters = {
 
 const checkLoggedIn = async (setIsLoggedIn) => {
   const parsedData = await getUser();
-  console.log(parsedData);
+  // console.log(parsedData);
 
-  setIsLoggedIn(true);
-  return;
+  // setIsLoggedIn(true);
+  // return;
   if (parsedData.status === "ok") {
     setIsLoggedIn(true);
   }

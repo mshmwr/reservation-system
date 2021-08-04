@@ -85,16 +85,16 @@ const Menu = ({
           </div>
         ))}
       </div>
-      {isLoggedIn ? (
-        <Link to="/memberSystem" className="common__block home__menu__feature">
-          <Button text={multiLang_CHT.features.memberSystem} />
-        </Link>
-      ) : null}
-      {isLoggedIn ? (
+
+      <Link to="/memberSystem" className="common__block home__menu__feature">
+        <Button text={multiLang_CHT.features.memberSystem} />
+      </Link>
+
+      {isLoggedIn && (
         <Link to="/management" className="common__block home__menu__feature">
           <Button text={multiLang_CHT.features.management} />
         </Link>
-      ) : null}
+      )}
       <div className="common__block home__menu__order">
         <Button
           text={multiLang_CHT.features.orderSearch}
