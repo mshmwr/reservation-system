@@ -1,5 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./TimeLine.css";
+
+let hoverCube_clicked_first = -1;
+let hoverCube_clicked_second = -1;
+let hoverCube_hovered = -1;
+
+const initCubeHover = (timeRegion) => {
+  let hover = [];
+  let times = [];
+  timeRegion.forEach((time) => {
+    times.push(time);
+    times.push(time);
+  });
+  times.forEach((time, index) => {
+    if (!(index % 2)) {
+      hover.push({
+        id: `${time}L`,
+        isSelected: false,
+        index: index,
+        isClicked: false,
+      });
+    } else {
+      hover.push({
+        id: `${time}R`,
+        isSelected: false,
+        index: index,
+        isClicked: false,
+      });
+    }
+  });
+  return hover;
+};
 
 //------------------------------------
 export const TimeLine = ({
@@ -13,9 +44,15 @@ export const TimeLine = ({
   setLineCubeState,
   currentRoom,
   isReadOnly,
+  needRefreshPage,
+  setNeedRefreshPage,
 }) => {
-  // console.log(lineCubeState);
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
+
+  useEffect(() => {
+    setCubeHover(initCubeHover(timeRegion));
+    setNeedRefreshPage(false);
+  }, [needRefreshPage]);
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
@@ -157,35 +194,4 @@ export const TimeLine = ({
       ))}
     </div>
   );
-};
-
-let hoverCube_clicked_first = -1;
-let hoverCube_clicked_second = -1;
-let hoverCube_hovered = -1;
-
-const initCubeHover = (timeRegion) => {
-  let hover = [];
-  let times = [];
-  timeRegion.forEach((time) => {
-    times.push(time);
-    times.push(time);
-  });
-  times.forEach((time, index) => {
-    if (!(index % 2)) {
-      hover.push({
-        id: `${time}L`,
-        isSelected: false,
-        index: index,
-        isClicked: false,
-      });
-    } else {
-      hover.push({
-        id: `${time}R`,
-        isSelected: false,
-        index: index,
-        isClicked: false,
-      });
-    }
-  });
-  return hover;
 };

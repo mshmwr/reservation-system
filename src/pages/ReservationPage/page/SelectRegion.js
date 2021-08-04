@@ -15,6 +15,7 @@ export const SelectRegion = ({
   const [planData, setPlanData] = useState({});
   const [dateData, setDateData] = useState(TODAY_DATE);
   const [attendenceData, setAttendenceData] = useState({});
+  const [needRefreshPage, setNeedRefreshPage] = useState(false);
 
   const next = () => {
     if (!checkCanNext()) {
@@ -25,6 +26,7 @@ export const SelectRegion = ({
   };
   const handleDateChange = (e) => {
     setDateData(e.target.value);
+    setNeedRefreshPage(true);
   };
   const handleAttendenceChange = (e) => {
     if (Number.isNaN(parseInt(e.target.value, 10))) {
@@ -69,6 +71,8 @@ export const SelectRegion = ({
           setPlanData={setPlanData}
           calendarDate={dateData}
           isReadOnly={false}
+          needRefreshPage={needRefreshPage}
+          setNeedRefreshPage={setNeedRefreshPage}
         ></Board>
       </div>
 
@@ -76,11 +80,12 @@ export const SelectRegion = ({
         <div className="resultBlock__select">
           {dataListItems.map((item) => {
             if (Array.isArray(item.content)) {
+              console.log(item);
               //option list
               return (
                 <select
                   onChange={handleAttendenceChange}
-                  key={`item${item}`}
+                  key={`item${item.label}`}
                   className="resultBlock__select__item "
                 >
                   {item.content.map((text) => (
@@ -91,7 +96,10 @@ export const SelectRegion = ({
             } else {
               //draw div
               return (
-                <div key={`item${item}`} className="resultBlock__select__item">
+                <div
+                  key={`item${item.label}`}
+                  className="resultBlock__select__item"
+                >
                   <div className="resultBlock__select__item__label">
                     {item.label}
                   </div>

@@ -11,22 +11,19 @@ function Notice() {
   return (
     <div className="notice common__pageFrame">
       <div className="common__titleBlock">
-        {data.noticePage.noticeTitle.map((title, index) => {
+        {data.noticePage.noticeTitle.map((title) => {
           return (
             <div
-              key={`title${index}`}
+              key={title}
               className="notice__title common__title common__font--bold"
             >
               <p>{title}</p>
             </div>
           );
         })}
-        {data.noticePage.noticeSubtitles.map((subtitle, index) => {
+        {data.noticePage.noticeSubtitles.map((subtitle) => {
           return (
-            <div
-              key={`title${index}`}
-              className="notice__subtitle common__subtitle"
-            >
+            <div key={subtitle} className="notice__subtitle common__subtitle">
               <p>{subtitle}</p>
             </div>
           );
@@ -35,8 +32,8 @@ function Notice() {
 
       <div className="notice__list common__text common__block">
         <ul>
-          {data.noticePage.noticeList.map((notice, index) => {
-            return <li key={`notice${index}`}>{notice}</li>;
+          {data.noticePage.noticeList.map((notice) => {
+            return <li key={notice}>{notice}</li>;
           })}
         </ul>
       </div>
@@ -55,7 +52,7 @@ function Notice() {
 
         <Link
           to="/reservation"
-          className={`common__block  ${check ? null : "common__hidden"}`}
+          className={`common__block  ${check ? "" : "common__hidden"}`}
         >
           <Button text={data.noticePage.button.next}></Button>
         </Link>

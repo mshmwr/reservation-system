@@ -281,6 +281,7 @@ const Board = ({
   selectedRoom = "",
   isReadOnly,
   needRefreshPage,
+  setNeedRefreshPage,
 }) => {
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     getConstData();
@@ -486,9 +487,9 @@ const Board = ({
         selectedRoom === ""
           ? room.id !== selectedRoom
           : room.id === selectedRoom
-      ).map((room, index) => (
+      ).map((room) => (
         <div
-          key={`boardItem${index}`}
+          key={`boardItem${room.title}`}
           className="board__reservationBoardItem common__interval--normal"
         >
           <div className="board__reservationBoardItem__room">
@@ -510,6 +511,8 @@ const Board = ({
                 setLineCubeState={setLineCubeState}
                 currentRoom={currentRoom}
                 isReadOnly={isReadOnly}
+                needRefreshPage={needRefreshPage}
+                setNeedRefreshPage={setNeedRefreshPage}
               ></TimeLine>
             ) : null}
           </div>
