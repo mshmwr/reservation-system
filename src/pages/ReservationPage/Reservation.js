@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Reservation.css";
-import data from "../../data.json";
+import multiLang_CHT from "../../data.json";
 import { useHistory } from "react-router-dom";
 import { SelectRegion } from "./page/SelectRegion";
 import { FillInRegin } from "./page/FillInRegion";
@@ -8,9 +8,14 @@ import { Stepper } from "../../components/Stepper";
 import { postReservedData } from "../../apis/reservedDataApi";
 
 function Reservation() {
-  let history = useHistory();
-  const steps = data.stepper.steps;
-  const userInfoForm = data.reservationPage.userinfoform;
+  const history = useHistory();
+  const steps = multiLang_CHT.stepper.steps;
+  const userInfoForm = multiLang_CHT.reservationPage.userinfoform;
+  const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
+  const [step, setStep] = useState(steps[0]);
+  const [formInputList, setFormInputList] = useState(copyUserInfoForm);
+  //TODO(問助教):黑科技，把 formInputList 傳進 form 之後，他就get到值了，不用 setFormInputList 也可以，不要問我為什麼，我才是最想知道的那個人QQ
+  const [selectedData, setSelectedData] = useState({});
 
   const backClick = () => {
     switch (step) {
@@ -40,18 +45,17 @@ function Reservation() {
           ...filterFormData(formInputList),
           ...orderStatusData,
         };
-        let data = await postReservedData({ data: sendData });
-        if (data === null) {
-          console.log("fetch data is null: using fake data");
+        let parsedData = await postReservedData({ data: sendData });
+        if (parsedData === null) {
+          console.log("fetch data is null");
+          break;
         }
+        history.push(`/thankyou?orderId=${parsedData.order_id}`);
+
         break;
     }
   };
-  const [step, setStep] = useState(steps[0]);
-  const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
-  const [formInputList, setFormInputList] = useState(copyUserInfoForm);
-  //TODO(問助教):黑科技，把 formInputList 傳進 form 之後，他就get到值了，不用 setFormInputList 也可以，不要問我為什麼，我才是最想知道的那個人QQ
-  const [selectedData, setSelectedData] = useState({});
+
   return (
     <div className="reservation common__pageFrame">
       <Stepper currentStep={step}></Stepper>
@@ -60,20 +64,22 @@ function Reservation() {
           <SelectRegion
             backClick={backClick}
             nextClick={nextClick}
-            nextButtonText={data.reservationPage.selectStep.button.next}
-            dataListItems={data.reservationPage.selectStep.listItems}
+            nextButtonText={
+              multiLang_CHT.reservationPage.selectStep.button.next
+            }
+            dataListItems={multiLang_CHT.reservationPage.selectStep.listItems}
             setSelectedData={setSelectedData}
           ></SelectRegion>
         ) : (
           <FillInRegin
-            titles={data.reservationPage.titles}
-            subTitles={data.reservationPage.subTitles}
-            planItems={data.reservationPage.fillInStep.planItems}
+            titles={multiLang_CHT.reservationPage.titles}
+            subTitles={multiLang_CHT.reservationPage.subTitles}
+            planItems={multiLang_CHT.reservationPage.fillInStep.planItems}
             formInputList={formInputList}
             setFormInputList={setFormInputList}
             backClick={backClick}
             nextClick={nextClick}
-            buttonTexts={data.reservationPage.fillInStep.button}
+            buttonTexts={multiLang_CHT.reservationPage.fillInStep.button}
             steps={steps}
             step={step}
             selectedData={selectedData}

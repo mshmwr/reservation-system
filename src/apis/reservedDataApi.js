@@ -1,15 +1,3 @@
-// const requestParameters = {
-//   cache: "no-cache",
-//   credentials: "same-origin",
-//   headers: {
-//     "user-agent": "Mozilla/4.0 MDN Example",
-//     "content-type": "application/json",
-//   },
-//   mode: "cors",
-//   redirect: "follow",
-//   referrer: "no-referrer",
-// };
-
 import { requestParameters } from "../utils/API";
 
 //取得訂位資訊
@@ -50,8 +38,6 @@ const getReservedData = (date = "", order_id = "", room = "") => {
 
 //送出訂位資訊
 const postReservedData = (data = {}) => {
-  // console.log("fetch postReservedData");
-  // console.log(data);
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = "http://localhost:3100/reservation_data";
   const method = { method: "POST" };
@@ -69,7 +55,6 @@ const postReservedData = (data = {}) => {
 
 //修改訂位資訊
 const patchReservedData = (data = {}) => {
-  // console.log("fetch patchReservedData");
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = "http://localhost:3100/reservation_data";
   const method = { method: "PATCH" };
@@ -79,7 +64,6 @@ const patchReservedData = (data = {}) => {
       return response.text();
     })
     .then((result) => {
-      //處理資料
       const parsedData = JSON.parse(result).data;
       return parsedData;
     });

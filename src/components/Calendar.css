@@ -136,6 +136,7 @@
   justify-content: center;
   padding: 2rem;
   box-sizing: border-box;
+  overflow: auto;
 }
 .calendar__dialog__table__item {
   display: flex;
@@ -203,17 +204,20 @@
   background-color: var(--main-bg);
 }
 
+@media screen and (max-width: 1000px) {
+  .calendar__dialog__table__item {
+    width: 80%;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--main-light);
+  }
+}
+
 @media screen and (max-width: 600px) {
   .dialog__icon {
     right: 30px;
   }
   .calendar__dialog__table {
     overflow: auto;
-  }
-  .calendar__dialog__table__item {
-    width: 80%;
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--main-light);
   }
   .board__buttons {
     width: 80%;

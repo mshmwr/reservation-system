@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getReservedData, patchReservedData } from "../apis/reservedDataApi";
 import multiLang_CHT from "../data.json";
 import { TODAY_DATE } from "../utils/Date";
+import CloseIcon from "./CloseIcon";
 
 const dateMultiple = [1000, 100, 1];
 const checkDateIsEarlyThanToday = (date, today) => {
@@ -50,7 +51,7 @@ export const CalendarOrderDialog = ({
     setOrderStatusButton(e.target.id);
     selectedOrderStatusButton = option;
   };
-  const orderStatusConfirmButtonClickHandler = () => {
+  const orderStatusConfirmButtonClickHandler = async () => {
     const target_column = "order_status";
     const target_value = selectedOrderStatusButton;
     const order_id = orderId;
@@ -61,7 +62,11 @@ export const CalendarOrderDialog = ({
         order_id: order_id,
       },
     };
-    patchReservedData(patchData);
+    const parsedData = await patchReservedData(patchData);
+    if (parsedData.status === "error") {
+      const msg = `${multiLang_CHT.apiResponse.reservationData.patchFailed}\n${parsedData.message}`;
+      alert(msg);
+    }
     closeClickHandler();
     setNeedRefreshPage(true);
   };
@@ -103,9 +108,10 @@ export const CalendarOrderDialog = ({
       <div className="dialog">
         <div className="dialog__dialogMask" />
         <div className="dialog__dialogContent">
-          <div className="dialog__icon" onClick={closeClickHandler}>
+          <CloseIcon clickHandler={closeClickHandler} />
+          {/* <div className="dialog__icon" onClick={closeClickHandler}>
             <img />
-          </div>
+          </div> */}
           {orderData === null || orderData.length === 0
             ? "no reserved"
             : orderData.map((item) => (

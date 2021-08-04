@@ -80,7 +80,6 @@ export const SelectRegion = ({
         <div className="resultBlock__select">
           {dataListItems.map((item) => {
             if (Array.isArray(item.content)) {
-              console.log(item);
               //option list
               return (
                 <select
@@ -112,10 +111,10 @@ export const SelectRegion = ({
           })}
         </div>
         <div className="resultBlock__buttonGroup common__buttonGroup">
-          {backButtonText === undefined ? null : (
+          {backButtonText !== undefined && (
             <Button text={backButtonText} clickEvent={backClick}></Button>
           )}
-          {nextButtonText === undefined ? null : (
+          {nextButtonText !== undefined && (
             <Button text={nextButtonText} clickEvent={next}></Button>
           )}
         </div>

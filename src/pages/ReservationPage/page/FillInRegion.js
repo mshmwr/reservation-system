@@ -76,9 +76,7 @@ export const FillInRegin = ({
         {step === steps[1] ? (
           <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
         ) : (
-          <Link to="/thankyou">
-            <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
-          </Link>
+          <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
         )}
       </div>
     </div>

@@ -3,6 +3,7 @@ import "./Management.css";
 import Calendar from "../../components/Calendar";
 import { Board, getConstData } from "../../components/Board";
 import { TODAY_DATE } from "../../utils/Date";
+import { deleteUser } from "../../apis/usersApi";
 import Hamburger from "../../components/Hamburger";
 import multiLang_CHT from "../../data.json";
 import Button from "../../components/Button";
@@ -26,7 +27,10 @@ function Management() {
     setManagementSelectedDate(e.target.value);
   };
 
-  const logoutButtonClickHandler = () => {};
+  const logoutButtonClickHandler = async () => {
+    const parsedData = await deleteUser();
+    console.log(parsedData);
+  };
   return (
     <div className="management common__pageFrame">
       <div className={showTimeLineBoard ? "moveHamburger" : ""}>

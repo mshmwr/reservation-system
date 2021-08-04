@@ -28,6 +28,11 @@
   width: var(--logo-width);
 }
 
+.thankyou__content__orderId__text {
+  color: var(--light-red);
+  margin: 0.5rem auto;
+}
+
 @media screen and (max-width: 600px) {
   .thankyou__content__texts {
     width: 90%;
