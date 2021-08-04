@@ -10,10 +10,13 @@
   --light-gray: #f1f1f1;
   --main-gray: #cecece;
   --heavy-gray: #b8b8b8;
+  --slate-grey: slategrey;
   --black: #000000;
   --light-red: #ff8484;
   --main-red: #fa3c3c;
+  --yellow-green: yellowgreen;
   --light-green: #02bd1b;
+  --sea-green: seagreen;
 
   /* font-size */
   --title-font-size: 2rem;

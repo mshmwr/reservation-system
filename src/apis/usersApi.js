@@ -61,14 +61,11 @@ const patchUser = (data = {}) => {
     });
 };
 
-const deleteUser = (data = {}) => {
-  if (JSON.stringify(data) === "{}") {
-    return;
-  }
+const deleteUser = () => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = "http://localhost:3100/api/user";
   const method = { method: "DELETE" };
-  parameters = { body: JSON.stringify(data), ...method, ...parameters };
+  parameters = { ...method, ...parameters };
   return fetch(url, parameters)
     .then((response) => {
       return response.text();

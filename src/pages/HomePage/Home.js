@@ -100,13 +100,17 @@ function Home() {
         <Link to="/notice" className="common__block home__content__btn">
           <Button text="開始預約"></Button>
         </Link>
-        <Link to="/management" className="common__block home__content__btn">
-          <Button text="前往後台"></Button>
-        </Link>
+        {isLoggedIn && (
+          <Link to="/management" className="common__block home__content__btn">
+            <Button text="前往後台"></Button>
+          </Link>
+        )}
 
-        <Link to="/memberSystem" className="common__block home__content__btn">
-          <Button text="會員系統"></Button>
-        </Link>
+        {isLoggedIn && (
+          <Link to="/memberSystem" className="common__block home__content__btn">
+            <Button text="會員系統"></Button>
+          </Link>
+        )}
       </div>
     </div>
   );

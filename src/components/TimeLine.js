@@ -51,12 +51,14 @@ export const TimeLine = ({
 
   useEffect(() => {
     setCubeHover(initCubeHover(timeRegion));
-    setNeedRefreshPage(false);
+    if (setNeedRefreshPage !== undefined) {
+      setNeedRefreshPage(false);
+    }
   }, [needRefreshPage]);
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
-    console.log(roomId + ", " + cubeId);
+    // console.log(roomId + ", " + cubeId);
     if (cubeId === "") return;
     if (roomId === cubeId) return;
     let needInit = switchCurrentRoom(roomId, cubeId);
@@ -181,7 +183,7 @@ export const TimeLine = ({
             roomId === currentRoom.slice()[0].roomId &&
             cubeHover.slice()[index].isSelected
               ? "timeLineCube--selected-hovered"
-              : null
+              : ""
           }
 
           ${cube.isReserved ? "timeLineCube--reserved" : ""}

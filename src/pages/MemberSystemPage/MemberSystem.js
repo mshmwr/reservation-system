@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import "./MemberSystem.css";
 import multiLang_CHT from "../../data.json";
-import { getUser, postUser, patchUser, deleteUser } from "../../apis/usersApi";
+import { postUser, patchUser, deleteUser } from "../../apis/usersApi";
 import Button from "../../components/Button";
 import { checkLoggedIn } from "../../utils/API";
 
@@ -59,6 +59,9 @@ const sendApi = async (accountStatus, sendData) => {
     case "register":
       parsedData = await postUser({ data: sendData });
       break;
+    case "logout":
+      parsedData = await deleteUser();
+      break;
     default:
       break;
   }
@@ -106,6 +109,12 @@ function MemberSystem() {
   };
 
   const buttonClickHandler = async () => {
+    if (isLoggedIn) {
+      const parsedData = await sendApi("logout");
+      console.log(parsedData.message);
+      return;
+    }
+
     setInputClick(false);
     const errorMsg = inputVerifier(ownerFormInputList, setAccountActionStatus);
     if (errorMsg !== "") {
@@ -117,16 +126,10 @@ function MemberSystem() {
     const formInput =
       accountStatus === "login" ? copyOwnerLoginForm : copyOwnerRegisterForm;
     setOwnerLoginFormInputList(formInput);
-    console.log(ownerFormInputList);
-    //送api
-    //data
-
-    console.log(accountStatus);
     let sendData = {};
     ownerFormInputList.forEach((item) => {
       sendData[item.name] = item.value;
     });
-    console.log(sendData);
     const parsedData = await sendApi(accountStatus, sendData);
     console.log(parsedData.message);
     setAccountActionStatus(parsedData.status);
@@ -153,7 +156,6 @@ function MemberSystem() {
   }
   return (
     <div className="memberSystem common__pageFrame">
-      {console.log(isLoggedIn)}
       <p className="common__block common__block--bilateral common__subtitle">
         {multiLang_CHT.memberSystemPage.welcome}
       </p>
@@ -178,7 +180,7 @@ function MemberSystem() {
                   </div>
                 ))}
               </form>
-              {accountActionMessage !== "" && !inputClick ? (
+              {accountActionMessage !== "" && !inputClick && (
                 <p
                   className={`memberSystem__card__message ${switchAccountMessageColor(
                     accountActionStatus
@@ -186,19 +188,19 @@ function MemberSystem() {
                 >
                   {accountActionMessage}
                 </p>
-              ) : null}
+              )}
             </div>
           )}
 
           <div className="memberSystem__card__button">
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <Link
                 to="/management"
                 className="common__block home__content__btn"
               >
                 <Button text="前往後台"></Button>
               </Link>
-            ) : null}
+            )}
             <Button
               text={
                 isLoggedIn
