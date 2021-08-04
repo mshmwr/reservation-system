@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import "./MemberSystem.css";
 import multiLang_CHT from "../../data.json";
 import { getUser, postUser, patchUser, deleteUser } from "../../apis/usersApi";
-import { Button } from "../../components/Button";
+import Button from "../../components/Button";
 import { checkLoggedIn } from "../../utils/API";
 
 // const checkLoggedIn = async (setIsLoggedIn) => {

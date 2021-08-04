@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import data from "../../data.json";
 import "./Notice.css";
-import { Button } from "../../components/Button";
+import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 
 function Notice() {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Board } from "../../../components/Board";
-import { Button } from "../../../components/Button";
+import Button from "../../../components/Button";
 import "./SelectRegion.css";
 
 export const SelectRegion = ({

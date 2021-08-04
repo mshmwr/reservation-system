@@ -1,75 +1,95 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css";
-import data from "../../data.json";
-import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
+import "./Home.css";
+import multiLang_CHT from "../../data.json";
+import Button from "../../components/Button";
 import Hamburger from "../../components/Hamburger";
+import CloseIcon from "../../components/CloseIcon";
+import Menu from "../../components/Menu";
 import { checkLoggedIn } from "../../utils/API";
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showWindow, setShowWindow] = useState(false);
+  const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
 
   useEffect(() => {
     checkLoggedIn(setIsLoggedIn);
   }, []);
 
-  const closeClickHandler = () => {};
-  const orderSearchClickHandler = () => {};
+  const menuClickHandler = () => {
+    setShowMenu(!showMenu);
+  };
+  const closeWindowClickHandler = () => {
+    setShowWindow(false);
+  };
 
   return (
     <div className="home common__pageFrame">
-      <Hamburger clickHandler={closeClickHandler} />
-      <div className="featureButtonGroup">
-        {/* <Link to="/bulletinBoard" className="common__block home__content__btn">
-          <Button text="留言版" />
-        </Link> */}
-        {isLoggedIn ? (
-          <Link to="/memberSystem" className="common__block home__content__btn">
-            <Button text="會員系統" />
-          </Link>
-        ) : null}
-        {isLoggedIn ? (
-          <Link to="/management" className="common__block home__content__btn">
-            <Button text="前往後台" />
-          </Link>
-        ) : null}
-        <div className="common__block home__content__btn">
-          <Button text="訂單查詢" clickEvent={orderSearchClickHandler} />
-          <input type="text" />
+      <Hamburger isShowItem={showMenu} clickHandler={menuClickHandler} />
+      <Menu
+        showMenu={showMenu}
+        isLoggedIn={isLoggedIn}
+        setOrderSearchResultArr={setOrderSearchResultArr}
+        setShowWindow={setShowWindow}
+      />
+
+      {showWindow && (
+        <div className="orderResultWindow">
+          <CloseIcon clickHandler={closeWindowClickHandler} />
+          {/* <div className="closeIcon" onClick={closeWindowClickHandler}>
+            <div className="closeIcon__close" />
+          </div> */}
+          {orderSearchResultArr.map((item) => (
+            <div key={item.order_id} className="orderResultWindow__table">
+              {multiLang_CHT.orderTableList.map((data) => (
+                <div key={data.key} className="orderResultWindow__table__item">
+                  <p className="orderResultWindow__table__item__label">
+                    {data.label}
+                  </p>
+                  <p className="orderResultWindow__table__item__value">
+                    {item[data.key]}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
-      </div>
+      )}
+
       <div className="home__banner"></div>
       <div className="home__welcome">
         <p className="home__welcome__title common__title common__font--bold">
-          {data.homePage.welcomeTitle}
+          {multiLang_CHT.homePage.welcomeTitle}
         </p>
         <ul>
-          {data.homePage.welcomeTexts.map((text, index) => (
-            <li key={`welcomeText${index}`}>{text}</li>
+          {multiLang_CHT.homePage.welcomeTexts.map((text) => (
+            <li key={`welcomeText${text}`}>{text}</li>
           ))}
         </ul>
       </div>
       <div className="home__content">
         <div className="home__content__instruction">
           <p className="home__content__instruction__title common__subtitle common__font--bold common__block--bilateral">
-            {data.homePage.instructionTitle}
+            {multiLang_CHT.homePage.instructionTitle}
           </p>
-          {data.homePage.instructionTexts.map((text, index) => (
+          {multiLang_CHT.homePage.instructionTexts.map((text) => (
             <p
               className="home__content__instruction__texts common__interval--normal"
-              key={`instructionText${index}`}
+              key={`instructionText${text}`}
             >
               {text}
             </p>
           ))}
           <p className="home__content__instruction__ruleTitle common__font--bold ">
-            {data.homePage.ruleTitle}
+            {multiLang_CHT.homePage.ruleTitle}
           </p>
           <ul>
-            {data.homePage.ruleTexts.map((text, index) => (
+            {multiLang_CHT.homePage.ruleTexts.map((text) => (
               <li
                 className="className=home__content__instruction__ruleTexts"
-                key={`ruleText${index}`}
+                key={`ruleText${text}`}
               >
                 {text}
               </li>

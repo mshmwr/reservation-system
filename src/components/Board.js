@@ -260,11 +260,12 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
 };
 
 const getConstData = () => {
-  const ROOM_LIST = multiLang_CHT.reservationPage.selectStep.roomList;
+  const ROOM_LIST = multiLang_CHT.roomInfo.roomList;
   const START_TIME = multiLang_CHT.reservationPage.startTime;
   const END_TIME = multiLang_CHT.reservationPage.endTime;
   const TIME_REGION = getTimeRegion(START_TIME, END_TIME);
   const TIME_REGION_MAPPING = getTimeRegionMapping(TIME_REGION);
+
   return {
     ROOM_LIST,
     START_TIME,

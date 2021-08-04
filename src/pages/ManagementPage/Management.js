@@ -4,6 +4,7 @@ import Calendar from "../../components/Calendar";
 import { Board, getConstData } from "../../components/Board";
 import { TODAY_DATE } from "../../utils/Date";
 import Hamburger from "../../components/Hamburger";
+import multiLang_CHT from "../../data.json";
 
 const { ROOM_LIST } = getConstData();
 
@@ -25,7 +26,10 @@ function Management() {
   };
   return (
     <div className="management common__pageFrame">
-      <Hamburger clickHandler={closeClickHandler} />
+      <Hamburger
+        isShowItem={showTimeLineBoard}
+        clickHandler={closeClickHandler}
+      />
       <div
         className={`management__frame ${
           showTimeLineBoard ? "" : "common__hidden"
@@ -36,11 +40,11 @@ function Management() {
           <div className="management__frame__selectBlock__item">
             <label className="common__font--bold">Select Room</label>
             <select onChange={handleRoomSelectChange}>
-              <option value="" className="">
-                all rooms
+              <option value={multiLang_CHT.roomInfo.selectDefaultOption.id}>
+                {multiLang_CHT.roomInfo.selectDefaultOption.title}
               </option>
               {ROOM_LIST.map((room) => (
-                <option key={room.id} value={`${room.id}`} className="">
+                <option key={room.id} value={room.id}>
                   {room.title}
                 </option>
               ))}

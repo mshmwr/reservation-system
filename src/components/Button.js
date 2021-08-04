@@ -1,9 +1,15 @@
 import React from "react";
 import "./Button.css";
-export const Button = ({ text, clickEvent }) => {
+const Button = ({ text, clickEvent, isDisable = false, id }) => {
   return (
-    <button className={`btn`} onClick={clickEvent}>
+    <button
+      id={id}
+      className={`btn`}
+      onClick={clickEvent}
+      disabled={isDisable ? "disabled" : ""}
+    >
       {text}
     </button>
   );
 };
+export default Button;

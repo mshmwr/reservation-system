@@ -97,29 +97,6 @@
       }
     ],
     "selectStep": {
-      "roomList": [
-        {
-          "id": "A",
-          "title": "A包廂",
-          "subtitle": "F1",
-          "machine": "((JOYSOUND))",
-          "value": 100
-        },
-        {
-          "id": "B",
-          "title": "B包廂",
-          "subtitle": "MAX GO",
-          "machine": "((DAM))",
-          "value": 200
-        },
-        {
-          "id": "C",
-          "title": "C包廂",
-          "subtitle": "XG7000",
-          "machine": "((JOYSOUND))",
-          "value": 300
-        }
-      ],
       "listItems": [
         {
           "name": "room",
@@ -334,5 +311,47 @@
       "emptyColumns": "請輸入",
       "comma": "、"
     }
+  },
+  "multiLanguages": [
+    "CHT",
+    "ENG"
+  ],
+  "features": {
+    "memberSystem": "會員系統",
+    "management": "前往後台",
+    "orderSearch": "訂單查詢",
+    "orderSearchTexts": {
+      "orderIdInput": "請輸入訂單編號",
+      "noResult": "查無訂單"
+    }
+  },
+  "roomInfo": {
+    "selectDefaultOption": {
+      "id": "",
+      "title": "所有包廂"
+    },
+    "roomList": [
+      {
+        "id": "A",
+        "title": "A包廂",
+        "subtitle": "F1",
+        "machine": "((JOYSOUND))",
+        "value": 100
+      },
+      {
+        "id": "B",
+        "title": "B包廂",
+        "subtitle": "MAX GO",
+        "machine": "((DAM))",
+        "value": 200
+      },
+      {
+        "id": "C",
+        "title": "C包廂",
+        "subtitle": "XG7000",
+        "machine": "((JOYSOUND))",
+        "value": 300
+      }
+    ]
   }
 }

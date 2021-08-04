@@ -1,0 +1,65 @@
+.menu {
+  position: fixed;
+  z-index: var(--zIndex-managementIcon);
+  padding: 1rem 1rem 0 1rem;
+  width: 150px;
+  min-height: 50px;
+  right: 20px;
+  top: 55px;
+  background-color: var(--main-light37);
+  border: 1px solid var(--main-normal);
+}
+.menu .common__block {
+  margin-bottom: 1rem;
+}
+
+.menu Button {
+  padding: 0.2rem 0;
+  width: var(--homeMenu-width);
+  min-width: auto;
+}
+.home__menu__feature {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  flex-direction: column;
+}
+
+.home__menu__order__input {
+  height: 24px;
+  width: var(--homeMenu-width);
+  box-sizing: border-box;
+}
+.home__menu__order__result {
+  margin: 0.5rem 0;
+}
+.home__menu__language {
+  width: var(--homeMenu-width);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+.home__menu__language Button {
+  width: 4rem;
+  border-radius: 0;
+  font-size: var(--text-font-size);
+}
+
+.home__menu__language--selected Button {
+  background-color: var(--main-normal);
+  cursor: default;
+}
+.home__menu__language--selected Button:hover {
+  background-color: var(--main-normal);
+}
+
+.home__menu__language--unselected Button {
+  background-color: var(--main-light37);
+}
+.home__menu__language--unselected Button:hover {
+  background-color: var(--main-light37);
+}
