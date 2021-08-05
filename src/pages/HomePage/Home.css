@@ -1,11 +1,11 @@
 .home__banner {
   height: 350px;
   width: 100%;
-  background-image: url("https://fakeimg.pl/875x350/");
+  background-image: url("https://images.pexels.com/photos/7319337/pexels-photo-7319337.jpeg");
   background-size: cover;
   background-position: 50% 50%;
   display: flex;
-  margin: var(--div-margin);
+  margin: 1rem 0 2rem 0;
 }
 
 .home__content {

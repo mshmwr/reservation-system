@@ -35,13 +35,17 @@ function Thankyou() {
           <div className="thankyou__content__logo common__block">
             {/* <img src={require("../../img/logo_120_120.png")} alt="Background" /> */}
             {/* TODO: 這邊要判斷拿的圖片是網址還是本地 */}
-
+            {/* 
+            <div className="thankyou__content__logo--img">
+              <i class="fas fa-home"></i>
+            </div> */}
+            <i class="fas fa-home"></i>
             <img
               className="thankyou__content__logo--img"
-              src={multiLang_CHT.thankyouPage.logo}
+              src={require("../../img/home.png")}
               alt="logo"
             />
-          </div>{" "}
+          </div>
         </Link>
       </div>
     </div>

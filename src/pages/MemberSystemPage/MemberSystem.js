@@ -141,10 +141,10 @@ function MemberSystem() {
     }
     switch (accountStatus) {
       case "login":
-        history.go(0);
+        history.push("/");
         break;
       case "register":
-        history.go(0);
+        // history.go(0);
         break;
       case "logout":
         history.push("/");
