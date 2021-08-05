@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import "./MemberSystem.css";
 import multiLang_CHT from "../../data.json";
 import { postUser, patchUser, deleteUser } from "../../apis/usersApi";
@@ -75,7 +75,9 @@ const switchAccountMessageColor = (accountActionStatus) => {
       return "memberSystem__card__message--error";
   }
 };
+
 function MemberSystem() {
+  const history = useHistory();
   const ownerLoginForm = multiLang_CHT.memberSystemPage.ownerLoginForm;
   const ownerRegisterForm = multiLang_CHT.memberSystemPage.ownerRegisterForm;
 
@@ -91,9 +93,14 @@ function MemberSystem() {
     useState(copyOwnerLoginForm);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(isLoggedIn);
   useEffect(() => {
-    checkLoggedIn(setIsLoggedIn);
-  }, []);
+    async function fetchData() {
+      const isLogin = await checkLoggedIn();
+      setIsLoggedIn(isLogin);
+    }
+    fetchData();
+  }, [isLoggedIn]);
 
   const clickAccountStatusHandler = () => {
     switchAccountStatus(accountStatus, setAccountStatus);
@@ -129,6 +136,22 @@ function MemberSystem() {
     console.log(parsedData.message);
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);
+    if (parsedData.status !== "ok") {
+      return;
+    }
+    switch (accountStatus) {
+      case "login":
+        history.go(0);
+        break;
+      case "register":
+        history.go(0);
+        break;
+      case "logout":
+        history.push("/");
+        break;
+      default:
+        break;
+    }
   };
 
   const handleChange = (formItem, targetValue) => {
@@ -145,10 +168,8 @@ function MemberSystem() {
   const handleInputClick = () => {
     setInputClick(true);
   };
+  console.log(accountStatus);
 
-  if (accountStatus === "register") {
-    // return <Redirect to="/memberSystem" />
-  }
   return (
     <div className="memberSystem common__pageFrame">
       <p className="common__block common__block--bilateral common__subtitle">

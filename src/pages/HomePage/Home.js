@@ -13,10 +13,15 @@ function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
+  console.log(isLoggedIn);
 
   useEffect(() => {
-    checkLoggedIn(setIsLoggedIn);
-  }, []);
+    async function fetchData() {
+      const isLogin = await checkLoggedIn();
+      setIsLoggedIn(isLogin);
+    }
+    fetchData();
+  }, [isLoggedIn]);
 
   const menuClickHandler = () => {
     setShowMenu(!showMenu);

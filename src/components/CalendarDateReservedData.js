@@ -36,7 +36,7 @@ export const CalendarDateReservedData = ({
   selectedRoom,
 }) => {
   const [dateDatas, setDateDatas] = useState(null);
-  const fetchData = async () => {
+  const fetchReservedData = async () => {
     const fetchedData = await getReservedData(columnDate, undefined, undefined);
     if (fetchedData === null) {
       return;
@@ -48,7 +48,10 @@ export const CalendarDateReservedData = ({
     setNeedRefreshPage(false);
     setDateDatas(resultData);
   };
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
+      await fetchReservedData();
+    }
     fetchData();
   }, [needRefreshPage]);
 

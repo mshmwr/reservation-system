@@ -1,4 +1,4 @@
-import { getUser, deleteUser } from "../apis/usersApi";
+import { getUser } from "../apis/usersApi";
 
 const requestParameters = {
   cache: "no-cache",
@@ -12,16 +12,14 @@ const requestParameters = {
   referrer: "no-referrer",
 };
 
-const checkLoggedIn = async (setIsLoggedIn) => {
+const checkLoggedIn = async () => {
   const parsedData = await getUser();
   // console.log(parsedData);
-
-  // setIsLoggedIn(true);
-  // return;
+  // return true;
   if (parsedData.status === "ok") {
-    setIsLoggedIn(true);
+    return true;
   }
-  setIsLoggedIn(false);
+  return false;
 };
 
 export { requestParameters, checkLoggedIn };
