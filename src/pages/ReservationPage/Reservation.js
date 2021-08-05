@@ -37,7 +37,6 @@ function Reservation() {
         setStep(steps[1]);
         break;
       case steps[1]:
-        console.log(formInputList);
         //驗證輸入合法性
         const valid = formInputList.every(
           (input) => validateInput(input) === true
@@ -57,7 +56,7 @@ function Reservation() {
         };
         let parsedData = await postReservedData({ data: sendData });
         if (parsedData === null) {
-          console.log("fetch data is null");
+          // console.log("fetch data is null");
           break;
         }
         history.push(`/thankyou?orderId=${parsedData.order_id}`);

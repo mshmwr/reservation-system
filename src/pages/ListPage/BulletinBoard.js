@@ -34,7 +34,6 @@ export default class BulletinBoard extends Component {
   removeInfo = (item) => {
     return (e) => {
       e.preventDefault();
-      console.log(`item.num=${item.num}`);
       const listInfos = this.state.listInfos.slice();
       this.setState({
         listInfos: listInfos.filter((info) => info.num !== item.num),

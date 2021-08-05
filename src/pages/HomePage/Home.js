@@ -13,7 +13,7 @@ function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   useEffect(() => {
     async function fetchData() {

@@ -4,8 +4,6 @@ const validateInput = (inputData) => {
   if (regExp === null) {
     return true; //不須驗證validation
   }
-  console.log(str.search(regExp));
-  console.log(str.search(regExp) !== -1);
   return str.search(regExp) !== -1;
 };
 

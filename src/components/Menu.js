@@ -21,9 +21,7 @@ const Menu = ({
     setLanguage(e.target.id);
   };
   const orderSearchClickHandler = async () => {
-    console.log(typeof inputOrderId);
     const orderId = inputOrderId;
-    console.log(orderId.length);
     if (orderId === "") {
       setOrderSearchResultText(orderId);
       setOrderSearchResultArr([]);
@@ -47,7 +45,7 @@ const Menu = ({
         multiLang_CHT.features.orderSearchTexts.noResult
       );
       setOrderSearchResultArr([]);
-      console.log("fetch data is empty array");
+      // console.log("fetch data is empty array");
     } else {
       setOrderSearchResultArr(resultData);
       setShowWindow(true);

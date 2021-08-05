@@ -93,7 +93,7 @@ function MemberSystem() {
     useState(copyOwnerLoginForm);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   useEffect(() => {
     async function fetchData() {
       const isLogin = await checkLoggedIn();
@@ -112,16 +112,15 @@ function MemberSystem() {
 
   const buttonClickHandler = async () => {
     if (isLoggedIn) {
-      const parsedData = await sendApi("logout");
+      await sendApi("logout");
       history.push("/");
-      console.log(parsedData.message);
       return;
     }
 
     setInputClick(false);
     const errorMsg = inputVerifier(ownerFormInputList, setAccountActionStatus);
     if (errorMsg !== "") {
-      console.log(errorMsg);
+      // console.log(errorMsg);
       setAccountActionMessage(errorMsg);
       return;
     }
@@ -134,7 +133,7 @@ function MemberSystem() {
       sendData[item.name] = item.value;
     });
     const parsedData = await sendApi(accountStatus, sendData);
-    console.log(parsedData.message);
+    // console.log(parsedData.message);
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);
     if (parsedData.status !== "ok") {
@@ -169,7 +168,6 @@ function MemberSystem() {
   const handleInputClick = () => {
     setInputClick(true);
   };
-  console.log(accountStatus);
 
   return (
     <div className="memberSystem common__pageFrame">

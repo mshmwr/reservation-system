@@ -298,7 +298,7 @@ const Board = ({
       }
       const resultData = fetchedData.result;
       if (resultData === null) {
-        console.log("fetch data is null");
+        // console.log("fetch data is null");
       }
       setReservedData(resultData);
       setInit(resultData);
@@ -372,7 +372,7 @@ const Board = ({
 
     if (firstRoom.roomId === secondRoom.roomId) {
       //當作是新的點擊
-      console.log("新的點擊");
+      // console.log("新的點擊");
       newRoom = [{ roomId: roomId, cubeId: cubeId, index: cubeIdIndex }, empty];
       setCurrentRoom(newRoom);
       needInit = true;
@@ -389,7 +389,7 @@ const Board = ({
     switch (firstRoom.roomId) {
       case roomId:
         //本次點擊 和 前次點擊 的 roomId 一樣
-        console.log("本次點擊 和 前次點擊 的 roomId 一樣");
+        // console.log("本次點擊 和 前次點擊 的 roomId 一樣");
         /* 會有三種情況:
           1. 兩次點的是同一個時間方塊
               newRoom = [empty, empty]; //reset
@@ -415,7 +415,7 @@ const Board = ({
           }
         }
         if (needResetRoom) {
-          console.log("有已經被預約的時間區塊: reset");
+          // console.log("有已經被預約的時間區塊: reset");
           break;
         }
 
@@ -439,7 +439,7 @@ const Board = ({
             }`,
           }); //{ room: "A包廂", duration: 3, startTime: "11:00" };
           isSelectFinished = true;
-          console.log("選擇完成");
+          // console.log("選擇完成");
         }
         if (cubeIdIndex < firstCubeIdIndex) {
           newRoom = [
@@ -448,13 +448,13 @@ const Board = ({
           ];
           setCurrentRoom(newRoom);
           needInit = true;
-          console.log("新的點擊");
+          // console.log("新的點擊");
         }
         break;
 
       default:
         //本次點擊 和 前次點擊 的 roomId 不一樣: 當作是新的點擊
-        console.log("本次點擊 和 前次點擊 的 roomId 不一樣");
+        // console.log("本次點擊 和 前次點擊 的 roomId 不一樣");
         newRoom = [
           { roomId: roomId, cubeId: cubeId, index: cubeIdIndex },
           empty,

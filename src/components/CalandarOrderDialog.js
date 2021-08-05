@@ -39,7 +39,7 @@ export const CalendarOrderDialog = ({
     }
     const resultData = fetchedData.result;
     if (resultData.length === 0) {
-      console.log("fetch data is empty array");
+      // console.log("fetch data is empty array");
     } else {
       setOrderStatusButton(resultData[0].order_status);
       setOriginOrderStatusButton(resultData[0].order_status);
