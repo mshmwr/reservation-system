@@ -14,8 +14,8 @@ const requestParameters = {
 
 const checkLoggedIn = async () => {
   const parsedData = await getUser();
-  // console.log(parsedData);
-  // return true;
+  console.log(parsedData);
+  return true;
   if (parsedData.status === "ok") {
     return true;
   }

@@ -33,18 +33,13 @@ function Thankyou() {
         </div>
         <Link to="/">
           <div className="thankyou__content__logo common__block">
-            {/* <img src={require("../../img/logo_120_120.png")} alt="Background" /> */}
-            {/* TODO: 這邊要判斷拿的圖片是網址還是本地 */}
-            {/* 
-            <div className="thankyou__content__logo--img">
-              <i class="fas fa-home"></i>
-            </div> */}
-            <i class="fas fa-home"></i>
-            <img
-              className="thankyou__content__logo--img"
-              src={require("../../img/home.png")}
-              alt="logo"
-            />
+            <div className="thankyou__content__logo__img">
+              <img
+                className=""
+                // src="https://idcweb1.ches.ntpc.edu.tw/art/images/home.png"
+                alt="logo"
+              />
+            </div>
           </div>
         </Link>
       </div>

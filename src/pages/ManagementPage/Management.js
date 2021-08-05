@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./Management.css";
 import Calendar from "../../components/Calendar";
 import { Board, getConstData } from "../../components/Board";
@@ -11,6 +12,7 @@ import Button from "../../components/Button";
 const { ROOM_LIST } = getConstData();
 
 function Management() {
+  const history = useHistory();
   const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState("");
   const [managementSelectedDate, setManagementSelectedDate] =
@@ -28,8 +30,9 @@ function Management() {
   };
 
   const logoutButtonClickHandler = async () => {
-    const parsedData = await deleteUser();
-    console.log(parsedData);
+    await deleteUser();
+    history.push("/");
+    // console.log(parsedData);
   };
   return (
     <div className="management common__pageFrame">

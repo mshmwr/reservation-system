@@ -139,7 +139,14 @@ input:invalid {
   background-color: var(--light-red);
 }
 
-.input:invalid ~ button {
-  color: azure;
-  pointer-events: none;
+@media screen and (max-width: 600px) {
+  .common__buttonGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .common__buttonGroup Button {
+    margin: 0 0 1rem 0;
+  }
 }

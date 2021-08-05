@@ -113,6 +113,7 @@ function MemberSystem() {
   const buttonClickHandler = async () => {
     if (isLoggedIn) {
       const parsedData = await sendApi("logout");
+      history.push("/");
       console.log(parsedData.message);
       return;
     }

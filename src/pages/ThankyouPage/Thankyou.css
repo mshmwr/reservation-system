@@ -23,10 +23,23 @@
   margin: 0 auto var(--text-font-size);
 }
 
-.thankyou__content__logo--img {
+.thankyou__content__logo__img {
   height: var(--logo-height);
   width: var(--logo-width);
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
 }
+
+.thankyou__content__logo__img img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: url("../../img/home.png");
+}
+
 .thankyou__content__orderId {
   width: 100%;
   word-break: break-all;
