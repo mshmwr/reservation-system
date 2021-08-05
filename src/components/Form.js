@@ -69,7 +69,13 @@ export default class Form extends Component {
             <input
               onClick={this.handleInputClick}
               value={inputItem.value}
-              type="text"
+              type={inputItem.type}
+              placeholder={inputItem.placeholder}
+              minLength={inputItem.minLength}
+              maxLength={inputItem.maxLength}
+              size={inputItem.size}
+              pattern={inputItem.pattern}
+              required={inputItem.required}
               onChange={(e) => this.handleChange(inputItem, e.target.value)}
             ></input>
           </div>

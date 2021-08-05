@@ -131,3 +131,15 @@ html {
   border: 1px solid var(--main-normal);
   transition: all 0.2s ease;
 }
+
+input:valid {
+  /* background-color: powderblue; */
+}
+input:invalid {
+  background-color: var(--light-red);
+}
+
+.input:invalid ~ button {
+  color: azure;
+  pointer-events: none;
+}

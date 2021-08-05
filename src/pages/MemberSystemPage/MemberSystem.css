@@ -80,6 +80,10 @@
   color: var(--main-normal);
 }
 
+.memberSystem__card__form .form__item > input {
+  width: 40%;
+}
+
 @media screen and (max-width: 1000px) {
   .memberSystem__card {
     width: 50%;

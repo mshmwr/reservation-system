@@ -6,10 +6,11 @@ import { SelectRegion } from "./page/SelectRegion";
 import { FillInRegin } from "./page/FillInRegion";
 import { Stepper } from "../../components/Stepper";
 import { postReservedData } from "../../apis/reservedDataApi";
+import { validateInput } from "../../utils/Utils";
 
 function Reservation() {
   const history = useHistory();
-  const steps = multiLang_CHT.stepper.steps;
+  const steps = multiLang_CHT.stepper.steps; //["select", "fillIn", "finish"]
   const userInfoForm = multiLang_CHT.reservationPage.userinfoform;
   const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
   const [step, setStep] = useState(steps[0]);
@@ -36,6 +37,15 @@ function Reservation() {
         setStep(steps[1]);
         break;
       case steps[1]:
+        console.log(formInputList);
+        //驗證輸入合法性
+        const valid = formInputList.every(
+          (input) => validateInput(input) === true
+        );
+        if (!valid) {
+          alert(multiLang_CHT.messages.invalid);
+          break;
+        }
         setStep(steps[2]);
         break;
       default:

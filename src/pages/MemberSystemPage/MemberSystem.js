@@ -5,27 +5,24 @@ import multiLang_CHT from "../../data.json";
 import { postUser, patchUser, deleteUser } from "../../apis/usersApi";
 import Button from "../../components/Button";
 import { checkLoggedIn } from "../../utils/API";
-
-// const checkLoggedIn = async (setIsLoggedIn) => {
-//   const parsedData = await getUser();
-//   console.log(parsedData);
-
-//   if (parsedData.status === "ok") {
-//     setIsLoggedIn(true);
-//   }
-//   setIsLoggedIn(false);
-// };
+import { validateInput } from "../../utils/Utils";
 
 const inputVerifier = (ownerFormInputList, setAccountActionStatus) => {
   let errorMsg = "";
   const emptyColumns = ownerFormInputList.filter((col) => col.value === "");
   if (emptyColumns.length === 0) {
     //都有輸入資料
+    //驗證合法性
+    const valid = ownerFormInputList.every(
+      (input) => validateInput(input) === true
+    );
+    if (!valid) {
+      errorMsg += multiLang_CHT.messages.invalid;
+    }
     return errorMsg;
   }
   setAccountActionStatus("");
-  console.log(emptyColumns);
-  console.log(multiLang_CHT.memberSystemPage.errorMessage.emptyColumns);
+  //錯誤訊息：請輸入帳號、密碼...etc
   errorMsg += multiLang_CHT.memberSystemPage.errorMessage.emptyColumns;
   emptyColumns.forEach((col, index) => {
     errorMsg += col.label;
@@ -78,7 +75,6 @@ const switchAccountMessageColor = (accountActionStatus) => {
       return "memberSystem__card__message--error";
   }
 };
-
 function MemberSystem() {
   const ownerLoginForm = multiLang_CHT.memberSystemPage.ownerLoginForm;
   const ownerRegisterForm = multiLang_CHT.memberSystemPage.ownerRegisterForm;
@@ -95,7 +91,6 @@ function MemberSystem() {
     useState(copyOwnerLoginForm);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
     checkLoggedIn(setIsLoggedIn);
   }, []);
@@ -174,9 +169,15 @@ function MemberSystem() {
                     <input
                       onClick={handleInputClick}
                       value={inputItem.value}
-                      type="text"
+                      type={inputItem.type}
+                      placeholder={inputItem.placeholder}
+                      minLength={inputItem.minLength}
+                      maxLength={inputItem.maxLength}
+                      size={inputItem.size}
+                      pattern={inputItem.pattern}
+                      required={inputItem.required}
                       onChange={(e) => handleChange(inputItem, e.target.value)}
-                    ></input>
+                    />
                   </div>
                 ))}
               </form>

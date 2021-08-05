@@ -83,17 +83,38 @@
       {
         "name": "name",
         "label": "姓名",
-        "value": ""
+        "value": "",
+        "type": "text",
+        "required": "required",
+        "placeholder": null,
+        "minLength": null,
+        "maxLength": null,
+        "size": null,
+        "pattern": null
       },
       {
         "name": "phone",
         "label": "手機",
-        "value": ""
+        "value": "",
+        "type": "tel",
+        "required": "required",
+        "placeholder": "09xxxxxxxx",
+        "minLength": 10,
+        "maxLength": 10,
+        "size": 10,
+        "pattern": "^[09]{2}[0-9]{8}$"
       },
       {
         "name": "email",
         "label": "E-mail",
-        "value": ""
+        "value": "",
+        "type": "email",
+        "required": "required",
+        "placeholder": "xxx@example.com",
+        "minLength": 4,
+        "maxLength": 100,
+        "size": 100,
+        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
       }
     ],
     "selectStep": {
@@ -295,29 +316,64 @@
       {
         "name": "email",
         "label": "E-mail",
-        "value": ""
+        "value": "",
+        "type": "email",
+        "required": "required",
+        "placeholder": "xxx@example.com",
+        "minLength": 4,
+        "maxLength": 100,
+        "size": 100,
+        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
       },
       {
         "name": "password",
         "label": "密碼",
-        "value": ""
+        "value": "",
+        "type": "password",
+        "required": "required",
+        "placeholder": "請輸入8~15個英數字",
+        "minLength": 8,
+        "maxLength": 15,
+        "size": 15,
+        "pattern": "[0-9a-zA-Z]{8,15}"
       }
     ],
     "ownerRegisterForm": [
       {
         "name": "name",
         "label": "姓名",
-        "value": ""
+        "value": "",
+        "type": "text",
+        "required": "required",
+        "placeholder": null,
+        "minLength": null,
+        "maxLength": null,
+        "size": null,
+        "pattern": null
       },
       {
         "name": "email",
         "label": "E-mail",
-        "value": ""
+        "value": "",
+        "type": "email",
+        "required": "required",
+        "placeholder": "xxx@example.com",
+        "minLength": 4,
+        "maxLength": 100,
+        "size": 100,
+        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
       },
       {
         "name": "password",
         "label": "密碼",
-        "value": ""
+        "value": "",
+        "type": "password",
+        "required": "required",
+        "placeholder": "請輸入8~15個英數字",
+        "minLength": 8,
+        "maxLength": 15,
+        "size": 15,
+        "pattern": "[0-9a-zA-Z]{8,15}"
       }
     ],
     "errorMessage": {
@@ -372,5 +428,8 @@
       "patchSuccess": "更新成功",
       "patchFailed": "更新失敗"
     }
+  },
+  "messages": {
+    "invalid": "輸入格式有誤"
   }
 }
