@@ -1,0 +1,440 @@
+{
+  "header": {
+    "logoUrl": "https://fakeimg.pl/120x120/",
+    "headerTitle": "music center",
+    "headerSubtitle": "kitani music center"
+  },
+  "stepper": {
+    "steps": [
+      "select",
+      "fillIn",
+      "finish"
+    ],
+    "steps_name": [
+      "select date and time",
+      "fill in the information",
+      "complete application"
+    ]
+  },
+  "homePage": {
+    "logoUrl": "",
+    "bannerUrl": "",
+    "welcomeTitle": "Welcome to Kitani Music Center Reservation System",
+    "welcomeTexts": [
+      "Business hours: 09:00 ~ 22:00 daily",
+      "※The final daily admission time is 3 hours before the end of business.",
+      "※The latest admission time in the morning session is 10:00"
+    ],
+    "instructionTitle": "Instructions",
+    "instructionTexts": [
+      "Please read and observe the following notes before booking"
+    ],
+    "ruleTitle": "Rules",
+    "ruleTexts": [
+      "If you do not report within 10 minutes of your reservation, your reservation will be cancelled and a bad record will be left for two times.",
+      "Please wait patiently for the staff to confirm the reservation, and we will confirm with you by email within 12 hours after the confirmation. Please be sure to click on the 'Reservation Form' again after the reservation is made, and your reservation will not be considered successful until your reservation is shown on the reservation form.",
+      "For reservations within two weeks, no deposit is required. For reservations after two weeks, please transfer the deposit within 24 hours after receiving the reservation confirmation letter, if the payment is not received, the reservation will be deleted.",
+      "If you are unable to come for any reason, please inform us at least three days in advance. No refunds will be given for cancellations or rescheduling within 3 days of the reservation time.",
+      "We only accept cash in NTD. Please check out before you enter."
+    ]
+  },
+  "noticePage": {
+    "noticeTitle": [
+      "Notice"
+    ],
+    "noticeSubtitles": [
+      "In order to protect the rights of both you and the Music Center, please read the following notes and confirm your agreement before proceeding with the reservation process"
+    ],
+    "noticeList": [
+      "No smoking, no alcohol, no betel nut, and no gambling. If the store staff finds it and the warning is ineffective, they will request to leave the store immediately and no refund will be given.",
+      "Please do not use fire candles in the store and do not try to avoid fire. We will pay full compensation for the loss of the decoration machine if the fire sprinkler is caused in the store.",
+      "All sockets in the room are for 'machine use only', so please do not adjust them arbitrarily to avoid machine failure. A special extension cable for charging will be provided in the room, please use the extension cable to charge. If the machine is damaged, we will ask for compensation for the damage.",
+      "Due to the fragility of the sound insulation material, please do not step on the store, and it is strictly forbidden to stand and jump on the sofa and tables in the store, if damaged, we will ask for compensation.",
+      "The following foods are prohibited in the store: kimchi noodles, cream cakes, stinky tofu (heavy flavors), pizza, fried chicken, salt-crusted chicken, and chicken cutlets.",
+      "You can order delivery, but please pick it up at the entrance of the store by yourself, the store staff will not pick it up for you.",
+      "Please clean up your own food and other garbage. If you do not clean up, causing environmental mess or it is not easy to remove the smell, a 10% cleaning fee will be charged at your discretion.",
+      "If you are carrying food with liquid, please do not dump it on the toilet sink by yourself to avoid odor or blockage.",
+      "To ensure the safety of children, children under the age of 8 are not allowed to enter the store.",
+      "For the protection of pets, please do not bring your pets into the store. (Although the owners loves animals, we do not want them to get hurt or scared)",
+      "Please read this note carefully before making your reservation and pass it on to your fellow participants.",
+      "Please love and treat the staff well, don't slap or scold them, and create a friendly environment together.",
+      "Let's sing happily together! ♡(*´∀｀*)人(*´∀｀*)♡"
+    ],
+    "accept": "Agree",
+    "button": {
+      "next": "Go to Reservation"
+    }
+  },
+  "reservationPage": {
+    "startTime": 9,
+    "endTime": 24,
+    "titles": [
+      "",
+      "fill in the information",
+      "fill in the information"
+    ],
+    "subTitles": [
+      "",
+      "The Plan",
+      "Check and confirm the Information"
+    ],
+    "userinfoform": [
+      {
+        "name": "name",
+        "label": "name",
+        "value": "",
+        "type": "text",
+        "required": "required",
+        "placeholder": null,
+        "minLength": null,
+        "maxLength": null,
+        "size": null,
+        "pattern": null
+      },
+      {
+        "name": "phone",
+        "label": "phone",
+        "value": "",
+        "type": "tel",
+        "required": "required",
+        "placeholder": "09xxxxxxxx",
+        "minLength": 10,
+        "maxLength": 10,
+        "size": 10,
+        "pattern": "^[09]{2}[0-9]{8}$"
+      },
+      {
+        "name": "email",
+        "label": "E-mail",
+        "value": "",
+        "type": "email",
+        "required": "required",
+        "placeholder": "xxx@example.com",
+        "minLength": 4,
+        "maxLength": 100,
+        "size": 100,
+        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+      }
+    ],
+    "selectStep": {
+      "listItems": [
+        {
+          "name": "room",
+          "label": "room",
+          "content": ""
+        },
+        {
+          "name": "start_time",
+          "label": "start time",
+          "content": ""
+        },
+        {
+          "name": "duration",
+          "label": "duration",
+          "content": ""
+        },
+        {
+          "name": "attendence",
+          "label": "attendence",
+          "content": [
+            "attendence",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        }
+      ],
+      "button": {
+        "next": "next"
+      }
+    },
+    "fillInStep": {
+      "planItems": [
+        {
+          "name": "date",
+          "title": "date",
+          "content": "2021.07.24"
+        },
+        {
+          "name": "room",
+          "title": "room",
+          "content": "1A room"
+        },
+        {
+          "name": "attendence",
+          "title": "attendence",
+          "content": "3"
+        },
+        {
+          "name": "start_time",
+          "title": "start time",
+          "content": "10:00"
+        },
+        {
+          "name": "duration",
+          "title": "duration",
+          "content": "3"
+        }
+      ],
+      "button": {
+        "next": "next",
+        "back": "back"
+      }
+    },
+    "finishStep": {
+      "button": {
+        "next": "confirm",
+        "back": "back"
+      }
+    }
+  },
+  "thankyouPage": {
+    "title": "Thank you for your reservation",
+    "yourOrderId": "Your order id is",
+    "texts": [
+      "Our staff will reply to you by email after confirming your appointment.",
+      "Please wait a little longer, thank you."
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Video-Game-Controller-Icon-IDV-green.svg/2048px-Video-Game-Controller-Icon-IDV-green.svg.png"
+  },
+  "reservedData": [
+    {
+      "date": "2021-07-24",
+      "room": "A",
+      "time": "10:00",
+      "duration": 3,
+      "name": "Amyyyyyyy",
+      "order_status": "reserved",
+      "order_id": "1"
+    },
+    {
+      "date": "2021-07-24",
+      "room": "A",
+      "time": "14:00",
+      "duration": 3.5,
+      "name": "Mr.Chen's birthday",
+      "order_status": "reserved",
+      "order_id": "2"
+    },
+    {
+      "date": "2021-07-24",
+      "room": "B",
+      "time": "10:00",
+      "duration": 3,
+      "name": "Let's go party! party!!!!",
+      "order_status": "reserved",
+      "order_id": "3"
+    },
+    {
+      "date": "2021-07-24",
+      "room": "C",
+      "time": "10:00",
+      "duration": 3,
+      "name": "Singing",
+      "order_status": "reserved",
+      "order_id": "4"
+    }
+  ],
+  "orderTableList": [
+    {
+      "key": "date",
+      "label": "date"
+    },
+    {
+      "key": "room",
+      "label": "room"
+    },
+    {
+      "key": "start_time",
+      "label": "start_time"
+    },
+    {
+      "key": "duration",
+      "label": "duration"
+    },
+    {
+      "key": "attendence",
+      "label": "attendence"
+    },
+    {
+      "key": "order_status",
+      "label": "order_status",
+      "options": [
+        "applied",
+        "reserved",
+        "canceled"
+      ]
+    },
+    {
+      "key": "name",
+      "label": "name"
+    },
+    {
+      "key": "phone",
+      "label": "phone"
+    },
+    {
+      "key": "email",
+      "label": "Email"
+    },
+    {
+      "key": "order_id",
+      "label": "order id"
+    }
+  ],
+  "managementPage": {
+    "dialog": {
+      "confirmButton": "confirm"
+    }
+  },
+  "memberSystemPage": {
+    "welcome": "Welcome to the membership system",
+    "loggedIn": "You are logged in.",
+    "card": {
+      "action": [
+        "login",
+        "register"
+      ],
+      "instruction": {
+        "login": "Merchant Login",
+        "register": "Merchant Registration",
+        "logout": "Log out"
+      },
+      "hint": {
+        "login": "Click here to sign up",
+        "register": "Click here to login"
+      }
+    },
+    "ownerLoginForm": [
+      {
+        "name": "email",
+        "label": "E-mail",
+        "value": "",
+        "type": "email",
+        "required": "required",
+        "placeholder": "xxx@example.com",
+        "minLength": 4,
+        "maxLength": 100,
+        "size": 100,
+        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+      },
+      {
+        "name": "password",
+        "label": "password",
+        "value": "",
+        "type": "password",
+        "required": "required",
+        "placeholder": "Please enter 8~15characters in English or number",
+        "minLength": 8,
+        "maxLength": 15,
+        "size": 15,
+        "pattern": "[0-9a-zA-Z]{8,15}"
+      }
+    ],
+    "ownerRegisterForm": [
+      {
+        "name": "name",
+        "label": "name",
+        "value": "",
+        "type": "text",
+        "required": "required",
+        "placeholder": null,
+        "minLength": null,
+        "maxLength": null,
+        "size": null,
+        "pattern": null
+      },
+      {
+        "name": "email",
+        "label": "E-mail",
+        "value": "",
+        "type": "email",
+        "required": "required",
+        "placeholder": "xxx@example.com",
+        "minLength": 4,
+        "maxLength": 100,
+        "size": 100,
+        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+      },
+      {
+        "name": "password",
+        "label": "password",
+        "value": "",
+        "type": "password",
+        "required": "required",
+        "placeholder": "Please enter 8~15characters in English or number",
+        "minLength": 8,
+        "maxLength": 15,
+        "size": 15,
+        "pattern": "[0-9a-zA-Z]{8,15}"
+      }
+    ],
+    "errorMessage": {
+      "emptyColumns": "Please enter",
+      "comma": "、"
+    }
+  },
+  "multiLanguages": {
+    "CHT": {
+      "label": "CHT",
+      "multiLang": "zh-TW"
+    },
+    "EN": {
+      "label": "ENG",
+      "multiLang": "en"
+    }
+  },
+  "features": {
+    "memberSystem": "Membership System",
+    "management": "Go to Management Page",
+    "orderSearch": "Order Enquiry",
+    "orderSearchTexts": {
+      "orderIdInput": "Please enter the order id",
+      "noResult": "No order check"
+    }
+  },
+  "roomInfo": {
+    "selectDefaultOption": {
+      "id": "",
+      "title": "all room"
+    },
+    "roomList": [
+      {
+        "id": "A",
+        "title": "A room",
+        "subtitle": "F1",
+        "machine": "((JOYSOUND))",
+        "value": 100
+      },
+      {
+        "id": "B",
+        "title": "B room",
+        "subtitle": "MAX GO",
+        "machine": "((DAM))",
+        "value": 200
+      },
+      {
+        "id": "C",
+        "title": "C room",
+        "subtitle": "XG7000",
+        "machine": "((JOYSOUND))",
+        "value": 300
+      }
+    ]
+  },
+  "apiResponse": {
+    "reservationData": {
+      "patchSuccess": "Update successfully",
+      "patchFailed": "Update failed"
+    }
+  },
+  "messages": {
+    "invalid": "input format error"
+  }
+}

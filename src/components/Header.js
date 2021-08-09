@@ -1,12 +1,11 @@
 import React from "react";
-import data from "../data.json";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { useTranslation } from "react-i18next";
+
 function Header() {
-  // const header__logo__bg = {
-  //   // backgroundImage: `url(${data.header.logoUrl})`,
-  //   backgroundImage: `url("../img/logo_120_120.png")`,
-  // };
+  const { t } = useTranslation();
+
   return (
     <header>
       <Link to="/" className="">
@@ -15,10 +14,10 @@ function Header() {
       <div className="header__content">
         <ul>
           <li className="header__content__title common__title common__font--bold">
-            {data.header.headerTitle}
+            {t("header.headerTitle")}
           </li>
           <li className="header__content__subtitle common__subtitle">
-            {data.header.headerSubtitle}
+            {t("header.headerSubtitle")}
           </li>
         </ul>
       </div>

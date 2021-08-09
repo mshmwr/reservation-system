@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Board.css";
-import multiLang_CHT from "../data.json";
 import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
+import getConstData from "../utils/Time";
+
 const initLineCube = (start, end, roomId) => {
   /* lineCube
     {
@@ -38,22 +39,6 @@ const initLineCube = (start, end, roomId) => {
   return lineCube;
 };
 
-const getTimeRegion = (startTime, endTime) => {
-  let timeRegion = [];
-  for (let i = startTime; i <= endTime; i++) {
-    timeRegion.push(i);
-  }
-  return timeRegion;
-};
-
-const getTimeRegionMapping = (timeRegion) => {
-  let timeMapping = [];
-  timeRegion.forEach((time) => {
-    timeMapping.push(`${time}L`);
-    timeMapping.push(`${time}R`);
-  });
-  return timeMapping;
-};
 
 const initRoomListLineCube = (roomList, cubeInitData) => {
   let state = {};
@@ -259,21 +244,22 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
   });
 };
 
-const getConstData = () => {
-  const ROOM_LIST = multiLang_CHT.roomInfo.roomList;
-  const START_TIME = multiLang_CHT.reservationPage.startTime;
-  const END_TIME = multiLang_CHT.reservationPage.endTime;
-  const TIME_REGION = getTimeRegion(START_TIME, END_TIME);
-  const TIME_REGION_MAPPING = getTimeRegionMapping(TIME_REGION);
+// const getConstData = () => {
+//   const { t } = useTranslation();
+//   const ROOM_LIST = t("roomInfo.roomList");
+//   const START_TIME = t("reservationPage.startTime");
+//   const END_TIME = t("reservationPage.endTime");
+//   const TIME_REGION = getTimeRegion(START_TIME, END_TIME);
+//   const TIME_REGION_MAPPING = getTimeRegionMapping(TIME_REGION);
 
-  return {
-    ROOM_LIST,
-    START_TIME,
-    END_TIME,
-    TIME_REGION,
-    TIME_REGION_MAPPING,
-  };
-};
+//   return {
+//     ROOM_LIST,
+//     START_TIME,
+//     END_TIME,
+//     TIME_REGION,
+//     TIME_REGION_MAPPING,
+//   };
+// };
 
 const Board = ({
   calendarDate = "",

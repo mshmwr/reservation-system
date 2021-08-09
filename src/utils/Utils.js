@@ -1,3 +1,5 @@
+const route = "http://localhost:3100";
+
 const validateInput = (inputData) => {
   const str = inputData.value;
   const regExp = inputData.pattern;
@@ -7,4 +9,4 @@ const validateInput = (inputData) => {
   return str.search(regExp) !== -1;
 };
 
-export { validateInput };
+export { validateInput, route };

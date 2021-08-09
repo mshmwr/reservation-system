@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import data from "../../data.json";
 import "./Notice.css";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 function Notice() {
+  const { t } = useTranslation();
   const [check, setCheck] = useState(false);
   const handleChange = () => setCheck(!check);
 
   return (
     <div className="notice common__pageFrame">
       <div className="common__titleBlock">
-        {data.noticePage.noticeTitle.map((title) => {
+        {t("noticePage.noticeTitle", { returnObjects: true }).map((title) => {
           return (
             <div
               key={title}
@@ -21,18 +23,20 @@ function Notice() {
             </div>
           );
         })}
-        {data.noticePage.noticeSubtitles.map((subtitle) => {
-          return (
-            <div key={subtitle} className="notice__subtitle common__subtitle">
-              <p>{subtitle}</p>
-            </div>
-          );
-        })}
+        {t("noticePage.noticeSubtitles", { returnObjects: true }).map(
+          (subtitle) => {
+            return (
+              <div key={subtitle} className="notice__subtitle common__subtitle">
+                <p>{subtitle}</p>
+              </div>
+            );
+          }
+        )}
       </div>
 
       <div className="notice__list common__text common__block">
         <ul>
-          {data.noticePage.noticeList.map((notice) => {
+          {t("noticePage.noticeList", { returnObjects: true }).map((notice) => {
             return <li key={notice}>{notice}</li>;
           })}
         </ul>
@@ -46,7 +50,7 @@ function Notice() {
             value="false"
           ></input>
           <label htmlFor="accept-notice-rule" className="common__heading">
-            {data.noticePage.accept}
+            {t("noticePage.accept")}
           </label>
         </div>
 
@@ -54,7 +58,7 @@ function Notice() {
           to="/reservation"
           className={`common__block  ${check ? "" : "common__hidden"}`}
         >
-          <Button text={data.noticePage.button.next}></Button>
+          <Button text={t("noticePage.button.next")}></Button>
         </Link>
       </form>
     </div>

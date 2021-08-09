@@ -1,11 +1,12 @@
 import { requestParameters } from "../utils/API";
+import { route } from "../utils/Utils";
 
 //取得訂位資訊
 
 //送出訂位資訊
 const getUser = () => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
-  let url = "http://localhost:3100/api/user";
+  let url = route + "/api/user";
   const method = { method: "GET" };
   parameters = { ...method, ...parameters };
   return fetch(url, parameters)
@@ -25,7 +26,7 @@ const postUser = (data = {}) => {
     return;
   }
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
-  let url = "http://localhost:3100/api/user";
+  let url = route + "/api/user";
   const method = { method: "POST" };
   parameters = { body: JSON.stringify(data), ...method, ...parameters };
   return fetch(url, parameters)
@@ -45,7 +46,7 @@ const patchUser = (data = {}) => {
     return;
   }
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
-  let url = "http://localhost:3100/api/user";
+  let url = route + "/api/user";
   const method = { method: "PATCH" };
   // console.log(data);
   parameters = { body: JSON.stringify(data), ...method, ...parameters };
@@ -63,7 +64,7 @@ const patchUser = (data = {}) => {
 
 const deleteUser = () => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
-  let url = "http://localhost:3100/api/user";
+  let url = route + "/api/user";
   const method = { method: "DELETE" };
   parameters = { ...method, ...parameters };
   return fetch(url, parameters)

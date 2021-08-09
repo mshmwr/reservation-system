@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Management.css";
 import Calendar from "../../components/Calendar";
-import { Board, getConstData } from "../../components/Board";
+import { Board } from "../../components/Board";
+import getConstData from "../../utils/Time";
 import { TODAY_DATE } from "../../utils/Date";
 import { deleteUser } from "../../apis/usersApi";
 import Hamburger from "../../components/Hamburger";
-import multiLang_CHT from "../../data.json";
 import Button from "../../components/Button";
-
-const { ROOM_LIST } = getConstData();
+import { useTranslation } from "react-i18next";
 
 function Management() {
+  const { t } = useTranslation();
+  const { ROOM_LIST } = getConstData();
   const history = useHistory();
   const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState("");
@@ -52,8 +53,8 @@ function Management() {
           <div className="management__frame__selectBlock__item">
             <label className="common__font--bold">Select Room</label>
             <select onChange={handleRoomSelectChange}>
-              <option value={multiLang_CHT.roomInfo.selectDefaultOption.id}>
-                {multiLang_CHT.roomInfo.selectDefaultOption.title}
+              <option value={t("roomInfo.selectDefaultOption.id")}>
+                {t("roomInfo.selectDefaultOption.title")}
               </option>
               {ROOM_LIST.map((room) => (
                 <option key={room.id} value={room.id}>
@@ -74,7 +75,7 @@ function Management() {
           </div>
           <div className="management__frame__selectBlock__item">
             <Button
-              text={multiLang_CHT.memberSystemPage.card.instruction.logout}
+              text={t("memberSystemPage.card.instruction.logout")}
               clickEvent={logoutButtonClickHandler}
             />
           </div>

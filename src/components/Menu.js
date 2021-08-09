@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./Menu.css";
 import { getReservedData } from "../apis/reservedDataApi";
-import multiLang_CHT from "../data.json";
 import Button from "../components/Button";
-
-const langs = multiLang_CHT.multiLanguages;
+import { useTranslation } from "react-i18next";
 
 const Menu = ({
   showMenu,
@@ -14,11 +12,21 @@ const Menu = ({
   setOrderSearchResultArr,
   setShowWindow,
 }) => {
-  const [language, setLanguage] = useState(langs[0]);
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+
+  const langs = t("multiLanguages", { returnObjects: true });
+  const [language, setLanguage] = useState(langs["CHT"]["multiLang"]);
   const [inputOrderId, setInputOrderId] = useState("");
   const [orderSearchResultText, setOrderSearchResultText] = useState("");
+
+  useEffect(() => {
+    if (language !== null) i18n.changeLanguage(language);
+  }, [language]);
+
   const switchLanguageClickHandler = (e) => {
     setLanguage(e.target.id);
+    console.log(e.target.id);
   };
   const orderSearchClickHandler = async () => {
     const orderId = inputOrderId;
@@ -28,9 +36,7 @@ const Menu = ({
       return;
     }
     if (orderId.length < 42) {
-      setOrderSearchResultText(
-        multiLang_CHT.features.orderSearchTexts.noResult
-      );
+      setOrderSearchResultText(t("features.orderSearchTexts.noResult"));
       setOrderSearchResultArr([]);
       return;
     }
@@ -41,9 +47,7 @@ const Menu = ({
     }
     const resultData = fetchedData.result;
     if (resultData.length === 0) {
-      setOrderSearchResultText(
-        multiLang_CHT.features.orderSearchTexts.noResult
-      );
+      setOrderSearchResultText(t("features.orderSearchTexts.noResult"));
       setOrderSearchResultArr([]);
       // console.log("fetch data is empty array");
     } else {
@@ -65,42 +69,42 @@ const Menu = ({
         <Button text="留言版" />
       </Link> */}
       <div className="common__block home__menu__language">
-        {langs.map((lang) => (
+        {Object.keys(langs).map((key) => (
           <div
-            key={lang}
+            key={langs[key].label}
             className={
-              language === lang
+              language === langs[key].multiLang
                 ? "home__menu__language--selected"
                 : "home__menu__language--unselected"
             }
           >
             <Button
-              id={lang}
-              text={lang}
+              id={langs[key].multiLang}
+              text={langs[key].label}
               clickEvent={switchLanguageClickHandler}
-              isDisable={language === lang}
+              isDisable={language === langs[key].multiLang}
             />
           </div>
         ))}
       </div>
 
       <Link to="/memberSystem" className="common__block home__menu__feature">
-        <Button text={multiLang_CHT.features.memberSystem} />
+        <Button text={t("features.memberSystem")} />
       </Link>
 
       {isLoggedIn && (
         <Link to="/management" className="common__block home__menu__feature">
-          <Button text={multiLang_CHT.features.management} />
+          <Button text={t("features.management")} />
         </Link>
       )}
       <div className="common__block home__menu__order">
         <Button
-          text={multiLang_CHT.features.orderSearch}
+          text={t("features.orderSearch")}
           clickEvent={orderSearchClickHandler}
         />
         <input
           type="text"
-          placeholder={multiLang_CHT.features.orderSearchTexts.orderIdInput}
+          placeholder={t("features.orderSearchTexts.orderIdInput")}
           className="home__menu__order__input"
           onChange={orderInputHandler}
           onFocus={orderInputOnFocus}

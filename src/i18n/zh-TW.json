@@ -10,7 +10,7 @@
       "fillIn",
       "finish"
     ],
-    "steps_CH": [
+    "steps_name": [
       "選擇日期與時段",
       "填入預約資訊",
       "完成預約申請"
@@ -381,10 +381,16 @@
       "comma": "、"
     }
   },
-  "multiLanguages": [
-    "CHT",
-    "ENG"
-  ],
+  "multiLanguages": {
+    "CHT": {
+      "label": "CHT",
+      "multiLang": "zh-TW"
+    },
+    "EN": {
+      "label": "ENG",
+      "multiLang": "en"
+    }
+  },
   "features": {
     "memberSystem": "會員系統",
     "management": "前往後台",

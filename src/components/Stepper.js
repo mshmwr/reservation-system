@@ -1,9 +1,11 @@
 import React from "react";
-import data from "../data.json";
 import "./Stepper.css";
+import { useTranslation } from "react-i18next";
+
 export const Stepper = ({ currentStep }) => {
-  const STEP_STATES = data.stepper.steps;
-  const STEP_STATES_NAME = data.stepper.steps_CH;
+  const { t } = useTranslation();
+  const STEP_STATES = t("stepper.steps", { returnObjects: true });
+  const STEP_STATES_NAME = t("stepper.steps_name", { returnObjects: true });
 
   const STEP_COLORS = [
     "stepper__content__step--primary",
@@ -15,7 +17,7 @@ export const Stepper = ({ currentStep }) => {
       <div className="stepper__content">
         {STEP_STATES.map((step, index) => (
           <div
-            key={`step${index}`}
+            key={`step${step}`}
             className={`stepper__content__step ${
               currentStep === STEP_STATES[index]
                 ? STEP_COLORS[1]

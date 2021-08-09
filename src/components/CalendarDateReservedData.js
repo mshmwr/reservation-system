@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getReservedData } from "../apis/reservedDataApi";
+import getConstData from "../utils/Time";
 import {
-  getConstData,
   convertDataTimeToIndex,
   getRoomDatas,
   getEachTimeReservedStatus,
 } from "./Board";
-const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = getConstData();
 
 const checkConflicted = (data, reservedStatus, timeRegion) => {
   //取得當筆資料，把data裡面的時間轉換成index
@@ -35,6 +34,7 @@ export const CalendarDateReservedData = ({
   dateClickHandler,
   selectedRoom,
 }) => {
+  const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = getConstData();
   const [dateDatas, setDateDatas] = useState(null);
   const fetchReservedData = async () => {
     const fetchedData = await getReservedData(columnDate, undefined, undefined);

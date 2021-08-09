@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getReservedData, patchReservedData } from "../apis/reservedDataApi";
-import multiLang_CHT from "../data.json";
 import { TODAY_DATE } from "../utils/Date";
 import CloseIcon from "./CloseIcon";
+import { useTranslation } from "react-i18next";
 
 const dateMultiple = [1000, 100, 1];
 const checkDateIsEarlyThanToday = (date, today) => {
@@ -28,6 +28,7 @@ export const CalendarOrderDialog = ({
   currentOrderIsConflicted,
   selectedDate,
 }) => {
+  const { t } = useTranslation();
   const [orderData, setOrderData] = useState(null);
   const [orderStatusButton, setOrderStatusButton] = useState(null);
   const [originOrderStatusButton, setOriginOrderStatusButton] = useState(null);
@@ -64,7 +65,9 @@ export const CalendarOrderDialog = ({
     };
     const parsedData = await patchReservedData(patchData);
     if (parsedData.status === "error") {
-      const msg = `${multiLang_CHT.apiResponse.reservationData.patchFailed}\n${parsedData.message}`;
+      const msg = `${t("apiResponse.reservationData.patchFailed")}\n${
+        parsedData.message
+      }`;
       alert(msg);
     }
     closeClickHandler();
@@ -116,7 +119,7 @@ export const CalendarOrderDialog = ({
             ? "no reserved"
             : orderData.map((item) => (
                 <div key={item.order_id} className="calendar__dialog__table">
-                  {multiLang_CHT.orderTableList.map((data) => (
+                  {t("orderTableList", { returnObjects: true }).map((data) => (
                     <div
                       key={data.key}
                       className="calendar__dialog__table__item"
@@ -201,7 +204,7 @@ export const CalendarOrderDialog = ({
                                 : ""
                             }`}
                           >
-                            {multiLang_CHT.managementPage.dialog.confirmButton}
+                            {t("managementPage.dialog.confirmButton")}
                           </button>
                         </div>
                       )}

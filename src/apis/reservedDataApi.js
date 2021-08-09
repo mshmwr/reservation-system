@@ -1,9 +1,10 @@
 import { requestParameters } from "../utils/API";
+import { route } from "../utils/Utils";
 
 //取得訂位資訊
 const getReservedData = (date = "", order_id = "", room = "") => {
   // date = date.replace(/-/g, ".");
-  // let url = "http://localhost:3100/reservation_data?data[date]=" + date;
+  // let url = "/reservation_data?data[date]=" + date;
   if (date === "" && order_id === "") {
     return null;
   }
@@ -20,9 +21,9 @@ const getReservedData = (date = "", order_id = "", room = "") => {
   if (room !== "") {
     urlVar += `&data[room]=${room}`;
   }
-  // let url = "http://localhost:3100/reservation_data?data[date]=" + date;
-  let url = "http://localhost:3100/reservation_data?" + urlVar;
-  // console.log(url);
+  // let url = "/reservation_data?data[date]=" + date;
+  let url = route + "/reservation_data?" + urlVar;
+  console.log(url);
   return fetch(url, {
     method: "GET",
   })
@@ -32,6 +33,7 @@ const getReservedData = (date = "", order_id = "", room = "") => {
     .then((result) => {
       //處理資料
       const parsedData = JSON.parse(result).data;
+      console.log(parsedData);
       return parsedData;
     });
 };
@@ -39,7 +41,7 @@ const getReservedData = (date = "", order_id = "", room = "") => {
 //送出訂位資訊
 const postReservedData = (data = {}) => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
-  let url = "http://localhost:3100/reservation_data";
+  let url = route + "/reservation_data";
   const method = { method: "POST" };
   parameters = { body: JSON.stringify(data), ...method, ...parameters };
   return fetch(url, parameters)
@@ -56,7 +58,7 @@ const postReservedData = (data = {}) => {
 //修改訂位資訊
 const patchReservedData = (data = {}) => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
-  let url = "http://localhost:3100/reservation_data";
+  let url = route + "/reservation_data";
   const method = { method: "PATCH" };
   parameters = { body: JSON.stringify(data), ...method, ...parameters };
   return fetch(url, parameters)

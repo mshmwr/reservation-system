@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import "./MemberSystem.css";
-import multiLang_CHT from "../../data.json";
 import { postUser, patchUser, deleteUser } from "../../apis/usersApi";
 import Button from "../../components/Button";
 import { checkLoggedIn } from "../../utils/API";
 import { validateInput } from "../../utils/Utils";
+import { useTranslation } from "react-i18next";
 
 const inputVerifier = (ownerFormInputList, setAccountActionStatus) => {
+  const { t } = useTranslation();
   let errorMsg = "";
   const emptyColumns = ownerFormInputList.filter((col) => col.value === "");
   if (emptyColumns.length === 0) {
@@ -17,19 +18,19 @@ const inputVerifier = (ownerFormInputList, setAccountActionStatus) => {
       (input) => validateInput(input) === true
     );
     if (!valid) {
-      errorMsg += multiLang_CHT.messages.invalid;
+      errorMsg += t("messages.invalid");
     }
     return errorMsg;
   }
   setAccountActionStatus("");
   //錯誤訊息：請輸入帳號、密碼...etc
-  errorMsg += multiLang_CHT.memberSystemPage.errorMessage.emptyColumns;
+  errorMsg += t("memberSystemPage.errorMessage.emptyColumns");
   emptyColumns.forEach((col, index) => {
     errorMsg += col.label;
     errorMsg +=
       index === emptyColumns.length - 1
         ? ""
-        : multiLang_CHT.memberSystemPage.errorMessage.comma;
+        : t("memberSystemPage.errorMessage.comma");
   });
 
   return errorMsg;
@@ -77,9 +78,14 @@ const switchAccountMessageColor = (accountActionStatus) => {
 };
 
 function MemberSystem() {
+  const { t } = useTranslation();
   const history = useHistory();
-  const ownerLoginForm = multiLang_CHT.memberSystemPage.ownerLoginForm;
-  const ownerRegisterForm = multiLang_CHT.memberSystemPage.ownerRegisterForm;
+  const ownerLoginForm = t("memberSystemPage.ownerLoginForm", {
+    returnObjects: true,
+  });
+  const ownerRegisterForm = t("memberSystemPage.ownerRegisterForm", {
+    returnObjects: true,
+  });
 
   const copyOwnerLoginForm = JSON.parse(JSON.stringify(ownerLoginForm));
 
@@ -172,13 +178,13 @@ function MemberSystem() {
   return (
     <div className="memberSystem common__pageFrame">
       <p className="common__block common__block--bilateral common__subtitle">
-        {multiLang_CHT.memberSystemPage.welcome}
+        {t("memberSystemPage.welcome")}
       </p>
       <div className="memberSystem__content">
         <div className="memberSystem__card">
           {isLoggedIn ? (
             <p className="memberSystem__card__loggedIn common__subtitle ">
-              {multiLang_CHT.memberSystemPage.loggedIn}
+              {t("memberSystemPage.loggedIn")}
             </p>
           ) : (
             <div className="memberSystem__card__form">
@@ -225,10 +231,12 @@ function MemberSystem() {
             <Button
               text={
                 isLoggedIn
-                  ? multiLang_CHT.memberSystemPage.card.instruction["logout"]
-                  : multiLang_CHT.memberSystemPage.card.instruction[
-                      accountStatus
-                    ]
+                  ? t("memberSystemPage.card.instruction", {
+                      returnObjects: true,
+                    })["logout"]
+                  : t("memberSystemPage.card.instruction", {
+                      returnObjects: true,
+                    })[accountStatus]
               }
               clickEvent={buttonClickHandler}
             />
@@ -239,7 +247,7 @@ function MemberSystem() {
                 className="memberSystem__card__instruction__action"
                 onClick={clickAccountStatusHandler}
               >
-                {multiLang_CHT.memberSystemPage.card.hint[accountStatus]}
+                {t("memberSystemPage.card.hint")[accountStatus]}
               </p>
             </div>
           )}

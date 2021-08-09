@@ -15,7 +15,7 @@
 }
 
 .planBlock__plan {
-  width: 50%;
+  width: 80%;
   margin: 0px 2rem;
 }
 .planBlock__plan__subtitle {
@@ -34,7 +34,7 @@
 .planBlock__plan__item__content {
   display: flex;
   justify-content: flex-end;
-  width: 50%;
+  width: 60%;
 }
 
 .planBlock__input {

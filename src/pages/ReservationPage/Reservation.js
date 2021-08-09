@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Reservation.css";
-import multiLang_CHT from "../../data.json";
 import { useHistory } from "react-router-dom";
 import { SelectRegion } from "./page/SelectRegion";
 import { FillInRegin } from "./page/FillInRegion";
@@ -8,10 +7,15 @@ import { Stepper } from "../../components/Stepper";
 import { postReservedData } from "../../apis/reservedDataApi";
 import { validateInput } from "../../utils/Utils";
 
+import { useTranslation } from "react-i18next";
+
 function Reservation() {
+  const { t } = useTranslation();
   const history = useHistory();
-  const steps = multiLang_CHT.stepper.steps; //["select", "fillIn", "finish"]
-  const userInfoForm = multiLang_CHT.reservationPage.userinfoform;
+  const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
+  const userInfoForm = t("reservationPage.userinfoform", {
+    returnObjects: true,
+  });
   const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
   const [step, setStep] = useState(steps[0]);
   const [formInputList, setFormInputList] = useState(copyUserInfoForm);
@@ -42,7 +46,7 @@ function Reservation() {
           (input) => validateInput(input) === true
         );
         if (!valid) {
-          alert(multiLang_CHT.messages.invalid);
+          alert(t("messages.invalid"));
           break;
         }
         setStep(steps[2]);
@@ -73,22 +77,26 @@ function Reservation() {
           <SelectRegion
             backClick={backClick}
             nextClick={nextClick}
-            nextButtonText={
-              multiLang_CHT.reservationPage.selectStep.button.next
-            }
-            dataListItems={multiLang_CHT.reservationPage.selectStep.listItems}
+            nextButtonText={t("reservationPage.selectStep.button.next")}
+            dataListItems={t("reservationPage.selectStep.listItems", {
+              returnObjects: true,
+            })}
             setSelectedData={setSelectedData}
           ></SelectRegion>
         ) : (
           <FillInRegin
-            titles={multiLang_CHT.reservationPage.titles}
-            subTitles={multiLang_CHT.reservationPage.subTitles}
-            planItems={multiLang_CHT.reservationPage.fillInStep.planItems}
+            titles={t("reservationPage.titles", { returnObjects: true })}
+            subTitles={t("reservationPage.subTitles", { returnObjects: true })}
+            planItems={t("reservationPage.fillInStep.planItems", {
+              returnObjects: true,
+            })}
             formInputList={formInputList}
             setFormInputList={setFormInputList}
             backClick={backClick}
             nextClick={nextClick}
-            buttonTexts={multiLang_CHT.reservationPage.fillInStep.button}
+            buttonTexts={t("reservationPage.fillInStep.button", {
+              returnObjects: true,
+            })}
             steps={steps}
             step={step}
             selectedData={selectedData}

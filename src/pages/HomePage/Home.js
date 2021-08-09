@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import multiLang_CHT from "../../data.json";
 import Button from "../../components/Button";
 import Hamburger from "../../components/Hamburger";
 import CloseIcon from "../../components/CloseIcon";
 import Menu from "../../components/Menu";
 import { checkLoggedIn } from "../../utils/API";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
@@ -46,7 +48,7 @@ function Home() {
           {orderSearchResultArr.length !== 0 &&
             orderSearchResultArr.map((item) => (
               <div key={item.order_id} className="orderResultWindow__table">
-                {multiLang_CHT.orderTableList.map((data) => (
+                {t("orderTableList").map((data) => (
                   <div
                     key={data.key}
                     className="orderResultWindow__table__item"
@@ -67,10 +69,10 @@ function Home() {
       <div className="home__banner"></div>
       <div className="home__welcome">
         <p className="home__welcome__title common__title common__font--bold">
-          {multiLang_CHT.homePage.welcomeTitle}
+          {t("homePage.welcomeTitle")}
         </p>
         <ul>
-          {multiLang_CHT.homePage.welcomeTexts.map((text) => (
+          {t("homePage.welcomeTexts", { returnObjects: true }).map((text) => (
             <li key={`welcomeText${text}`}>{text}</li>
           ))}
         </ul>
@@ -78,21 +80,23 @@ function Home() {
       <div className="home__content">
         <div className="home__content__instruction">
           <p className="home__content__instruction__title common__subtitle common__font--bold common__block--bilateral">
-            {multiLang_CHT.homePage.instructionTitle}
+            {t("homePage.instructionTitle")}
           </p>
-          {multiLang_CHT.homePage.instructionTexts.map((text) => (
-            <p
-              className="home__content__instruction__texts common__interval--normal"
-              key={`instructionText${text}`}
-            >
-              {text}
-            </p>
-          ))}
+          {t("homePage.instructionTexts", { returnObjects: true }).map(
+            (text) => (
+              <p
+                className="home__content__instruction__texts common__interval--normal"
+                key={`instructionText${text}`}
+              >
+                {text}
+              </p>
+            )
+          )}
           <p className="home__content__instruction__ruleTitle common__font--bold ">
-            {multiLang_CHT.homePage.ruleTitle}
+            {t("homePage.ruleTitle")}
           </p>
           <ul>
-            {multiLang_CHT.homePage.ruleTexts.map((text) => (
+            {t("homePage.ruleTexts", { returnObjects: true }).map((text) => (
               <li
                 className="className=home__content__instruction__ruleTexts"
                 key={`ruleText${text}`}
