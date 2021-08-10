@@ -10,12 +10,21 @@ import { useTranslation } from "react-i18next";
 
 function Home() {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
   // console.log(isLoggedIn);
+  const langs = t("multiLanguages", { returnObjects: true });
+  const [language, setLanguage] = useState(langs["CHT"]["multiLang"]);
+
+  useEffect(() => {
+    if (language !== null) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
 
   useEffect(() => {
     async function fetchData() {
@@ -40,6 +49,8 @@ function Home() {
         isLoggedIn={isLoggedIn}
         setOrderSearchResultArr={setOrderSearchResultArr}
         setShowWindow={setShowWindow}
+        language={language}
+        setLanguage={setLanguage}
       />
 
       {showWindow && (
@@ -107,17 +118,17 @@ function Home() {
           </ul>
         </div>
         <Link to="/notice" className="common__block home__content__btn">
-          <Button text="開始預約"></Button>
+          <Button text={t("homePage.button")}></Button>
         </Link>
         {isLoggedIn && (
           <Link to="/management" className="common__block home__content__btn">
-            <Button text="前往後台"></Button>
+            <Button text={t("features.management")}></Button>
           </Link>
         )}
 
         {isLoggedIn && (
           <Link to="/memberSystem" className="common__block home__content__btn">
-            <Button text="會員系統"></Button>
+            <Button text={t("features.memberSystem")}></Button>
           </Link>
         )}
       </div>

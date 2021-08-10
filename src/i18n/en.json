@@ -36,7 +36,8 @@
       "For reservations within two weeks, no deposit is required. For reservations after two weeks, please transfer the deposit within 24 hours after receiving the reservation confirmation letter, if the payment is not received, the reservation will be deleted.",
       "If you are unable to come for any reason, please inform us at least three days in advance. No refunds will be given for cancellations or rescheduling within 3 days of the reservation time.",
       "We only accept cash in NTD. Please check out before you enter."
-    ]
+    ],
+    "button": "Start Reservation"
   },
   "noticePage": {
     "noticeTitle": [

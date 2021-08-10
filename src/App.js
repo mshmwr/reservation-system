@@ -15,7 +15,6 @@ export default class App extends Component {
     super();
     this.state = {};
   }
-
   render() {
     return (
       <Router basename={process.env.PUBLIC_URL}>
@@ -23,13 +22,13 @@ export default class App extends Component {
           <Header />
           <main>
             <Switch>
-              <Route exact path="/" component={Home}></Route>
-              <Route path="/notice" component={Notice}></Route>
-              <Route path="/reservation" component={Reservation}></Route>
-              <Route path="/thankyou" component={Thankyou}></Route>
-              <Route path="/bulletinBoard" component={BulletinBoard}></Route>
-              <Route path="/management" component={Management}></Route>
-              <Route path="/memberSystem" component={MemberSystem}></Route>
+              <Route exact path="/" component={Home} />
+              <Route path="/notice" component={Notice} />
+              <Route path="/reservation" component={Reservation} />
+              <Route path="/thankyou" component={Thankyou} />
+              <Route path="/bulletinBoard" component={BulletinBoard} />
+              <Route path="/management" component={Management} />
+              <Route path="/memberSystem" component={MemberSystem} />
             </Switch>
           </main>
           <Footer />

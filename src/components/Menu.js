@@ -11,22 +11,16 @@ const Menu = ({
   isLoggedIn,
   setOrderSearchResultArr,
   setShowWindow,
+  language,
+  setLanguage,
 }) => {
   const { t } = useTranslation();
-  const { i18n } = useTranslation();
-
   const langs = t("multiLanguages", { returnObjects: true });
-  const [language, setLanguage] = useState(langs["CHT"]["multiLang"]);
   const [inputOrderId, setInputOrderId] = useState("");
   const [orderSearchResultText, setOrderSearchResultText] = useState("");
 
-  useEffect(() => {
-    if (language !== null) i18n.changeLanguage(language);
-  }, [language]);
-
   const switchLanguageClickHandler = (e) => {
     setLanguage(e.target.id);
-    console.log(e.target.id);
   };
   const orderSearchClickHandler = async () => {
     const orderId = inputOrderId;
