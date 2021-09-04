@@ -3,7 +3,7 @@ import { Board } from "../../../components/Board";
 import Button from "../../../components/Button";
 import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export const SelectRegion = ({
   backClick,
@@ -13,19 +13,35 @@ export const SelectRegion = ({
   dataListItems,
   setSelectedData,
 }) => {
-  // const [planData, setPlanData] = useState({});
-  const planData = useSelector((state) => {
-    console.log(state);
-    console.log(state.orderReducer.planData);
-    return state.orderReducer.planData;
-  });
-  console.log(planData);
+  const dispatch = useDispatch();
+  const planData = useSelector((state) => state.orderReducer.planData);
+  const attendenceData = useSelector(
+    (state) => state.orderReducer.attendenceData
+  );
+  const dateData = useSelector((state) => state.orderReducer.dateData);
 
-  const [dateData, setDateData] = useState(TODAY_DATE);
-  const [attendenceData, setAttendenceData] = useState({});
-  const [needRefreshPage, setNeedRefreshPage] = useState(false);
+  const setAttendenceData = (inputAttendenceData) => {
+    dispatch({
+      type: "ADD_ATTENDENCE_DATA",
+      payload: { attendenceData: inputAttendenceData },
+    });
+  };
+  const setDateData = (inputDateData) => {
+    dispatch({
+      type: "CHANGE_ORDER_TIMELINE_DATA",
+      payload: { dateData: inputDateData },
+    });
+  };
+
+  const setNeedRefreshPage = (needFresh) => {
+    dispatch({
+      type: "REFRESH_ORDER_PAGE",
+      payload: { needRefreshPage: needFresh },
+    });
+  };
 
   const next = () => {
+    console.log({ ...planData, ...attendenceData, date: dateData });
     if (!checkCanNext()) {
       return;
     }
@@ -75,13 +91,7 @@ export const SelectRegion = ({
           defaultValue={TODAY_DATE}
           min={TODAY_DATE}
         ></input>
-        <Board
-          // setPlanData={setPlanData}
-          calendarDate={dateData}
-          isReadOnly={false}
-          needRefreshPage={needRefreshPage}
-          setNeedRefreshPage={setNeedRefreshPage}
-        ></Board>
+        <Board calendarDate={dateData} isReadOnly={false}></Board>
       </div>
 
       <div className="reservation__content__selectStep__resultBlock">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./TimeLine.css";
+import { useSelector, useDispatch } from "react-redux";
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
@@ -44,16 +45,25 @@ export const TimeLine = ({
   setLineCubeState,
   currentRoom,
   isReadOnly,
-  needRefreshPage,
-  setNeedRefreshPage,
+  // needRefreshPage,
+  // setNeedRefreshPage,
 }) => {
+  const dispatch = useDispatch();
+  const needRefreshPage = useSelector(
+    (state) => state.orderReducer.needRefreshPage
+  );
+  const setNeedRefreshPage = (needFresh) => {
+    dispatch({
+      type: "REFRESH_ORDER_PAGE",
+      payload: { needRefreshPage: needFresh },
+    });
+  };
+
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
 
   useEffect(() => {
     setCubeHover(initCubeHover(timeRegion));
-    if (setNeedRefreshPage !== undefined) {
-      setNeedRefreshPage(false);
-    }
+    setNeedRefreshPage(false);
   }, [needRefreshPage]);
 
   const cubeClickHandler = (e) => {

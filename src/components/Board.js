@@ -3,7 +3,7 @@ import "./Board.css";
 import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
 import useConstRoomData from "../utils/Time";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -247,20 +247,22 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
 
 const Board = ({
   calendarDate = "",
-  // setPlanData,
   selectedRoom = "",
   isReadOnly,
-  needRefreshPage,
-  setNeedRefreshPage,
+  // needRefreshPage,
+  // setNeedRefreshPage,
 }) => {
   const dispatch = useDispatch();
+  const needRefreshPage = useSelector(
+    (state) => state.orderReducer.needRefreshPage
+  );
 
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     useConstRoomData();
 
   const setPlanData = (inputPlanData) => {
     dispatch({
-      type: "ADD_PLANDATA",
+      type: "ADD_PLAN_DATA",
       payload: { planData: inputPlanData },
     });
   };
@@ -491,8 +493,8 @@ const Board = ({
                 setLineCubeState={setLineCubeState}
                 currentRoom={currentRoom}
                 isReadOnly={isReadOnly}
-                needRefreshPage={needRefreshPage}
-                setNeedRefreshPage={setNeedRefreshPage}
+                // needRefreshPage={needRefreshPage}
+                // setNeedRefreshPage={setNeedRefreshPage}
               ></TimeLine>
             ) : null}
           </div>
