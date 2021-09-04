@@ -29,7 +29,7 @@ const Menu = ({
       setOrderSearchResultArr([]);
       return;
     }
-    if (orderId.length < 42) {
+    if (orderId.length < 40) {
       setOrderSearchResultText(t("features.orderSearchTexts.noResult"));
       setOrderSearchResultArr([]);
       return;
