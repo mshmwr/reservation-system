@@ -3,6 +3,7 @@ import { Board } from "../../../components/Board";
 import Button from "../../../components/Button";
 import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
+import { useSelector } from "react-redux";
 
 export const SelectRegion = ({
   backClick,
@@ -12,7 +13,14 @@ export const SelectRegion = ({
   dataListItems,
   setSelectedData,
 }) => {
-  const [planData, setPlanData] = useState({});
+  // const [planData, setPlanData] = useState({});
+  const planData = useSelector((state) => {
+    console.log(state);
+    console.log(state.orderReducer.planData);
+    return state.orderReducer.planData;
+  });
+  console.log(planData);
+
   const [dateData, setDateData] = useState(TODAY_DATE);
   const [attendenceData, setAttendenceData] = useState({});
   const [needRefreshPage, setNeedRefreshPage] = useState(false);
@@ -68,7 +76,7 @@ export const SelectRegion = ({
           min={TODAY_DATE}
         ></input>
         <Board
-          setPlanData={setPlanData}
+          // setPlanData={setPlanData}
           calendarDate={dateData}
           isReadOnly={false}
           needRefreshPage={needRefreshPage}
@@ -122,12 +130,3 @@ export const SelectRegion = ({
     </div>
   );
 };
-
-// const TODAY_DATE = (() => {
-//   const tzoffset = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
-//   const localISOTime = new Date(Date.now() - tzoffset)
-//     .toISOString()
-//     .slice(0, -1);
-//   const today = localISOTime.slice(0, 10);
-//   return today;
-// })();

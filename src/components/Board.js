@@ -3,6 +3,7 @@ import "./Board.css";
 import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
 import useConstRoomData from "../utils/Time";
+import { useDispatch } from "react-redux";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -217,6 +218,7 @@ const fillReservedData = (
   });
   return cubeStates;
 };
+
 const setRoomCubes = (
   roomList,
   cubeInitData,
@@ -245,14 +247,23 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
 
 const Board = ({
   calendarDate = "",
-  setPlanData,
+  // setPlanData,
   selectedRoom = "",
   isReadOnly,
   needRefreshPage,
   setNeedRefreshPage,
 }) => {
+  const dispatch = useDispatch();
+
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     useConstRoomData();
+
+  const setPlanData = (inputPlanData) => {
+    dispatch({
+      type: "ADD_PLANDATA",
+      payload: { planData: inputPlanData },
+    });
+  };
 
   useEffect(async () => {
     const fetchData = async () => {
@@ -399,6 +410,7 @@ const Board = ({
           ];
           setCurrentRoom(newRoom);
           let duration = (cubeIdIndex - firstCubeIdIndex + 1) * 0.5;
+
           setPlanData({
             room: roomId,
             duration: duration,
