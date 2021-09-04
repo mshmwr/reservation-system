@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-function getConstData() {
+function useConstRoomData() {
   const { t } = useTranslation();
   const ROOM_LIST = t("roomInfo.roomList", { returnObjects: true });
   const START_TIME = t("reservationPage.startTime");
@@ -33,4 +33,4 @@ const getTimeRegionMapping = (timeRegion) => {
   return timeMapping;
 };
 
-export default getConstData;
+export default useConstRoomData;

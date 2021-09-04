@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getReservedData } from "../apis/reservedDataApi";
-import getConstData from "../utils/Time";
+import useConstRoomData from "../utils/Time";
 import {
   convertDataTimeToIndex,
   getRoomDatas,
@@ -34,7 +34,7 @@ export const CalendarDateReservedData = ({
   dateClickHandler,
   selectedRoom,
 }) => {
-  const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = getConstData();
+  const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = useConstRoomData();
   const [dateDatas, setDateDatas] = useState(null);
   const fetchReservedData = async () => {
     const fetchedData = await getReservedData(columnDate, undefined, undefined);

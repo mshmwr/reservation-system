@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import "./Management.css";
 import Calendar from "../../components/Calendar";
 import { Board } from "../../components/Board";
-import getConstData from "../../utils/Time";
+import useConstRoomData from "../../utils/Time";
 import { TODAY_DATE } from "../../utils/Date";
 import { deleteUser } from "../../apis/usersApi";
 import Hamburger from "../../components/Hamburger";
@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 
 function Management() {
   const { t } = useTranslation();
-  const { ROOM_LIST } = getConstData();
+  const { ROOM_LIST } = useConstRoomData();
   const history = useHistory();
   const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState("");

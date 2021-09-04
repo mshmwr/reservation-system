@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Board.css";
 import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
-import getConstData from "../utils/Time";
+import useConstRoomData from "../utils/Time";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -38,7 +38,6 @@ const initLineCube = (start, end, roomId) => {
   }
   return lineCube;
 };
-
 
 const initRoomListLineCube = (roomList, cubeInitData) => {
   let state = {};
@@ -244,23 +243,6 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
   });
 };
 
-// const getConstData = () => {
-//   const { t } = useTranslation();
-//   const ROOM_LIST = t("roomInfo.roomList");
-//   const START_TIME = t("reservationPage.startTime");
-//   const END_TIME = t("reservationPage.endTime");
-//   const TIME_REGION = getTimeRegion(START_TIME, END_TIME);
-//   const TIME_REGION_MAPPING = getTimeRegionMapping(TIME_REGION);
-
-//   return {
-//     ROOM_LIST,
-//     START_TIME,
-//     END_TIME,
-//     TIME_REGION,
-//     TIME_REGION_MAPPING,
-//   };
-// };
-
 const Board = ({
   calendarDate = "",
   setPlanData,
@@ -270,7 +252,7 @@ const Board = ({
   setNeedRefreshPage,
 }) => {
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
-    getConstData();
+    useConstRoomData();
 
   useEffect(async () => {
     const fetchData = async () => {
@@ -512,6 +494,6 @@ export {
   Board,
   getRoomDatas,
   getEachTimeReservedStatus,
-  getConstData,
+  useConstRoomData,
   convertDataTimeToIndex,
 };

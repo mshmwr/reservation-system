@@ -7,8 +7,12 @@ import { checkLoggedIn } from "../../utils/API";
 import { validateInput } from "../../utils/Utils";
 import { useTranslation } from "react-i18next";
 
-const inputVerifier = (ownerFormInputList, setAccountActionStatus) => {
-  const { t } = useTranslation();
+const inputVerifier = (
+  ownerFormInputList,
+  setAccountActionStatus,
+  multiLangList
+) => {
+  const [msg_invalid, msg_emptyColumns, msg_comma] = multiLangList;
   let errorMsg = "";
   const emptyColumns = ownerFormInputList.filter((col) => col.value === "");
   if (emptyColumns.length === 0) {
@@ -18,19 +22,17 @@ const inputVerifier = (ownerFormInputList, setAccountActionStatus) => {
       (input) => validateInput(input) === true
     );
     if (!valid) {
-      errorMsg += t("messages.invalid");
+      errorMsg += msg_invalid; //t("messages.invalid");
     }
     return errorMsg;
   }
   setAccountActionStatus("");
   //錯誤訊息：請輸入帳號、密碼...etc
-  errorMsg += t("memberSystemPage.errorMessage.emptyColumns");
+
+  errorMsg += msg_emptyColumns; //t("memberSystemPage.errorMessage.emptyColumns");
   emptyColumns.forEach((col, index) => {
     errorMsg += col.label;
-    errorMsg +=
-      index === emptyColumns.length - 1
-        ? ""
-        : t("memberSystemPage.errorMessage.comma");
+    errorMsg += index === emptyColumns.length - 1 ? "" : msg_comma; // t("memberSystemPage.errorMessage.comma");
   });
 
   return errorMsg;
@@ -122,9 +124,18 @@ function MemberSystem() {
       history.push("/");
       return;
     }
+    console.log("buttonClickHandler");
+    const multiLangList = [
+      t("messages.invalid"),
+      t("memberSystemPage.errorMessage.emptyColumns"),
+      t("memberSystemPage.errorMessage.comma"),
+    ];
 
-    setInputClick(false);
-    const errorMsg = inputVerifier(ownerFormInputList, setAccountActionStatus);
+    const errorMsg = inputVerifier(
+      ownerFormInputList,
+      setAccountActionStatus,
+      multiLangList
+    );
     if (errorMsg !== "") {
       // console.log(errorMsg);
       setAccountActionMessage(errorMsg);
@@ -221,11 +232,8 @@ function MemberSystem() {
 
           <div className="memberSystem__card__button">
             {isLoggedIn && (
-              <Link
-                to="/management"
-                className="common__block home__content__btn"
-              >
-                <Button text="前往後台"></Button>
+              <Link to="/management" className="home__content__btn">
+                <Button text={t("features.management")}></Button>
               </Link>
             )}
             <Button

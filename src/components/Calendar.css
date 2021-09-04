@@ -65,7 +65,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow-x: hidden;
 }
 .calendar__dates__date__entries__col {
   display: flex;
@@ -73,7 +73,6 @@
   padding: 5px;
   margin: 5px;
   white-space: nowrap;
-  overflow-x: hidden;
 }
 .calendar__dates__date__entries__col--applied {
   background-color: var(--main-normal);

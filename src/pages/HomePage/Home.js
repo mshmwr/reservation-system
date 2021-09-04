@@ -59,7 +59,7 @@ function Home() {
           {orderSearchResultArr.length !== 0 &&
             orderSearchResultArr.map((item) => (
               <div key={item.order_id} className="orderResultWindow__table">
-                {t("orderTableList").map((data) => (
+                {t("orderTableList", { returnObjects: true }).map((data) => (
                   <div
                     key={data.key}
                     className="orderResultWindow__table__item"
