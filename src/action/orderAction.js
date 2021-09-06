@@ -10,27 +10,27 @@ export default function useOrderAction() {
 
   const setPlanData = (inputPlanData) => {
     dispatch({
-      type: "ADD_PLAN_DATA",
+      type: ADD_PLAN_DATA,
       payload: { planData: inputPlanData },
     });
   };
 
   const setAttendenceData = (inputAttendenceData) => {
     dispatch({
-      type: "ADD_ATTENDENCE_DATA",
+      type: ADD_ATTENDENCE_DATA,
       payload: { attendenceData: inputAttendenceData },
     });
   };
   const setDateData = (inputDateData) => {
     dispatch({
-      type: "CHANGE_ORDER_TIMELINE_DATA",
+      type: CHANGE_ORDER_TIMELINE_DATA,
       payload: { dateData: inputDateData },
     });
   };
 
   const setNeedRefreshPage = (needFresh) => {
     dispatch({
-      type: "REFRESH_ORDER_PAGE",
+      type: REFRESH_ORDER_PAGE,
       payload: { needRefreshPage: needFresh },
     });
   };
