@@ -1,9 +1,11 @@
 import { TODAY_DATE } from "../utils/Date";
 
-const ADD_PLAN_DATA = "ADD_PLAN_DATA";
-const ADD_ATTENDENCE_DATA = "ADD_ATTENDENCE_DATA";
-const CHANGE_ORDER_TIMELINE_DATA = "CHANGE_ORDER_TIMELINE_DATA";
-const REFRESH_ORDER_PAGE = "REFRESH_ORDER_PAGE";
+import {
+  ADD_PLAN_DATA,
+  ADD_ATTENDENCE_DATA,
+  CHANGE_ORDER_TIMELINE_DATA,
+  REFRESH_ORDER_PAGE,
+} from "../action/orderAction";
 
 const initState = {
   planData: {},

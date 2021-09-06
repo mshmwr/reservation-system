@@ -4,6 +4,7 @@ import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
 import useConstRoomData from "../utils/Time";
 import { useSelector, useDispatch } from "react-redux";
+import useOrderAction from "../action/orderAction";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -245,27 +246,14 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
   });
 };
 
-const Board = ({
-  calendarDate = "",
-  selectedRoom = "",
-  isReadOnly,
-  // needRefreshPage,
-  // setNeedRefreshPage,
-}) => {
-  const dispatch = useDispatch();
+const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
+  const { setPlanData } = useOrderAction();
   const needRefreshPage = useSelector(
     (state) => state.orderReducer.needRefreshPage
   );
 
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     useConstRoomData();
-
-  const setPlanData = (inputPlanData) => {
-    dispatch({
-      type: "ADD_PLAN_DATA",
-      payload: { planData: inputPlanData },
-    });
-  };
 
   useEffect(async () => {
     const fetchData = async () => {

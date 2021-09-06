@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Board } from "../../../components/Board";
 import Button from "../../../components/Button";
 import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import useOrderAction from "../../../action/orderAction";
 
 export const SelectRegion = ({
   backClick,
@@ -13,32 +14,13 @@ export const SelectRegion = ({
   dataListItems,
   setSelectedData,
 }) => {
-  const dispatch = useDispatch();
+  const { setAttendenceData, setDateData, setNeedRefreshPage } =
+    useOrderAction();
   const planData = useSelector((state) => state.orderReducer.planData);
   const attendenceData = useSelector(
     (state) => state.orderReducer.attendenceData
   );
   const dateData = useSelector((state) => state.orderReducer.dateData);
-
-  const setAttendenceData = (inputAttendenceData) => {
-    dispatch({
-      type: "ADD_ATTENDENCE_DATA",
-      payload: { attendenceData: inputAttendenceData },
-    });
-  };
-  const setDateData = (inputDateData) => {
-    dispatch({
-      type: "CHANGE_ORDER_TIMELINE_DATA",
-      payload: { dateData: inputDateData },
-    });
-  };
-
-  const setNeedRefreshPage = (needFresh) => {
-    dispatch({
-      type: "REFRESH_ORDER_PAGE",
-      payload: { needRefreshPage: needFresh },
-    });
-  };
 
   const next = () => {
     console.log({ ...planData, ...attendenceData, date: dateData });
