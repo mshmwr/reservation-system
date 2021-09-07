@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./TimeLine.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import useTimelineAction from "../action/timelineAction";
+import useOrderAction from "../action/orderAction";
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
@@ -42,22 +44,17 @@ export const TimeLine = ({
   lineCubeState,
   setRoomCubes,
   roomList,
-  setLineCubeState,
   currentRoom,
   isReadOnly,
-  // needRefreshPage,
-  // setNeedRefreshPage,
 }) => {
-  const dispatch = useDispatch();
+  //action
+  const { setLineCubeState } = useTimelineAction();
+  const { setNeedRefreshPage } = useOrderAction();
+
+  //useSelector
   const needRefreshPage = useSelector(
     (state) => state.orderReducer.needRefreshPage
   );
-  const setNeedRefreshPage = (needFresh) => {
-    dispatch({
-      type: "REFRESH_ORDER_PAGE",
-      payload: { needRefreshPage: needFresh },
-    });
-  };
 
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
 

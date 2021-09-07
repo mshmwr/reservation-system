@@ -5,6 +5,7 @@ import { getReservedData } from "../apis/reservedDataApi";
 import useConstRoomData from "../utils/Time";
 import { useSelector, useDispatch } from "react-redux";
 import useOrderAction from "../action/orderAction";
+import useTimelineAction from "../action/timelineAction";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -247,13 +248,30 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
 };
 
 const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
+  //actions
+
   const { setPlanData } = useOrderAction();
+  const { setReservedData, setLineCubeState, setCurrentRoom } =
+    useTimelineAction();
+
+  const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
+    useConstRoomData();
+
+  const cubeInitData = {
+    startNum: START_TIME,
+    endNum: END_TIME,
+  };
   const needRefreshPage = useSelector(
     (state) => state.orderReducer.needRefreshPage
   );
 
-  const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
-    useConstRoomData();
+  const reservedData = useSelector(
+    (state) => state.timelineReducer.reservedData
+  );
+  const lineCubeState = useSelector(
+    (state) => state.timelineReducer.lineCubeState
+  );
+  const currentRoom = useSelector((state) => state.timelineReducer.currentRoom);
 
   useEffect(async () => {
     const fetchData = async () => {
@@ -303,13 +321,8 @@ const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
     },
   */
 
-  let cubeInitData = {
-    startNum: START_TIME,
-    endNum: END_TIME,
-  };
-
   const getReserverdDataTimeStatus = (data) => {
-    let reservedStatus = getEachTimeReservedStatus(
+    const reservedStatus = getEachTimeReservedStatus(
       getRoomDatas(ROOM_LIST, TIME_REGION, data),
       TIME_REGION_MAPPING,
       ROOM_LIST
@@ -317,7 +330,7 @@ const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
     return reservedStatus;
   };
   const getReserverdDataUsernames = (data) => {
-    let usernames = getEachTimeReservedUsername(
+    const usernames = getEachTimeReservedUsername(
       getRoomDatas(ROOM_LIST, TIME_REGION, data),
       TIME_REGION_MAPPING,
       ROOM_LIST
@@ -444,13 +457,6 @@ const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
     }
     return needInit;
   };
-  const [reservedData, setReservedData] = useState(null);
-  const [lineCubeState, setLineCubeState] = useState({});
-
-  const [currentRoom, setCurrentRoom] = useState([
-    { roomId: "", cubeId: "", index: -1 },
-    { roomId: "", cubeId: "", index: -1 },
-  ]); //[前次點擊, 本次點擊]
   return (
     <div className="board">
       {ROOM_LIST.filter((room) =>
@@ -478,11 +484,8 @@ const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
                 lineCubeState={lineCubeState}
                 setRoomCubes={handleRoomCubes}
                 roomList={ROOM_LIST}
-                setLineCubeState={setLineCubeState}
                 currentRoom={currentRoom}
                 isReadOnly={isReadOnly}
-                // needRefreshPage={needRefreshPage}
-                // setNeedRefreshPage={setNeedRefreshPage}
               ></TimeLine>
             ) : null}
           </div>
