@@ -15,7 +15,7 @@ export const SelectRegion = ({
   dataListItems,
   setSelectedData,
 }) => {
-  const { setAttendenceData } = useOrderAction();
+  const { setAttendenceData, setPlanData } = useOrderAction();
   const {
     setBoardCalendarDate,
     setBoardSelectedRoom,
@@ -77,6 +77,8 @@ export const SelectRegion = ({
     setBoardCalendarDate(TODAY_DATE);
     setBoardIsReadOnly(false);
     setBoardRefresh(false);
+    setAttendenceData({});
+    setPlanData({});
   }, []);
 
   return (

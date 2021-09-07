@@ -20,12 +20,6 @@ export default function useOrderAction() {
       payload: { attendenceData: inputAttendenceData },
     });
   };
-  // const setDateData = (inputDateData) => {
-  //   dispatch({
-  //     type: CHANGE_ORDER_TIMELINE_DATA,
-  //     payload: { dateData: inputDateData },
-  //   });
-  // };
 
-  return { setPlanData, setAttendenceData }; //, setDateData };
+  return { setPlanData, setAttendenceData };
 }
