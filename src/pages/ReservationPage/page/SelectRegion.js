@@ -27,20 +27,20 @@ export const SelectRegion = ({
   const attendenceData = useSelector(
     (state) => state.orderReducer.attendenceData
   );
-  const dateData = useSelector((state) => state.orderReducer.dateData);
+  const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
 
   const next = () => {
-    console.log({ ...planData, ...attendenceData, date: dateData });
+    console.log({ ...planData, ...attendenceData, date: calendarDate });
     if (!checkCanNext()) {
       return;
     }
-    setSelectedData({ ...planData, ...attendenceData, date: dateData });
+    setSelectedData({ ...planData, ...attendenceData, date: calendarDate });
     nextClick();
   };
   const handleDateChange = (e) => {
     setBoardCalendarDate(e.target.value);
-
     setBoardRefresh(true);
+    setPlanData({});
   };
   const handleAttendenceChange = (e) => {
     if (Number.isNaN(parseInt(e.target.value, 10))) {
