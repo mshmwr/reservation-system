@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Board } from "../../../components/Board";
 import Button from "../../../components/Button";
 import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
 import { useSelector } from "react-redux";
 import useOrderAction from "../../../action/orderAction";
+import useBoardAction from "../../../action/boardAction";
 
 export const SelectRegion = ({
   backClick,
@@ -14,8 +15,14 @@ export const SelectRegion = ({
   dataListItems,
   setSelectedData,
 }) => {
-  const { setAttendenceData, setDateData, setNeedRefreshPage } =
-    useOrderAction();
+  const { setAttendenceData } = useOrderAction();
+  const {
+    setBoardCalendarDate,
+    setBoardSelectedRoom,
+    setBoardRefresh,
+    setBoardIsReadOnly,
+  } = useBoardAction();
+
   const planData = useSelector((state) => state.orderReducer.planData);
   const attendenceData = useSelector(
     (state) => state.orderReducer.attendenceData
@@ -31,8 +38,9 @@ export const SelectRegion = ({
     nextClick();
   };
   const handleDateChange = (e) => {
-    setDateData(e.target.value);
-    setNeedRefreshPage(true);
+    setBoardCalendarDate(e.target.value);
+
+    setBoardRefresh(true);
   };
   const handleAttendenceChange = (e) => {
     if (Number.isNaN(parseInt(e.target.value, 10))) {
@@ -63,6 +71,14 @@ export const SelectRegion = ({
 
     return canNext;
   };
+
+  useEffect(() => {
+    setBoardSelectedRoom("");
+    setBoardCalendarDate(TODAY_DATE);
+    setBoardIsReadOnly(false);
+    setBoardRefresh(false);
+  }, []);
+
   return (
     <div className="reservation__content__selectStep">
       <div className="reservation__content__selectStep__calendarBlock">
@@ -73,7 +89,7 @@ export const SelectRegion = ({
           defaultValue={TODAY_DATE}
           min={TODAY_DATE}
         ></input>
-        <Board calendarDate={dateData} isReadOnly={false}></Board>
+        <Board />
       </div>
 
       <div className="reservation__content__selectStep__resultBlock">

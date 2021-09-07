@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Board.css";
 import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
 import useConstRoomData from "../utils/Time";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import useOrderAction from "../action/orderAction";
 import useTimelineAction from "../action/timelineAction";
 
@@ -247,24 +247,20 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
   });
 };
 
-const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
-  //actions
-
-  const { setPlanData } = useOrderAction();
-  const { setReservedData, setLineCubeState, setCurrentRoom } =
-    useTimelineAction();
-
+//{ calendarDate = "", selectedRoom = "", isReadOnly }
+const Board = () => {
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     useConstRoomData();
-
   const cubeInitData = {
     startNum: START_TIME,
     endNum: END_TIME,
   };
-  const needRefreshPage = useSelector(
-    (state) => state.orderReducer.needRefreshPage
-  );
+  //actions
+  const { setPlanData } = useOrderAction();
+  const { setReservedData, setLineCubeState, setCurrentRoom } =
+    useTimelineAction();
 
+  //get data from reducers
   const reservedData = useSelector(
     (state) => state.timelineReducer.reservedData
   );
@@ -272,8 +268,14 @@ const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
     (state) => state.timelineReducer.lineCubeState
   );
   const currentRoom = useSelector((state) => state.timelineReducer.currentRoom);
+  const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
+  const selectedRoom = useSelector((state) => state.boardReducer.selectedRoom);
+  const needRefreshBoard = useSelector(
+    (state) => state.boardReducer.needRefreshBoard
+  );
+  const isReadOnly = useSelector((state) => state.boardReducer.isReadOnly);
 
-  useEffect(async () => {
+  useEffect(() => {
     const fetchData = async () => {
       const fetchedData = await getReservedData(
         calendarDate,
@@ -291,7 +293,7 @@ const Board = ({ calendarDate = "", selectedRoom = "", isReadOnly }) => {
       setInit(resultData);
     };
     fetchData();
-  }, [calendarDate, needRefreshPage]);
+  }, [calendarDate, needRefreshBoard, selectedRoom, calendarDate]);
   const setInit = (data) => {
     setLineCubeState(
       setRoomCubes(

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./Management.css";
 import Calendar from "../../components/Calendar";
@@ -9,18 +9,33 @@ import { deleteUser } from "../../apis/usersApi";
 import Hamburger from "../../components/Hamburger";
 import Button from "../../components/Button";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import useBoardAction from "../../action/boardAction";
 
 function Management() {
+  //action
+
+  const {
+    setBoardCalendarDate,
+    setBoardSelectedRoom,
+    setBoardIsReadOnly,
+    setBoardRefresh,
+  } = useBoardAction();
+
+  //selector
+  //
   const { t } = useTranslation();
   const { ROOM_LIST } = useConstRoomData();
   const history = useHistory();
-  const [needRefreshPage, setNeedRefreshPage] = useState(false);
+
   const [selectedRoom, setSelectedRoom] = useState("");
+  const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [managementSelectedDate, setManagementSelectedDate] =
     useState(TODAY_DATE);
   const [showTimeLineBoard, setShowTimeLineBoard] = useState(false);
   const handleRoomSelectChange = (e) => {
-    setSelectedRoom(e.target.value);
+    setSelectedRoom(e.target.value); //for calendar component
+    setBoardSelectedRoom(e.target.value);
   };
   const closeClickHandler = () => {
     setShowTimeLineBoard(!showTimeLineBoard);
@@ -28,6 +43,7 @@ function Management() {
 
   const handleManagementDateChange = (e) => {
     setManagementSelectedDate(e.target.value);
+    setBoardCalendarDate(e.target.value);
   };
 
   const logoutButtonClickHandler = async () => {
@@ -35,6 +51,14 @@ function Management() {
     history.push("/");
     // console.log(parsedData);
   };
+
+  useEffect(() => {
+    setBoardSelectedRoom("");
+    setBoardCalendarDate(TODAY_DATE);
+    setBoardIsReadOnly(true);
+    setBoardRefresh(false);
+  }, []);
+
   return (
     <div className="management common__pageFrame">
       <div className={showTimeLineBoard ? "moveHamburger" : ""}>
@@ -70,7 +94,7 @@ function Management() {
               onChange={handleManagementDateChange}
               type="date"
               className=""
-              value={managementSelectedDate}
+              value={useSelector((state) => state.boardReducer.calendarDate)}
             ></input>
           </div>
           <div className="management__frame__selectBlock__item">
@@ -83,12 +107,7 @@ function Management() {
 
         <div className={`management__frame__timeline`}>
           <div className="management__frame__timeline__board">
-            <Board
-              calendarDate={managementSelectedDate}
-              selectedRoom={selectedRoom}
-              needRefreshPage={needRefreshPage}
-              isReadOnly={true}
-            />
+            <Board />
           </div>
         </div>
       </div>

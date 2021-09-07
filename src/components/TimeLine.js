@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./TimeLine.css";
 import { useSelector } from "react-redux";
 import useTimelineAction from "../action/timelineAction";
-import useOrderAction from "../action/orderAction";
+import useBoardAction from "../action/boardAction";
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
@@ -49,19 +49,19 @@ export const TimeLine = ({
 }) => {
   //action
   const { setLineCubeState } = useTimelineAction();
-  const { setNeedRefreshPage } = useOrderAction();
+  const { setBoardRefresh } = useBoardAction();
 
   //useSelector
-  const needRefreshPage = useSelector(
-    (state) => state.orderReducer.needRefreshPage
+  const needRefreshBoard = useSelector(
+    (state) => state.boardReducer.needRefreshBoard
   );
 
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
 
   useEffect(() => {
     setCubeHover(initCubeHover(timeRegion));
-    setNeedRefreshPage(false);
-  }, [needRefreshPage]);
+    setBoardRefresh(false);
+  }, [needRefreshBoard]);
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
