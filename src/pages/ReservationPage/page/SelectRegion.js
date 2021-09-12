@@ -5,9 +5,9 @@ import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import useOrderAction from "../../../action/orderAction";
-import useBoardAction from "../../../action/boardAction";
-import useReservationAction from "../../../action/reservationAction";
+import useOrderAction from "../../../action/features/orderAction";
+import useBoardAction from "../../../action/features/boardAction";
+import useReservationAction from "../../../action/features/reservationAction";
 
 export const SelectRegion = () => {
   //i18n

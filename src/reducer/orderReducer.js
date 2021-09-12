@@ -1,4 +1,7 @@
-import { ADD_PLAN_DATA, ADD_ATTENDENCE_DATA } from "../action/orderAction";
+import {
+  ADD_PLAN_DATA,
+  ADD_ATTENDENCE_DATA,
+} from "../action/features/orderAction";
 
 const initState = {
   planData: {},

@@ -4,7 +4,7 @@ import Form from "../../../components/Form";
 import "./FillInRegion.css";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import useReservationAction from "../../../action/reservationAction";
+import useReservationAction from "../../../action/features/reservationAction";
 
 export const FillInRegin = () => {
   //i18n

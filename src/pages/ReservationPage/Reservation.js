@@ -6,7 +6,7 @@ import { Stepper } from "../../components/Stepper";
 
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import useReservationAction from "../../action/reservationAction";
+import useReservationAction from "../../action/features/reservationAction";
 
 function Reservation() {
   //i18n

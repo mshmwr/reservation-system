@@ -10,7 +10,7 @@ import Hamburger from "../../components/Hamburger";
 import Button from "../../components/Button";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import useBoardAction from "../../action/boardAction";
+import useBoardAction from "../../action/features/boardAction";
 
 function Management() {
   //action

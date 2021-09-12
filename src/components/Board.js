@@ -4,8 +4,8 @@ import { TimeLine } from "./TimeLine";
 import { getReservedData } from "../apis/reservedDataApi";
 import useConstRoomData from "../utils/Time";
 import { useSelector } from "react-redux";
-import useOrderAction from "../action/orderAction";
-import useTimelineAction from "../action/timelineAction";
+import useOrderAction from "../action/features/orderAction";
+import useTimelineAction from "../action/features/timelineAction";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube

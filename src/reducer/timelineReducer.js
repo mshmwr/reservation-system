@@ -2,7 +2,7 @@ import {
   SET_FETCHED_RESERVED_DATA,
   SET_LINECUBE_STATE,
   SET_CURRENT_ROOM,
-} from "../action/timelineAction";
+} from "../action/features/timelineAction";
 
 const initState = {
   reservedData: null,

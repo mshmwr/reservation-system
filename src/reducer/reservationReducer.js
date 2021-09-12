@@ -2,7 +2,7 @@ import {
   SET_FORM_INPUT_LIST,
   SET_STEP,
   SET_SELECTED_DATA,
-} from "../action/reservationAction";
+} from "../action/features/reservationAction";
 
 const initState = {
   formInputList: [],

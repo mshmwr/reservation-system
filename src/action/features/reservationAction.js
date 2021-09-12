@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { validateInput } from "../utils/Utils";
-import { postReservedData } from "../apis/reservedDataApi";
+import { validateInput } from "../../utils/Utils";
+import { postReservedData } from "../../apis/reservedDataApi";
 
 export const SET_FORM_INPUT_LIST = "SET_FORM_INPUT_LIST";
 export const SET_STEP = "SET_STEP";

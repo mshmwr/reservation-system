@@ -4,7 +4,7 @@ import {
   SET_BOARD_SELECTED_ROOM,
   SET_BOARD_IS_READ_ONLY,
   SET_BOARD_REFRESH,
-} from "../action/boardAction";
+} from "../action/features/boardAction";
 const initState = {
   calendarDate: TODAY_DATE,
   selectedRoom: "",
