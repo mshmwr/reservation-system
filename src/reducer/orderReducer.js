@@ -1,8 +1,4 @@
-import {
-  ADD_PLAN_DATA,
-  ADD_ATTENDENCE_DATA,
-  TEST_I18N,
-} from "../action/orderAction";
+import { ADD_PLAN_DATA, ADD_ATTENDENCE_DATA } from "../action/orderAction";
 
 const initState = {
   planData: {},
@@ -16,8 +12,6 @@ const orderReducer = (state = initState, action) => {
       return { ...state, planData: action.payload.planData };
     case ADD_ATTENDENCE_DATA:
       return { ...state, attendenceData: action.payload.attendenceData };
-    case TEST_I18N:
-      return { ...state, testI18n: action.payload.testI18n };
     default:
       return state;
   }
