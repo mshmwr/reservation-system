@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import Button from "../../components/Button";
-import Hamburger from "../../components/Hamburger";
-import CloseIcon from "../../components/CloseIcon";
-import Menu from "../../components/Menu";
+import Button from "../../components/ui/Button";
+import Hamburger from "../../components/ui/Hamburger";
+import CloseIcon from "../../components/ui/CloseIcon";
+import Menu from "../../components/ui/Menu";
 import { checkLoggedIn } from "../../utils/API";
 import { useTranslation } from "react-i18next";
 

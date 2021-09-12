@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Menu.css";
-import { getReservedData } from "../apis/reservedDataApi";
-import Button from "../components/Button";
+import { getReservedData } from "../../apis/reservedDataApi";
+import Button from "./Button";
 import { useTranslation } from "react-i18next";
 
 const Menu = ({

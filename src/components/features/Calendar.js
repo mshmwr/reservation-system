@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../Button";
+import Button from "../ui/Button";
 import "./Calendar.css";
 import { CalendarDateReservedData } from "./CalendarDateReservedData";
 import { CalendarOrderDialog } from "./CalandarOrderDialog";

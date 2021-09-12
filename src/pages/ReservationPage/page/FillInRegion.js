@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../../components/Button";
+import Button from "../../../components/ui/Button";
 import Form from "../../../components/Form";
 import "./FillInRegion.css";
 import { useSelector } from "react-redux";

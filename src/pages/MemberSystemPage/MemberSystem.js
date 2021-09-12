@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import "./MemberSystem.css";
 import { postUser, patchUser, deleteUser } from "../../apis/usersApi";
-import Button from "../../components/Button";
+import Button from "../../components/ui/Button";
 import { checkLoggedIn } from "../../utils/API";
 import { validateInput } from "../../utils/Utils";
 import { useTranslation } from "react-i18next";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Board } from "../../../components/features/Board";
-import Button from "../../../components/Button";
+import Button from "../../../components/ui/Button";
 import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
 import { useSelector } from "react-redux";
