@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from "react";
 import "./Reservation.css";
 import { SelectRegion } from "./page/SelectRegion";
 import { FillInRegin } from "./page/FillInRegion";
-import { Stepper } from "../../components/Stepper";
+import { Stepper } from "../../components/common/Stepper";
 
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";

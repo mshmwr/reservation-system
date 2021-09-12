@@ -1,6 +1,6 @@
 .header__logo {
   display: flex;
-  background-image: url("../img/logo_120_120.png");
+  background-image: url("../../img/logo_120_120.png");
   background-size: cover;
   background-position: 50% 50%;
   height: 120px;
