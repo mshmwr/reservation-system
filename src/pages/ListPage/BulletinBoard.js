@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Form from "../../components/Form";
+import Form from "../../components/features/Form";
 import "./BulletinBoard.css";
 import Button from "../../components/ui/Button";
 import { Link } from "react-router-dom";
