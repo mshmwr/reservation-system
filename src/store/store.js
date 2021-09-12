@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from "redux";
-import orderReducer from "../reducer/orderReducer";
-import timelineReducer from "../reducer/timelineReducer";
-import boardReducer from "../reducer/boardReducer";
-import reservationReducer from "../reducer/reservationReducer";
+import orderReducer from "../reducer/features/orderReducer";
+import timelineReducer from "../reducer/features/timelineReducer";
+import boardReducer from "../reducer/features/boardReducer";
+import reservationReducer from "../reducer/features/reservationReducer";
 
 const rootReducer = combineReducers({
   orderReducer,

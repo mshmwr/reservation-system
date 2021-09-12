@@ -1,10 +1,10 @@
-import { TODAY_DATE } from "../utils/Date";
+import { TODAY_DATE } from "../../utils/Date";
 import {
   SET_BOARD_CALENDAR_DATE,
   SET_BOARD_SELECTED_ROOM,
   SET_BOARD_IS_READ_ONLY,
   SET_BOARD_REFRESH,
-} from "../action/features/boardAction";
+} from "../../action/features/boardAction";
 const initState = {
   calendarDate: TODAY_DATE,
   selectedRoom: "",
