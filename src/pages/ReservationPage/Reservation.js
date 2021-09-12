@@ -1,11 +1,8 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import "./Reservation.css";
-import { useHistory } from "react-router-dom";
 import { SelectRegion } from "./page/SelectRegion";
 import { FillInRegin } from "./page/FillInRegion";
 import { Stepper } from "../../components/Stepper";
-import { postReservedData } from "../../apis/reservedDataApi";
-import { validateInput } from "../../utils/Utils";
 
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
