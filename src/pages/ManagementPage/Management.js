@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./Management.css";
-import Calendar from "../../components/Calendar";
-import { Board } from "../../components/Board";
+import Calendar from "../../components/features/Calendar";
+import { Board } from "../../components/features/Board";
 import useConstRoomData from "../../utils/Time";
 import { TODAY_DATE } from "../../utils/Date";
 import { deleteUser } from "../../apis/usersApi";

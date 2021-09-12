@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getReservedData, patchReservedData } from "../apis/reservedDataApi";
-import { TODAY_DATE } from "../utils/Date";
-import CloseIcon from "./CloseIcon";
+import { getReservedData, patchReservedData } from "../../apis/reservedDataApi";
+import { TODAY_DATE } from "../../utils/Date";
+import CloseIcon from "../CloseIcon";
 import { useTranslation } from "react-i18next";
 
 const dateMultiple = [1000, 100, 1];

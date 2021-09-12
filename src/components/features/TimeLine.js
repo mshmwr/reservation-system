@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./TimeLine.css";
 import { useSelector } from "react-redux";
-import useTimelineAction from "../action/features/timelineAction";
-import useBoardAction from "../action/features/boardAction";
+import useTimelineAction from "../../action/features/timelineAction";
+import useBoardAction from "../../action/features/boardAction";
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;

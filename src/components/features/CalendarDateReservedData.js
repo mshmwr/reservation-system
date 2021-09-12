@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getReservedData } from "../apis/reservedDataApi";
-import useConstRoomData from "../utils/Time";
+import { getReservedData } from "../../apis/reservedDataApi";
+import useConstRoomData from "../../utils/Time";
 import {
   convertDataTimeToIndex,
   getRoomDatas,

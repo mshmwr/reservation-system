@@ -123,7 +123,7 @@
   position: absolute;
   top: 7px;
   left: 7px;
-  content: url("../img/icon_close.png");
+  content: url("../../img/icon_close.png");
 }
 
 .calendar__dialog__table {

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import "./Board.css";
 import { TimeLine } from "./TimeLine";
-import { getReservedData } from "../apis/reservedDataApi";
-import useConstRoomData from "../utils/Time";
+import { getReservedData } from "../../apis/reservedDataApi";
+import useConstRoomData from "../../utils/Time";
 import { useSelector } from "react-redux";
-import useOrderAction from "../action/features/orderAction";
-import useTimelineAction from "../action/features/timelineAction";
+import useOrderAction from "../../action/features/orderAction";
+import useTimelineAction from "../../action/features/timelineAction";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
