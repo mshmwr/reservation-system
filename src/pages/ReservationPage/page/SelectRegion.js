@@ -4,17 +4,21 @@ import Button from "../../../components/Button";
 import "./SelectRegion.css";
 import { TODAY_DATE } from "../../../utils/Date";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import useOrderAction from "../../../action/orderAction";
 import useBoardAction from "../../../action/boardAction";
+import useReservationAction from "../../../action/reservationAction";
 
-export const SelectRegion = ({
-  backClick,
-  nextClick,
-  nextButtonText,
-  backButtonText,
-  dataListItems,
-  setSelectedData,
-}) => {
+export const SelectRegion = () => {
+  //i18n
+  const { t } = useTranslation();
+  const nextButtonText = t("reservationPage.selectStep.button.next");
+  const backButtonText = null;
+  const dataListItems = t("reservationPage.selectStep.listItems", {
+    returnObjects: true,
+  });
+
+  //redux
   const { setAttendenceData, setPlanData } = useOrderAction();
   const {
     setBoardCalendarDate,
@@ -23,19 +27,23 @@ export const SelectRegion = ({
     setBoardIsReadOnly,
   } = useBoardAction();
 
+  const { setSelectedData, backClick, nextClick } = useReservationAction();
+
   const planData = useSelector((state) => state.orderReducer.planData);
   const attendenceData = useSelector(
     (state) => state.orderReducer.attendenceData
   );
   const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
+  const step = useSelector((state) => state.reservationReducer.step);
 
   const next = () => {
+    console.log("select region: next");
     console.log({ ...planData, ...attendenceData, date: calendarDate });
     if (!checkCanNext()) {
       return;
     }
     setSelectedData({ ...planData, ...attendenceData, date: calendarDate });
-    nextClick();
+    nextClick(step);
   };
   const handleDateChange = (e) => {
     setBoardCalendarDate(e.target.value);
@@ -44,24 +52,27 @@ export const SelectRegion = ({
   };
   const handleAttendenceChange = (e) => {
     if (Number.isNaN(parseInt(e.target.value, 10))) {
-      alert("請選擇人數");
+      alert(
+        t("reservationPage.selectStep.errorMessage.pleaseChoose") +
+          t("reservationPage.selectStep.errorMessage.attendence")
+      ); //請選擇人數
       setAttendenceData({});
       return;
     }
     setAttendenceData({ attendence: e.target.value });
   };
   const checkCanNext = () => {
-    let alertStr = "請選擇";
+    let alertStr = t("reservationPage.selectStep.errorMessage.pleaseChoose"); //請選擇
     let canNext = true;
     if (Object.keys(planData).length === 0) {
-      alertStr += "預約時間";
+      alertStr += t("reservationPage.selectStep.errorMessage.time"); //預約時間
       canNext = false;
     }
     if (JSON.stringify(attendenceData) === "{}") {
       if (!canNext) {
-        alertStr += "、";
+        alertStr += t("reservationPage.selectStep.errorMessage.comma"); //"、"
       }
-      alertStr += "人數";
+      alertStr += t("reservationPage.selectStep.errorMessage.attendence"); //人數
       canNext = false;
     }
 
@@ -129,8 +140,11 @@ export const SelectRegion = ({
           })}
         </div>
         <div className="resultBlock__buttonGroup common__buttonGroup">
-          {backButtonText !== undefined && (
-            <Button text={backButtonText} clickEvent={backClick}></Button>
+          {backButtonText && (
+            <Button
+              text={backButtonText}
+              clickEvent={() => backClick(step)}
+            ></Button>
           )}
           {nextButtonText !== undefined && (
             <Button text={nextButtonText} clickEvent={next}></Button>

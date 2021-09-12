@@ -154,6 +154,12 @@
       ],
       "button": {
         "next": "下一步"
+      },
+      "errorMessage": {
+        "pleaseChoose": "請選擇",
+        "time": "預約時間",
+        "attendence": "人數",
+        "comma": "、"
       }
     },
     "fillInStep": {

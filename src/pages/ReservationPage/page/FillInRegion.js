@@ -2,18 +2,36 @@ import React from "react";
 import Button from "../../../components/Button";
 import Form from "../../../components/Form";
 import "./FillInRegion.css";
-export const FillInRegin = ({
-  titles,
-  subTitles,
-  planItems,
-  formInputList,
-  backClick,
-  nextClick,
-  buttonTexts,
-  steps,
-  step,
-  selectedData,
-}) => {
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import useReservationAction from "../../../action/reservationAction";
+
+export const FillInRegin = () => {
+  //i18n
+  const { t } = useTranslation();
+  const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
+  const titles = t("reservationPage.titles", { returnObjects: true });
+  const subTitles = t("reservationPage.subTitles", { returnObjects: true });
+  const planItems = t("reservationPage.fillInStep.planItems", {
+    returnObjects: true,
+  });
+  const fillInButtonTexts = t("reservationPage.fillInStep.button", {
+    returnObjects: true,
+  });
+  const finishInButtonTexts = t("reservationPage.finishStep.button", {
+    returnObjects: true,
+  });
+
+  //redux
+  const { backClick, nextClick } = useReservationAction();
+  const formInputList = useSelector(
+    (state) => state.reservationReducer.formInputList
+  );
+  const step = useSelector((state) => state.reservationReducer.step);
+  const selectedData = useSelector(
+    (state) => state.reservationReducer.selectedData
+  );
+
   return (
     <div className="reservation__content__fillInStep">
       <p className="reservation__content__fillInStep__title common__title common__font--bold">
@@ -65,15 +83,27 @@ export const FillInRegin = ({
 
       <div className="reservation__content__fillInStep__buttonGroup common__buttonGroup">
         {step === steps[1] ? (
-          <Button text={buttonTexts.back} clickEvent={backClick}></Button>
+          <Button
+            text={fillInButtonTexts.back}
+            clickEvent={() => backClick(step)}
+          ></Button>
         ) : (
-          <Button text={buttonTexts.back} clickEvent={backClick}></Button>
+          <Button
+            text={finishInButtonTexts.back}
+            clickEvent={() => backClick(step)}
+          ></Button>
         )}
 
         {step === steps[1] ? (
-          <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
+          <Button
+            text={fillInButtonTexts.next}
+            clickEvent={() => nextClick(step)}
+          ></Button>
         ) : (
-          <Button text={buttonTexts.next} clickEvent={nextClick}></Button>
+          <Button
+            text={finishInButtonTexts.next}
+            clickEvent={() => nextClick(step)}
+          ></Button>
         )}
       </div>
     </div>

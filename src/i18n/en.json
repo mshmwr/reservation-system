@@ -153,6 +153,12 @@
       ],
       "button": {
         "next": "next"
+      },
+      "errorMessage": {
+        "pleaseChoose": "Please choose the ",
+        "time": "time",
+        "attendence": "attendence",
+        "comma": ", "
       }
     },
     "fillInStep": {
