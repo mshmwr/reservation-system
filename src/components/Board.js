@@ -247,7 +247,6 @@ const getRoomDatas = (roomList, timeRegion, reservedDatas) => {
   });
 };
 
-//{ calendarDate = "", selectedRoom = "", isReadOnly }
 const Board = () => {
   const { ROOM_LIST, START_TIME, END_TIME, TIME_REGION, TIME_REGION_MAPPING } =
     useConstRoomData();
@@ -255,12 +254,10 @@ const Board = () => {
     startNum: START_TIME,
     endNum: END_TIME,
   };
-  //actions
+  //redux
   const { setPlanData } = useOrderAction();
   const { setReservedData, setLineCubeState, setCurrentRoom } =
     useTimelineAction();
-
-  //get data from reducers
   const reservedData = useSelector(
     (state) => state.timelineReducer.reservedData
   );
