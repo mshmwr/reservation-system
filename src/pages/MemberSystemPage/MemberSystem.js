@@ -255,7 +255,11 @@ function MemberSystem() {
                 className="memberSystem__card__instruction__action"
                 onClick={clickAccountStatusHandler}
               >
-                {t("memberSystemPage.card.hint")[accountStatus]}
+                {
+                  t("memberSystemPage.card.hint", {
+                    returnObjects: true,
+                  })[accountStatus]
+                }
               </p>
             </div>
           )}

@@ -50,6 +50,7 @@
   align-items: center;
   text-decoration: none;
   flex-direction: column;
+  padding-bottom: 1rem;
 }
 /* -------- */
 
