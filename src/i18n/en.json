@@ -383,8 +383,8 @@
       }
     ],
     "errorMessage": {
-      "emptyColumns": "Please enter",
-      "comma": "、"
+      "emptyColumns": "Please enter the ",
+      "comma": ", "
     }
   },
   "multiLanguages": {
