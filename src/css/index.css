@@ -19,10 +19,3 @@ main {
   flex: 1;
   align-items: stretch;
 }
-footer {
-  display: flex;
-  height: 5rem;
-  background-color: var(--main-normal);
-  justify-content: center;
-  align-items: center;
-}
