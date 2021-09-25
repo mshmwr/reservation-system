@@ -132,11 +132,9 @@ html {
   transition: all 0.2s ease;
 }
 
-input:valid {
-  /* background-color: powderblue; */
-}
 input:invalid {
-  background-color: var(--light-red);
+  border: 1px var(--light-red) solid;
+  border-radius: var(--border-radius);
 }
 
 @media screen and (max-width: 600px) {
