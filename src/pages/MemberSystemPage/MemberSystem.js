@@ -96,7 +96,6 @@ function MemberSystem() {
   const [accountStatus, setAccountStatus] = useState("login");
   const [accountActionMessage, setAccountActionMessage] = useState("");
   const [accountActionStatus, setAccountActionStatus] = useState("");
-  const [inputClick, setInputClick] = useState(false);
   const [ownerFormInputList, setOwnerLoginFormInputList] =
     useState(copyOwnerLoginForm);
 
@@ -119,6 +118,7 @@ function MemberSystem() {
   };
 
   const buttonClickHandler = async () => {
+    console.log("buttonClickHandler");
     if (isLoggedIn) {
       await sendApi("logout");
       history.push("/");
@@ -136,6 +136,7 @@ function MemberSystem() {
       setAccountActionStatus,
       multiLangList
     );
+    console.log(errorMsg);
     if (errorMsg !== "") {
       // console.log(errorMsg);
       setAccountActionMessage(errorMsg);
@@ -161,7 +162,8 @@ function MemberSystem() {
         history.push("/");
         break;
       case "register":
-        // history.go(0);
+        console.log("register finish");
+        history.go(0);
         break;
       case "logout":
         history.push("/");
@@ -183,7 +185,7 @@ function MemberSystem() {
   };
 
   const handleInputClick = () => {
-    setInputClick(true);
+    setAccountActionMessage("");
   };
 
   return (
@@ -218,7 +220,7 @@ function MemberSystem() {
                   </div>
                 ))}
               </form>
-              {accountActionMessage !== "" && !inputClick && (
+              {accountActionMessage !== "" && (
                 <p
                   className={`memberSystem__card__message ${switchAccountMessageColor(
                     accountActionStatus

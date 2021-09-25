@@ -2,6 +2,7 @@
 const path = require("path");
 module.exports = {
   //這個webpack打包的對象，這裡面加上剛剛建立的index.js
+  devtool: "inline-source-map",
   entry: {
     index: "./src/index.js",
   },
