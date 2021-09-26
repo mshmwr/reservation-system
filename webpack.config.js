@@ -36,12 +36,20 @@ module.exports = {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "url-loader",
+        options: {
+          name: "[name].[ext]",
+          limit: 8900,
+          outputPath: "img",
+        },
+      },
     ],
   },
   //增加一個給devserver的設定
   devServer: {
-    //contentBase: "./build", // 本來打包完的檔案位置
-    port: 8080, //指定開啟port為3000
+    port: 8080, //指定開啟port為8080
     historyApiFallback: true,
   },
 };
