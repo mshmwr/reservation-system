@@ -40,8 +40,9 @@ module.exports = {
         test: /\.(png|jpe?g|gif)$/i,
         loader: "url-loader",
         options: {
-          name: "[name].[ext]",
-          limit: 8900,
+          name: "[name].[ext]", // 配置 name 屬性 (第二步)
+          limit: 8900, // 用以限制須轉為 base64 的文件大小 (單位：byte)
+          fallback: require.resolve("file-loader"), // 超過大小則調用 file-loader
           outputPath: "img",
         },
       },
