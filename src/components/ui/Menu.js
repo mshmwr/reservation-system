@@ -31,7 +31,7 @@ const MyMenu = ({ className,
   return (
     <div className={`${className} menu`}>
       <Dropdowns className="menu__item" langs={langs} language={language} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
-      <OrderEnquiry setOrderSearchResultArr={setOrderSearchResultArr} setShowWindow={setShowWindow} />
+      <OrderEnquiry className="menu__item" setOrderSearchResultArr={setOrderSearchResultArr} setShowWindow={setShowWindow} />
     </div>
   );
 };
@@ -44,7 +44,7 @@ const Menu = styled(MyMenu)`
   justify-content: flex-start;
   
   .menu__item{
-    margin: 0 2rem;
+    margin-left: 0.5rem;
   }
 `;
 

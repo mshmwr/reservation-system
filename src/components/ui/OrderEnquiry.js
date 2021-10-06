@@ -74,7 +74,7 @@ const OrderEnquiry = styled(MyOrderEnquiry)`
 
     .menu__order__input {
         height: var(--menu-item-height);
-        width: var(--homeMenu-width);
+        width: 160px;
         box-sizing: border-box;
     }
 
@@ -87,6 +87,8 @@ const OrderEnquiry = styled(MyOrderEnquiry)`
         height: calc(var(--menu-item-height)/2);
         margin:0 0.25rem;
         background-image: url(${getSVGURI(faSearch, "#FFFFFF")});
+        cursor: pointer;
+    
     }
 
 `;
