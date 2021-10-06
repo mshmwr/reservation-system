@@ -49,10 +49,6 @@ const MyOrderEnquiry = ({ className, setOrderSearchResultArr, setShowWindow, }) 
 
     return (<>
         <div className={`${className} menu__order`}>
-            {/* <Button
-                text={t("features.orderSearch")}
-                clickEvent={orderSearchClickHandler}
-            /> */}
             <input
                 type="text"
                 placeholder={t("features.orderSearchTexts.orderIdInput")}
@@ -61,7 +57,7 @@ const MyOrderEnquiry = ({ className, setOrderSearchResultArr, setShowWindow, }) 
                 onFocus={orderInputOnFocus}
                 onBlur={orderInputOnBlur}
             />
-            <div className="menu__order__searchIcon" onClick={orderSearchClickHandler}></div>
+            <div className="menu__order__searchIcon" onClick={orderSearchClickHandler} />
         </div>
         {orderSearchResultText === "" ? null : (
             <p className="menu__order__result">{orderSearchResultText}</p>

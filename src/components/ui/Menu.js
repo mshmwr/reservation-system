@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
-import "./Menu.css";
 import { useTranslation } from "react-i18next";
 
 import Dropdowns from "./Dropdowns";
 import OrderEnquiry from "./OrderEnquiry";
 
-const Menu = ({
-  isLoggedIn,
+
+const MyMenu = ({ className,
   setOrderSearchResultArr,
   setShowWindow,
 }) => {
@@ -29,11 +29,23 @@ const Menu = ({
   };
 
   return (
-    <div className="menu">
-      <Dropdowns langs={langs} language={language} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
+    <div className={`${className} menu`}>
+      <Dropdowns className="menu__item" langs={langs} language={language} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
       <OrderEnquiry setOrderSearchResultArr={setOrderSearchResultArr} setShowWindow={setShowWindow} />
     </div>
   );
 };
+
+const Menu = styled(MyMenu)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  
+  .menu__item{
+    margin: 0 2rem;
+  }
+`;
 
 export default Menu;

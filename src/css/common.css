@@ -40,6 +40,7 @@
   /* z-index */
   --zIndex-managementSelectionBlock: 1;
   --zIndex-managementIcon: 3;
+  --zIndex-footer: 3;
   --zIndex-dialog: 5;
   --zIndex-dialogBox: 7;
 }

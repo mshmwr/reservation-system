@@ -4,7 +4,6 @@ import "./Home.css";
 import Button from "../../components/ui/Button";
 import Hamburger from "../../components/ui/Hamburger";
 import CloseIcon from "../../components/ui/CloseIcon";
-import Menu from "../../components/ui/Menu";
 import { checkLoggedIn } from "../../utils/API";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +11,6 @@ function Home() {
   const { t } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
 
@@ -25,25 +23,12 @@ function Home() {
     fetchData();
   }, [isLoggedIn]);
 
-  const menuClickHandler = () => {
-    setShowMenu(!showMenu);
-  };
   const closeWindowClickHandler = () => {
     setShowWindow(false);
   };
 
   return (
     <div className="home common__pageFrame">
-      <Hamburger isShowItem={showMenu} clickHandler={menuClickHandler} />
-      {/* <Menu
-        showMenu={showMenu}
-        isLoggedIn={isLoggedIn}
-        setOrderSearchResultArr={setOrderSearchResultArr}
-        setShowWindow={setShowWindow}
-        language={language}
-        setLanguage={setLanguage}
-      /> */}
-
       {showWindow && (
         <div className="orderResultWindow">
           <CloseIcon clickHandler={closeWindowClickHandler} />
