@@ -1,15 +1,7 @@
 .menu {
   display: flex;
 }
-.menu .common__block {
-  margin-bottom: 1rem;
-}
 
-.menu Button {
-  padding: 0.2rem 0;
-  width: var(--homeMenu-width);
-  min-width: auto;
-}
 .home__menu__feature {
   display: flex;
   justify-content: center;
@@ -18,11 +10,3 @@
   flex-direction: column;
 }
 
-.home__menu__order__input {
-  height: 24px;
-  width: var(--homeMenu-width);
-  box-sizing: border-box;
-}
-.home__menu__order__result {
-  margin: 0.5rem 0;
-}

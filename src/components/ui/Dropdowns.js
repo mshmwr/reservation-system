@@ -40,7 +40,7 @@ const MyDropdowns = ({ langs, language, switchLanguageClickHandler, className })
 const Dropdowns = styled(MyDropdowns)`
     position: relative;
     width:60px;
-    height:30px;
+    height:var(--menu-item-height);
     text-align: center;
     color: var(--dark);
 
@@ -74,8 +74,8 @@ const Dropdowns = styled(MyDropdowns)`
         position: relative;
         top: -2px;
         left: 5px;
-        width: calc(${props => props.listItemHeight} / 4);
-        height: calc(${props => props.listItemHeight} / 4);
+        width: calc(var(--menu-item-height) / 4);
+        height: calc(var(--menu-item-height) / 4);
 
     }
 
