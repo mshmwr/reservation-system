@@ -32,7 +32,7 @@ export default class App extends Component {
               <Route path="/memberSystem" component={MemberSystem} />
             </Switch>
           </main>
-          <Footer />
+          <Footer/>
         </div>
       </Router>
     );

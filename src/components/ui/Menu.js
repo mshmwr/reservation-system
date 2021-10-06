@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./Menu.css";
@@ -6,18 +6,27 @@ import { getReservedData } from "../../apis/reservedDataApi";
 import Button from "./Button";
 import { useTranslation } from "react-i18next";
 
+import Dropdowns from "./Dropdowns";
+
 const Menu = ({
-  showMenu,
   isLoggedIn,
   setOrderSearchResultArr,
   setShowWindow,
-  language,
-  setLanguage,
 }) => {
   const { t } = useTranslation();
-  const langs = t("multiLanguages", { returnObjects: true });
+  const { i18n } = useTranslation();
   const [inputOrderId, setInputOrderId] = useState("");
   const [orderSearchResultText, setOrderSearchResultText] = useState("");
+
+
+  const langs = t("multiLanguages", { returnObjects: true });
+  const [language, setLanguage] = useState(langs["CHT"]["multiLang"]);
+
+  useEffect(() => {
+    if (language !== null) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
 
   const switchLanguageClickHandler = (e) => {
     setLanguage(e.target.id);
@@ -52,35 +61,14 @@ const Menu = ({
   const orderInputHandler = (e) => {
     setInputOrderId(e.target.value);
   };
-  const orderInputOnFocus = () => {};
+  const orderInputOnFocus = () => { };
   const orderInputOnBlur = () => {
     setOrderSearchResultText("");
   };
 
   return (
-    <div className={`menu ${showMenu ? "" : "common__hidden"}`}>
-      {/* <Link to="/bulletinBoard" className="common__block home__content__btn">
-        <Button text="留言版" />
-      </Link> */}
-      <div className="common__block home__menu__language">
-        {Object.keys(langs).map((key) => (
-          <div
-            key={langs[key].label}
-            className={
-              language === langs[key].multiLang
-                ? "home__menu__language--selected"
-                : "home__menu__language--unselected"
-            }
-          >
-            <Button
-              id={langs[key].multiLang}
-              text={langs[key].label}
-              clickEvent={switchLanguageClickHandler}
-              isDisable={language === langs[key].multiLang}
-            />
-          </div>
-        ))}
-      </div>
+    <div className="menu">
+      <Dropdowns langs={langs} language={language} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
 
       <Link to="/memberSystem" className="common__block home__menu__feature">
         <Button text={t("features.memberSystem")} />

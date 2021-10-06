@@ -10,21 +10,12 @@ import { useTranslation } from "react-i18next";
 
 function Home() {
   const { t } = useTranslation();
-  const { i18n } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
-  // console.log(isLoggedIn);
-  const langs = t("multiLanguages", { returnObjects: true });
-  const [language, setLanguage] = useState(langs["CHT"]["multiLang"]);
 
-  useEffect(() => {
-    if (language !== null) {
-      i18n.changeLanguage(language);
-    }
-  }, [language]);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,14 +35,14 @@ function Home() {
   return (
     <div className="home common__pageFrame">
       <Hamburger isShowItem={showMenu} clickHandler={menuClickHandler} />
-      <Menu
+      {/* <Menu
         showMenu={showMenu}
         isLoggedIn={isLoggedIn}
         setOrderSearchResultArr={setOrderSearchResultArr}
         setShowWindow={setShowWindow}
         language={language}
         setLanguage={setLanguage}
-      />
+      /> */}
 
       {showWindow && (
         <div className="orderResultWindow">

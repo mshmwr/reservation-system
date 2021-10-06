@@ -1,15 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 
+import Menu from "../ui/Menu"
+
 const MyFooter = styled.footer.attrs({ className: "footer" })`
   display: flex;
-  height: 5rem;
-  background-color: var(--main-normal); //
+  min-height: 5rem;
+  background-color: var(--dark); //
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
+const P = styled.p.attrs({ className: "footer__paragraph" })`
+  margin: 1rem 0;
+
+`
 
 function Footer() {
-  return <MyFooter>All right is reserved.</MyFooter>; //return 一個 styled-component
+  return <MyFooter>
+    <Menu />
+    <P>All right is reserved.</P>
+  </MyFooter>;
 }
 export default Footer;
