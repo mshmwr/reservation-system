@@ -4,23 +4,30 @@ import { getSVGURI } from "../../utils/Utils"
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { getReservedData } from "../../apis/reservedDataApi";
+import useDialogAction from "../../action/ui/dialogAction"
+import useOrderEnquiryAction from "../../action/ui/orderEnquiryAction";
 
 
-const MyOrderEnquiry = ({ className, setOrderSearchResultArr, setShowWindow, }) => {
+const MyOrderEnquiry = ({ className, setShowWindow, }) => {
     const { t } = useTranslation();
+    const { setDialogText, setDialogToggle, setDialogHeight } = useDialogAction()
+    const { setOrderSearchResult } = useOrderEnquiryAction();
     const [inputOrderId, setInputOrderId] = useState("");
-    const [orderSearchResultText, setOrderSearchResultText] = useState("");
 
     const orderSearchClickHandler = async () => {
+        console.log("orderSearchClickHandler")
+        setDialogToggle();
+        setDialogHeight("100px");
+
         const orderId = inputOrderId;
         if (orderId === "") {
-            setOrderSearchResultText(orderId);
-            setOrderSearchResultArr([]);
+            setDialogText("no input");
+            setOrderSearchResult([]);
             return;
         }
         if (orderId.length < 40) {
-            setOrderSearchResultText(t("features.orderSearchTexts.noResult"));
-            setOrderSearchResultArr([]);
+            setDialogText(t("features.orderSearchTexts.noResult"));
+            setOrderSearchResult([]);
             return;
         }
 
@@ -30,11 +37,11 @@ const MyOrderEnquiry = ({ className, setOrderSearchResultArr, setShowWindow, }) 
         }
         const resultData = fetchedData.result;
         if (resultData.length === 0) {
-            setOrderSearchResultText(t("features.orderSearchTexts.noResult"));
-            setOrderSearchResultArr([]);
+            setDialogText(t("features.orderSearchTexts.noResult"));
+            setOrderSearchResult([]);
             // console.log("fetch data is empty array");
         } else {
-            setOrderSearchResultArr(resultData);
+            setOrderSearchResult(resultData);
             setShowWindow(true);
         }
     };
@@ -43,7 +50,7 @@ const MyOrderEnquiry = ({ className, setOrderSearchResultArr, setShowWindow, }) 
     };
     const orderInputOnFocus = () => { };
     const orderInputOnBlur = () => {
-        setOrderSearchResultText("");
+        setDialogText("");
     };
 
 
@@ -58,10 +65,9 @@ const MyOrderEnquiry = ({ className, setOrderSearchResultArr, setShowWindow, }) 
                 onBlur={orderInputOnBlur}
             />
             <div className="menu__order__searchIcon" onClick={orderSearchClickHandler} />
+            {/* <div className={`${orderSearchResultText === "" ? "menu__order__result" : "menu__order__result"}`}>{orderSearchResultText}</div> */}
         </div>
-        {orderSearchResultText === "" ? null : (
-            <p className="menu__order__result">{orderSearchResultText}</p>
-        )}
+
     </>
     )
 }
@@ -76,10 +82,8 @@ const OrderEnquiry = styled(MyOrderEnquiry)`
         height: var(--menu-item-height);
         width: 160px;
         box-sizing: border-box;
-    }
-
-    .menu__order__result {
-        margin: 0.5rem 0;
+        border-radius: var(--border-radius);
+        border-style: none;
     }
 
     .menu__order__searchIcon{
@@ -87,6 +91,8 @@ const OrderEnquiry = styled(MyOrderEnquiry)`
         height: calc(var(--menu-item-height)/2);
         margin:0 0.25rem;
         background-image: url(${getSVGURI(faSearch, "#FFFFFF")});
+        background-position: center;
+        background-size: cover;
         cursor: pointer;
     
     }

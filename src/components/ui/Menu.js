@@ -8,7 +8,6 @@ import OrderEnquiry from "./OrderEnquiry";
 
 
 const MyMenu = ({ className,
-  setOrderSearchResultArr,
   setShowWindow,
 }) => {
   const { t } = useTranslation();
@@ -31,7 +30,7 @@ const MyMenu = ({ className,
   return (
     <div className={`${className} menu`}>
       <Dropdowns className="menu__item" langs={langs} language={language} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
-      <OrderEnquiry className="menu__item" setOrderSearchResultArr={setOrderSearchResultArr} setShowWindow={setShowWindow} />
+      <OrderEnquiry className="menu__item" setShowWindow={setShowWindow} />
     </div>
   );
 };

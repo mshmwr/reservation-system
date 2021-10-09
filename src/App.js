@@ -9,6 +9,7 @@ import Thankyou from "./pages/ThankyouPage/Thankyou";
 import Management from "./pages/ManagementPage/Management";
 import BulletinBoard from "./pages/ListPage/BulletinBoard";
 import MemberSystem from "./pages/MemberSystemPage/MemberSystem";
+import AlertDialog from "./components/ui/AlertDialog";
 
 export default class App extends Component {
   constructor() {
@@ -32,7 +33,8 @@ export default class App extends Component {
               <Route path="/memberSystem" component={MemberSystem} />
             </Switch>
           </main>
-          <Footer/>
+          <Footer />
+          <AlertDialog dialogLength="200px" />
         </div>
       </Router>
     );

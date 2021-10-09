@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import "./Home.css";
 import Button from "../../components/ui/Button";
-import Hamburger from "../../components/ui/Hamburger";
 import CloseIcon from "../../components/ui/CloseIcon";
 import { checkLoggedIn } from "../../utils/API";
-import { useTranslation } from "react-i18next";
 
 function Home() {
   const { t } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
-  const [orderSearchResultArr, setOrderSearchResultArr] = useState([]);
-
+  const orderSearchResult = useSelector(state => state.orderEnquiryReducer.orderSearchResult);
 
   useEffect(() => {
     async function fetchData() {
@@ -32,8 +31,8 @@ function Home() {
       {showWindow && (
         <div className="orderResultWindow">
           <CloseIcon clickHandler={closeWindowClickHandler} />
-          {orderSearchResultArr.length !== 0 &&
-            orderSearchResultArr.map((item) => (
+          {orderSearchResult.length !== 0 &&
+            orderSearchResult.map((item) => (
               <div key={item.order_id} className="orderResultWindow__table">
                 {t("orderTableList", { returnObjects: true }).map((data) => (
                   <div
