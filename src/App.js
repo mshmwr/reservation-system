@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
@@ -11,32 +11,26 @@ import BulletinBoard from "./pages/ListPage/BulletinBoard";
 import MemberSystem from "./pages/MemberSystemPage/MemberSystem";
 import AlertDialog from "./components/ui/AlertDialog";
 
-export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-  render() {
-    return (
-      // <Router basename={process.env.PUBLIC_URL}>
-      <Router>
-        <div className="container">
-          <Header />
-          <main>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/notice" component={Notice} />
-              <Route path="/reservation" component={Reservation} />
-              <Route path="/thankyou" component={Thankyou} />
-              <Route path="/bulletinBoard" component={BulletinBoard} />
-              <Route path="/management" component={Management} />
-              <Route path="/memberSystem" component={MemberSystem} />
-            </Switch>
-          </main>
-          <Footer />
-          <AlertDialog dialogLength="200px" />
-        </div>
-      </Router>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div className="container">
+        <Header />
+        <main>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/notice" component={Notice} />
+            <Route path="/reservation" component={Reservation} />
+            <Route path="/thankyou" component={Thankyou} />
+            <Route path="/bulletinBoard" component={BulletinBoard} />
+            <Route path="/management" component={Management} />
+            <Route path="/memberSystem" component={MemberSystem} />
+          </Switch>
+        </main>
+        <Footer />
+        <AlertDialog />
+      </div>
+    </Router>
+  );
 }
+export default App;

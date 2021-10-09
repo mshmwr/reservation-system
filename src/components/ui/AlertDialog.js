@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -17,14 +17,15 @@ const update = keyframes`
 `;
 
 const show = (props) => {
-    return props.isFirst ? "" :
+    const animationStyle = props.isFirst.current ?
         props.toggle
             ? css`
-${update} 2s linear forwards
-`
+    ${update} 2s linear forwards
+    `
             : css`
-${enter} 2s linear forwards
-`
+    ${enter} 2s linear forwards
+    `: "";
+    return animationStyle;
 }
 
 
@@ -48,6 +49,8 @@ const Dialog = styled.div`
 
 
 const AlertDialog = () => {
+    const isFirst = useRef(false);
+
     const width = useSelector(
         (state) => state.dialogReducer.dialogWidth
     )
@@ -61,7 +64,16 @@ const AlertDialog = () => {
         (state) => state.dialogReducer.dialogToggle
     )
 
-    return <Dialog width={width} height={height} toggle={dialogToggle} isFirst={false}>{text}</Dialog>;
+    useEffect(
+        () => {
+            if (isFirst.current === false) {
+                isFirst.current = true;
+            }
+        }
+    );
+
+
+    return <Dialog width={width} height={height} toggle={dialogToggle} isFirst={isFirst}>{text}</Dialog>;
 }
 
 

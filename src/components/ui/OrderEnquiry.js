@@ -15,7 +15,6 @@ const MyOrderEnquiry = ({ className, setShowWindow, }) => {
     const [inputOrderId, setInputOrderId] = useState("");
 
     const orderSearchClickHandler = async () => {
-        console.log("orderSearchClickHandler")
         setDialogToggle();
         setDialogHeight("100px");
 
