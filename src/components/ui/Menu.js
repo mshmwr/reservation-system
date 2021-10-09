@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { useTranslation } from "react-i18next";
@@ -12,24 +12,22 @@ const MyMenu = ({ className,
 }) => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
-
-
   const langs = t("multiLanguages", { returnObjects: true });
-  const [language, setLanguage] = useState(langs["CHT"]["multiLang"]);
+  const language = useRef(langs["CHT"]["multiLang"]);
 
   useEffect(() => {
-    if (language !== null) {
-      i18n.changeLanguage(language);
-    }
-  }, [language]);
+    i18n.changeLanguage(language.current);
+  }, []);
 
   const switchLanguageClickHandler = (e) => {
-    setLanguage(e.target.id);
+    language.current = e.target.id;
+    i18n.changeLanguage(language.current);
+
   };
 
   return (
     <div className={`${className} menu`}>
-      <Dropdowns className="menu__item" langs={langs} language={language} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
+      <Dropdowns className="menu__item" langs={langs} language={language.current} switchLanguageClickHandler={switchLanguageClickHandler} listItemHeight="40px" listItemWidth="80px" />
       <OrderEnquiry className="menu__item" setShowWindow={setShowWindow} />
     </div>
   );

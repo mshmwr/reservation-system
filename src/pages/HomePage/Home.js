@@ -6,13 +6,16 @@ import "./Home.css";
 import Button from "../../components/ui/Button";
 import CloseIcon from "../../components/ui/CloseIcon";
 import { checkLoggedIn } from "../../utils/API";
+import useOrderEnquiryAction from "../../action/ui/orderEnquiryAction"
 
 function Home() {
   const { t } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showWindow, setShowWindow] = useState(false);
+
   const orderSearchResult = useSelector(state => state.orderEnquiryReducer.orderSearchResult);
+  const showOrderWindow = useSelector(state => state.orderEnquiryReducer.showOrderWindow);
+  const { setShowOrderWindow } = useOrderEnquiryAction();
 
   useEffect(() => {
     async function fetchData() {
@@ -23,12 +26,12 @@ function Home() {
   }, [isLoggedIn]);
 
   const closeWindowClickHandler = () => {
-    setShowWindow(false);
+    setShowOrderWindow(false);
   };
 
   return (
     <div className="home common__pageFrame">
-      {showWindow && (
+      {showOrderWindow && (
         <div className="orderResultWindow">
           <CloseIcon clickHandler={closeWindowClickHandler} />
           {orderSearchResult.length !== 0 &&

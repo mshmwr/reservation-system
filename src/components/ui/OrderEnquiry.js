@@ -8,25 +8,27 @@ import useDialogAction from "../../action/ui/dialogAction"
 import useOrderEnquiryAction from "../../action/ui/orderEnquiryAction";
 
 
-const MyOrderEnquiry = ({ className, setShowWindow, }) => {
+const MyOrderEnquiry = ({ className, }) => {
     const { t } = useTranslation();
     const { setDialogText, setDialogToggle, setDialogHeight } = useDialogAction()
-    const { setOrderSearchResult } = useOrderEnquiryAction();
+    const { setOrderSearchResult, setShowOrderWindow } = useOrderEnquiryAction();
     const [inputOrderId, setInputOrderId] = useState("");
 
     const orderSearchClickHandler = async () => {
-        setDialogToggle();
-        setDialogHeight("100px");
 
         const orderId = inputOrderId;
         if (orderId === "") {
             setDialogText("no input");
             setOrderSearchResult([]);
+            setDialogToggle();
+            setDialogHeight("100px");
             return;
         }
         if (orderId.length < 40) {
             setDialogText(t("features.orderSearchTexts.noResult"));
             setOrderSearchResult([]);
+            setDialogToggle();
+            setDialogHeight("100px");
             return;
         }
 
@@ -41,7 +43,7 @@ const MyOrderEnquiry = ({ className, setShowWindow, }) => {
             // console.log("fetch data is empty array");
         } else {
             setOrderSearchResult(resultData);
-            setShowWindow(true);
+            setShowOrderWindow(true);
         }
     };
     const orderInputHandler = (e) => {
@@ -64,7 +66,6 @@ const MyOrderEnquiry = ({ className, setShowWindow, }) => {
                 onBlur={orderInputOnBlur}
             />
             <div className="menu__order__searchIcon" onClick={orderSearchClickHandler} />
-            {/* <div className={`${orderSearchResultText === "" ? "menu__order__result" : "menu__order__result"}`}>{orderSearchResultText}</div> */}
         </div>
 
     </>
