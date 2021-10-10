@@ -51,7 +51,6 @@ export const SelectRegion = () => {
   useEffect(() => {
     setBoardSelectedRoom("");
     setBoardCalendarDate(TODAY_DATE);
-    setBoardIsReadOnly(false);
     setBoardRefresh(false);
     setAttendenceData({});
     setPlanData({});

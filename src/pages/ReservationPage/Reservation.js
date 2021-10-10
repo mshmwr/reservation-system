@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import "./Reservation.css";
 import { SelectRegion } from "./page/SelectRegion";
 import { Stepper } from "../../components/common/Stepper";
@@ -6,6 +6,8 @@ import { Stepper } from "../../components/common/Stepper";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import useReservationAction from "../../action/features/reservationAction";
+import useBoardAction from "../../action/features/boardAction";
+
 import DirectionButton from "../../components/ui/DirectionButton";
 
 function Reservation() {
@@ -18,8 +20,9 @@ function Reservation() {
   const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
 
   //redux
-  const { setFormInputList, setStep } = useReservationAction();
-  const { setSelectedData, backClick, nextClick } = useReservationAction();
+
+  const { setBoardIsReadOnly } = useBoardAction();
+  const { setFormInputList, setStep, setSelectedData, backClick, nextClick } = useReservationAction();
   const step = useSelector((state) => state.reservationReducer.step);
   const planData = useSelector((state) => state.orderReducer.planData);
   const attendenceData = useSelector(
@@ -88,6 +91,23 @@ function Reservation() {
     return canNext;
   };
 
+  const setBoardReadOnlyState = () => {
+    console.log("setBoardReadOnlyState");
+    switch (step) {
+      case steps[2]:
+        console.log("setBoardReadOnlyState steps2");
+        setBoardIsReadOnly(true);
+        break;
+      default:
+        console.log("setBoardReadOnlyState steps default");
+        setBoardIsReadOnly(false);
+        break;
+    }
+  }
+
+  useEffect(() => {
+    setBoardReadOnlyState();
+  }, [step]);
 
   useLayoutEffect(() => {
     setFormInputList(copyUserInfoForm);
