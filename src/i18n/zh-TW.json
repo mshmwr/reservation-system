@@ -175,11 +175,6 @@
           "content": "1A包廂"
         },
         {
-          "name": "attendence",
-          "title": "預約人數",
-          "content": "3"
-        },
-        {
           "name": "start_time",
           "title": "開始時間",
           "content": "10:00"
@@ -187,6 +182,11 @@
         {
           "name": "duration",
           "title": "唱歌時數",
+          "content": "3"
+        },
+        {
+          "name": "attendence",
+          "title": "預約人數",
           "content": "3"
         }
       ],

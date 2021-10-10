@@ -10,7 +10,7 @@
 
 .home__content {
   width: 100%;
-  background-color: var(--main-light37);
+  background-color: var(--main-light);
   display: flex;
   flex-grow: 1;
   flex-direction: column;

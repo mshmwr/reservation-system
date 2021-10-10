@@ -4,10 +4,10 @@ import {
 } from "../../action/features/orderAction";
 
 const initState = {
-  planData: {},
-  attendenceData: {},
-  testI18n: [],
+  planData: { room: "", duration: "", start_time: "" },
+  attendenceData: { attendence: 0 },
 };
+
 
 const orderReducer = (state = initState, action) => {
   switch (action.type) {

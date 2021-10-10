@@ -2,20 +2,34 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 30rem;
   text-align: center;
+  margin-top: 1rem;
+}
+.board__room{
+  display: flex;
+  flex-direction: row;
+}
+
+.board__timeline{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow-y: scroll;
+  margin-top: 1rem;
+
 }
 
 .board__reservationBoardItem {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   align-items: center;
+  margin: 0 2rem;
 }
 
 .board__reservationBoardItem__room {
-  width: 10rem;
-  margin: 0 1rem;
+  margin-bottom: 1rem;
 }
 .board__reservationBoardItem__reservedBoard {
   width: 100%;
@@ -24,8 +38,12 @@
 @media screen and (max-width: 600px) {
   .board__reservationBoardItem {
     flex-direction: column;
+    margin: 0 1rem;
   }
   .board__reservationBoardItem__room {
     margin: 0 auto 2rem;
+  }
+  .board__reservationBoardItem__room__machine{
+    word-break: break-all;
   }
 }

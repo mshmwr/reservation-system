@@ -5,4 +5,16 @@
   background-color: var(--main-light);
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
+}
+
+.reservation__content__buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin:0.25rem 2rem;
+}
+
+.reservation__content__buttons__button{
+  margin: 0 1rem;
 }

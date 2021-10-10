@@ -416,9 +416,8 @@ const Board = () => {
           setPlanData({
             room: roomId,
             duration: duration,
-            start_time: `${firstCubeIdNum}:${
-              firstRoom.cubeId.includes("L") ? "00" : "30"
-            }`,
+            start_time: `${firstCubeIdNum}:${firstRoom.cubeId.includes("L") ? "00" : "30"
+              }`,
           }); //{ room: "A包廂", duration: 3, startTime: "11:00" };
           isSelectFinished = true;
           // console.log("選擇完成");
@@ -458,38 +457,49 @@ const Board = () => {
   };
   return (
     <div className="board">
-      {ROOM_LIST.filter((room) =>
-        selectedRoom === ""
-          ? room.id !== selectedRoom
-          : room.id === selectedRoom
-      ).map((room) => (
-        <div
-          key={`boardItem${room.title}`}
-          className="board__reservationBoardItem common__interval--normal"
-        >
-          <div className="board__reservationBoardItem__room">
-            <p className="board__reservationBoardItem__room__title common__interval--shrink ">{`${room.title}-${room.subtitle}`}</p>
+      <div className="board__room">
+        {ROOM_LIST.filter((room) =>
+          selectedRoom === ""
+            ? room.id !== selectedRoom
+            : room.id === selectedRoom
+        ).map((room) => (
+          <div key={`room${room.title}`} className="board__reservationBoardItem">
+            <p className="board__reservationBoardItem__room__title">{`${room.title}-${room.subtitle}`}</p>
             <p className="board__reservationBoardItem__room__machine">
               {room.machine}
             </p>
+          </div>))
+
+        }
+      </div>
+      <div className="board__timeline">
+        {ROOM_LIST.filter((room) =>
+          selectedRoom === ""
+            ? room.id !== selectedRoom
+            : room.id === selectedRoom
+        ).map((room) => (
+          <div key={`timeline${room.title}`} className="board__reservationBoardItem">
+
+            <div className="board__reservationBoardItem__reservedBoard">
+              {Object.keys(lineCubeState).length !== 0 ? (
+                <TimeLine
+                  roomId={room.id}
+                  timeRegion={TIME_REGION}
+                  timeRegionMapping={TIME_REGION_MAPPING}
+                  switchCurrentRoom={switchCurrentRoom}
+                  lineCubeState={lineCubeState}
+                  setRoomCubes={handleRoomCubes}
+                  roomList={ROOM_LIST}
+                  currentRoom={currentRoom}
+                  isReadOnly={isReadOnly}
+                ></TimeLine>
+              ) : null}
+            </div>
           </div>
-          <div className="board__reservationBoardItem__reservedBoard">
-            {Object.keys(lineCubeState).length !== 0 ? (
-              <TimeLine
-                roomId={room.id}
-                timeRegion={TIME_REGION}
-                timeRegionMapping={TIME_REGION_MAPPING}
-                switchCurrentRoom={switchCurrentRoom}
-                lineCubeState={lineCubeState}
-                setRoomCubes={handleRoomCubes}
-                roomList={ROOM_LIST}
-                currentRoom={currentRoom}
-                isReadOnly={isReadOnly}
-              ></TimeLine>
-            ) : null}
-          </div>
-        </div>
-      ))}
+        ))}</div>
+
+
+
     </div>
   );
 };

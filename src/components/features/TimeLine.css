@@ -1,31 +1,24 @@
 .board__reservationBoardItem__timeLine {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  flex-wrap: wrap;
 }
 
 .timeLineCube {
   display: flex;
   width: 100%;
-  /* width: 20%;
-  max-width: 2rem; */
   height: 2.5rem;
   background-color: var(--white);
   cursor: pointer;
   box-sizing: border-box;
   border: 0.5px solid var(--main-gray);
   margin-left: -1px;
+  border-radius: var(--border-radius);
 }
 .timeLineCube:hover {
   background-color: var(--light-gray);
 }
 
-@media screen and (max-width: 1000px) {
-  .timeLineCube {
-    margin-bottom: 1rem;
-  }
-}
 
 .timeLineCube--selected-hovered {
   background-color: var(--yellow-green);
@@ -40,8 +33,7 @@
 }
 
 .board__reservationBoardItem__timeLine__cube {
-  width: 20%;
-  max-width: 2rem;
+  width: 100%;
 }
 
 .board__reservationBoardItem__reservedUser {

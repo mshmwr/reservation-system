@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "../../../components/ui/Button";
 import Form from "../../../components/features/Form";
 import "./FillInRegion.css";
 import { useSelector } from "react-redux";
@@ -32,80 +31,32 @@ export const FillInRegin = () => {
     (state) => state.reservationReducer.selectedData
   );
 
+
   return (
     <div className="reservation__content__fillInStep">
-      <p className="reservation__content__fillInStep__title common__title common__font--bold">
-        {titles[1]}
-      </p>
-      <div className="reservation__content__fillInStep__contentBlock">
-        <div className="planBlock common__block">
-          <div className="planBlock__plan">
-            <div className="planBlock__plan__subtitle common__block common__subtitle common__font--bold">
-              {subTitles[1]}
-            </div>
-            {planItems.map((item) => (
-              <div
-                key={item.title}
-                className="planBlock__plan__item common__block common__heading common__font--bold"
-              >
-                <div className="planBlock__plan__item__title">{item.title}</div>
-                <div className="planBlock__plan__item__content">
-                  {selectedData[item.name]}
-                </div>
+
+      {step === steps[1] ?
+        <>
+          <p className="reservation__content__fillInStep__title">
+            {titles[1]}
+          </p>
+          <div className="reservation__content__fillInStep__contentBlock">
+            <div className="planBlock">
+              <div className="planBlock__input">
+
+                <Form
+                  formInputList={formInputList}
+                  needSubmitButton={false}
+                ></Form>
               </div>
-            ))}
+            </div>
           </div>
 
-          <div className="planBlock__input">
-            {step === steps[1] ? (
-              <Form
-                formInputList={formInputList}
-                needSubmitButton={false}
-              ></Form>
-            ) : (
-              formInputList.map((info, index) => (
-                <div
-                  key={index}
-                  className="planBlock__input__info common__block common__heading common__font--bold"
-                >
-                  <div className="planBlock__input__info__label">
-                    {info.label}
-                  </div>
-                  <div className="planBlock__input__info__value">
-                    {info.value}
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
+        </>
 
-      <div className="reservation__content__fillInStep__buttonGroup common__buttonGroup">
-        {step === steps[1] ? (
-          <Button
-            text={fillInButtonTexts.back}
-            clickEvent={() => backClick(step)}
-          ></Button>
-        ) : (
-          <Button
-            text={finishInButtonTexts.back}
-            clickEvent={() => backClick(step)}
-          ></Button>
-        )}
+        : null
+      }
 
-        {step === steps[1] ? (
-          <Button
-            text={fillInButtonTexts.next}
-            clickEvent={() => nextClick(step)}
-          ></Button>
-        ) : (
-          <Button
-            text={finishInButtonTexts.next}
-            clickEvent={() => nextClick(step)}
-          ></Button>
-        )}
-      </div>
     </div>
   );
 };

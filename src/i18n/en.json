@@ -174,11 +174,6 @@
           "content": "1A room"
         },
         {
-          "name": "attendence",
-          "title": "attendence",
-          "content": "3"
-        },
-        {
           "name": "start_time",
           "title": "start time",
           "content": "10:00"
@@ -186,6 +181,11 @@
         {
           "name": "duration",
           "title": "duration",
+          "content": "3"
+        },
+        {
+          "name": "attendence",
+          "title": "attendence",
           "content": "3"
         }
       ],

@@ -56,6 +56,21 @@ export default function useOrderAction() {
     });
   };
 
+  const getReservedData = () => {
+    const orderStatusData = { order_status: "applied" };
+    const sendData = {
+      ...selectedData,
+      ...filterFormData(formInputList),
+      ...orderStatusData,
+    };
+    return sendData;
+  }
+
+  const getDataSavedResponse = async (sendData) => {
+    const parsedData = await postReservedData({ data: sendData });
+    return parsedData;
+  }
+
   const backClick = (step) => {
     switch (step) {
       case steps[2]:
@@ -82,29 +97,42 @@ export default function useOrderAction() {
         const valid = formInputList.every(
           (input) => validateInput(input) === true
         );
+
         if (!valid) {
-          alert(t("messages.invalid"));
+          alert(t("messages.invalid") + "???");
           break;
         }
+
         setStep(steps[2]);
         break;
       default:
-        const orderStatusData = { order_status: "applied" };
-        const sendData = {
-          ...selectedData,
-          ...filterFormData(formInputList),
-          ...orderStatusData,
-        };
-        let parsedData = await postReservedData({ data: sendData });
-        if (parsedData === null) {
-          // console.log("fetch data is null");
-          break;
-        }
+        const parsedData = await getDataSavedResponse(getReservedData());
         history.push(`/thankyou?orderId=${parsedData.order_id}`);
-
         break;
     }
   };
 
-  return { setFormInputList, setStep, setSelectedData, backClick, nextClick };
+
+
+  const checkReselect = (step) => {
+    //check whether reselect or not
+    if (confirm('Are you sure you want to save this thing into the database?')) {
+      // Save it!
+      console.log('Thing was saved to the database.');
+      return true;
+    } else {
+      // Do nothing!
+      console.log('Thing was not saved to the database.');
+      return false;
+    }
+
+    // //i18n
+    // const { t } = useTranslation();
+    // const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
+    // //redux
+    // const { backClick, nextClick } = useReservationAction();
+    // const step = useSelector((state) => state.reservationReducer.step);
+  }
+
+  return { setFormInputList, setStep, setSelectedData, backClick, nextClick, checkReselect };
 }

@@ -13,3 +13,7 @@
   width: 70%;
   padding: 0.6rem 0.6rem;
 }
+
+.form__item:last-child{
+  margin-bottom: 0;
+}

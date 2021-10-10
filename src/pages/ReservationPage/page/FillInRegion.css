@@ -6,7 +6,13 @@
 
 .reservation__content__fillInStep__title {
   display: flex;
-  margin: 2rem;
+  margin: 0 1rem 1rem 1rem;
+  justify-content: center;
+}
+
+.reservation__content__fillInStep__contentBlock{
+  width: 80%;
+  margin: 0 auto;
 }
 .planBlock {
   display: flex;
@@ -43,7 +49,8 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  margin: 0px 2rem;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .planBlock__input__info {

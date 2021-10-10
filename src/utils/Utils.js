@@ -5,6 +5,9 @@ const route = "http://localhost:3100"; //"";
 const validateInput = (inputData) => {
   const str = inputData.value;
   const regExp = inputData.pattern;
+  console.log("------------")
+  console.log(str);
+  console.log(regExp);
   if (regExp === null) {
     return true; //不須驗證validation
   }

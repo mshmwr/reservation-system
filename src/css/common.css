@@ -26,6 +26,7 @@
 
   /* other */
   --border-radius: 5px;
+  --border-radius-15: 15px;
   --div-margin: 0px auto 2rem auto;
   --logo-height: 120px;
   --logo-width: 120px;
@@ -100,9 +101,6 @@ html {
   align-items: flex-end;
   justify-content: flex-end;
 }
-.common__buttonGroup Button {
-  margin: 0 0 0 10px;
-}
 /* event */
 .common__hidden {
   display: none;
@@ -143,8 +141,5 @@ input:invalid {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  .common__buttonGroup Button {
-    margin: 0 0 1rem 0;
   }
 }

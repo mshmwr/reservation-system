@@ -7,7 +7,7 @@ import {
 const initState = {
   formInputList: [],
   step: "",
-  selectedData: {},
+  selectedData: {},//...planData, ...attendenceData, date: calendarDate
 };
 
 const reservationReducer = (state = initState, action) => {
