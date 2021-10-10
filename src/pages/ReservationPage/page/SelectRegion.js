@@ -70,10 +70,10 @@ export const SelectRegion = () => {
               onChange={handleDateChange}
               type="date"
               className="calendarBlock__day"
-              defaultValue={TODAY_DATE}
               min={TODAY_DATE}
               value={calendarDate === undefined ? TODAY_DATE : calendarDate}
             ></input>
+
             <SelectResultTimeLine />
             <SelectResultAttendence />
           </>
