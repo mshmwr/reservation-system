@@ -59,26 +59,27 @@ function Home() {
       </div>
       <div className="home__content">
         <div className="home__content__instruction">
-          <p className="home__content__instruction__title common__subtitle common__font--bold common__block--bilateral">
+          <p className="home__content__instruction__title common__subtitle common__font--bold">
             {t("homePage.instructionTitle")}
           </p>
           {t("homePage.instructionTexts", { returnObjects: true }).map(
             (text) => (
               <p
-                className="home__content__instruction__texts common__interval--normal"
+                className="home__content__instruction__texts common__interval--normal "
                 key={`instructionText${text}`}
               >
                 {text}
               </p>
             )
           )}
-          <p className="home__content__instruction__ruleTitle common__font--bold ">
+
+          <p className="home__content__instruction__ruleTitle common__font--bold common__heading ">
             {t("homePage.ruleTitle")}
           </p>
-          <ul>
+          <ul className="home__content__instruction__ruleText--ul">
             {t("homePage.ruleTexts", { returnObjects: true }).map((text) => (
               <li
-                className="className=home__content__instruction__ruleTexts"
+                className="home__content__instruction__ruleText--li"
                 key={`ruleText${text}`}
               >
                 {text}
@@ -89,7 +90,7 @@ function Home() {
         <Link to="/notice" className="common__block home__content__btn">
           <Button text={t("homePage.button")}></Button>
         </Link>
-        {isLoggedIn && (
+        {/* {isLoggedIn && (
           <Link to="/management" className="common__block home__content__btn">
             <Button text={t("features.management")}></Button>
           </Link>
@@ -99,7 +100,7 @@ function Home() {
           <Link to="/memberSystem" className="common__block home__content__btn">
             <Button text={t("features.memberSystem")}></Button>
           </Link>
-        )}
+        )} */}
       </div>
     </div>
   );

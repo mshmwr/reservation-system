@@ -26,7 +26,7 @@ function Notice() {
         {t("noticePage.noticeSubtitles", { returnObjects: true }).map(
           (subtitle) => {
             return (
-              <div key={subtitle} className="notice__subtitle common__subtitle">
+              <div key={subtitle} className="notice__subtitle common__heading">
                 <p>{subtitle}</p>
               </div>
             );

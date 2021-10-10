@@ -31,17 +31,23 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: var(--div-margin);
+  margin: 2rem auto;
 }
 
-.home__content__instruction ul {
-  padding: 2rem 2rem 0px 2rem;
+
+
+.home__content__instruction__ruleTitle,.home__content__instruction__title{
+  margin-bottom: 1rem;
+}
+
+.home__content__instruction__ruleText--ul {
+  padding: 0rem 2rem;
   line-height: calc(var(--text-font-size) * var(--line-height-multiple));
 }
 
-.home__content__instruction li {
+.home__content__instruction__ruleText--li{
   list-style-type: disc;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .home__content__btn {
@@ -50,5 +56,4 @@
   align-items: center;
   text-decoration: none;
   flex-direction: column;
-  padding-bottom: 1rem;
 }
