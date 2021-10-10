@@ -7,7 +7,7 @@ import logoImg from "../../assets/img/logo_120_120.png";
 function MyHeader({ className }) {
   const { t } = useTranslation();
   return (
-    <header className={className}>
+    <header className={`${className} header`}>
       <Link to="/" className="">
         <div className="header__logo"></div>
       </Link>
@@ -29,13 +29,15 @@ const Header = styled(MyHeader)`
   display: flex;
   height: 120px;
   background-color: var(--white);
+  align-items:center;
+
   .header__logo {
     display: flex;
     background: url(${logoImg});
     background-size: cover;
     background-position: 50% 50%;
-    height: 120px;
-    width: 120px;
+    height: calc(120px - 2rem);
+    width: calc(120px - 2rem);
   }
   .header__content {
     display: flex;
