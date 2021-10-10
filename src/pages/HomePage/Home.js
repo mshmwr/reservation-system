@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import "./Home.css";
 import Button from "../../components/ui/Button";
-import CloseIcon from "../../components/ui/CloseIcon";
 import { checkLoggedIn } from "../../utils/API";
-import useOrderEnquiryAction from "../../action/ui/orderEnquiryAction"
 
 function Home() {
   const { t } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const orderSearchResult = useSelector(state => state.orderEnquiryReducer.orderSearchResult);
-  const showOrderWindow = useSelector(state => state.orderEnquiryReducer.showOrderWindow);
-  const { setShowOrderWindow } = useOrderEnquiryAction();
 
   useEffect(() => {
     async function fetchData() {
@@ -25,13 +19,10 @@ function Home() {
     fetchData();
   }, [isLoggedIn]);
 
-  const closeWindowClickHandler = () => {
-    setShowOrderWindow(false);
-  };
 
   return (
     <div className="home common__pageFrame">
-      {showOrderWindow && (
+      {/* {showOrderWindow && (
         <div className="orderResultWindow">
           <CloseIcon clickHandler={closeWindowClickHandler} />
           {orderSearchResult.length !== 0 &&
@@ -53,7 +44,7 @@ function Home() {
               </div>
             ))}
         </div>
-      )}
+      )} */}
 
       <div className="home__banner"></div>
       <div className="home__welcome">

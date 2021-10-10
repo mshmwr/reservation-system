@@ -10,12 +10,14 @@ import Management from "./pages/ManagementPage/Management";
 import BulletinBoard from "./pages/ListPage/BulletinBoard";
 import MemberSystem from "./pages/MemberSystemPage/MemberSystem";
 import AlertDialog from "./components/ui/AlertDialog";
+import OrderWindow from "./components/features/OrderWindow";
 
 function App() {
   return (
     <Router>
       <div className="container">
         <Header />
+        <OrderWindow />
         <main>
           <Switch>
             <Route exact path="/" component={Home} />
