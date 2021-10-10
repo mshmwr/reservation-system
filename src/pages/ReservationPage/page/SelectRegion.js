@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import useOrderAction from "../../../action/features/orderAction";
 import useBoardAction from "../../../action/features/boardAction";
+import useReservationAction from "../../../action/features/reservationAction"
 import { FillInRegin } from "./FillInRegion";
 import SelectResultTimeLine from "./SelectResultTimeLine";
 import SelectResultAttendence from "./SelectResultAttendence";
@@ -24,17 +25,28 @@ export const SelectRegion = () => {
     setBoardRefresh,
     setBoardIsReadOnly,
   } = useBoardAction();
+  const { checkReselect } = useReservationAction();
   const step = useSelector((state) => state.reservationReducer.step);
-
+  const calendarDate = useSelector(
+    (state) => state.boardReducer.calendarDate
+  );
 
   const handleDateChange = (e) => {
+    switch (step) {
+      case steps[1]:
+        if (!checkReselect()) { //at the fillIn step
+          e.target.value = calendarDate;
+          return;
+        }
+        break;
+      default:
+        break;
+    }
+
     setBoardCalendarDate(e.target.value);
     setBoardRefresh(true);
     setPlanData({});
   };
-
-
-
 
   useEffect(() => {
     setBoardSelectedRoom("");
@@ -60,6 +72,7 @@ export const SelectRegion = () => {
               className="calendarBlock__day"
               defaultValue={TODAY_DATE}
               min={TODAY_DATE}
+              value={calendarDate === undefined ? TODAY_DATE : calendarDate}
             ></input>
             <SelectResultTimeLine />
             <SelectResultAttendence />

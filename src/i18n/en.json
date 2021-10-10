@@ -442,6 +442,7 @@
     }
   },
   "messages": {
-    "invalid": "input format error"
+    "invalid": "input format error",
+    "checkReselect": "Are you sure you want to change it?"
   }
 }

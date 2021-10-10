@@ -23,6 +23,7 @@ export default function useOrderAction() {
   //i18n
   const { t } = useTranslation();
   const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
+  const messageCheckReselect = t("messages.checkReselect"); //Are you sure you want to change it?"
   //redux
   const formInputList = useSelector(
     (state) => state.reservationReducer.formInputList
@@ -87,25 +88,29 @@ export default function useOrderAction() {
 
   const nextClick = async (step) => {
     console.log("nextClick: " + step);
+    //驗證輸入合法性
+    const valid = formInputList.every(
+      (input) => validateInput(input) === true
+    );
     // return;
     switch (step) {
       case steps[0]:
         setStep(steps[1]);
         break;
       case steps[1]:
-        //驗證輸入合法性
-        const valid = formInputList.every(
-          (input) => validateInput(input) === true
-        );
-
         if (!valid) {
-          alert(t("messages.invalid") + "???");
+          alert(t("messages.invalid"));
           break;
         }
 
         setStep(steps[2]);
         break;
       default:
+        if (!valid) {
+          alert(t("messages.invalid"));
+          break;
+        }
+
         const parsedData = await getDataSavedResponse(getReservedData());
         history.push(`/thankyou?orderId=${parsedData.order_id}`);
         break;
@@ -114,24 +119,15 @@ export default function useOrderAction() {
 
 
 
-  const checkReselect = (step) => {
-    //check whether reselect or not
-    if (confirm('Are you sure you want to save this thing into the database?')) {
+  const checkReselect = () => {
+    // Check whether reselect or not
+    if (confirm(messageCheckReselect)) {
       // Save it!
-      console.log('Thing was saved to the database.');
       return true;
     } else {
       // Do nothing!
-      console.log('Thing was not saved to the database.');
       return false;
     }
-
-    // //i18n
-    // const { t } = useTranslation();
-    // const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
-    // //redux
-    // const { backClick, nextClick } = useReservationAction();
-    // const step = useSelector((state) => state.reservationReducer.step);
   }
 
   return { setFormInputList, setStep, setSelectedData, backClick, nextClick, checkReselect };

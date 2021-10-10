@@ -443,6 +443,7 @@
     }
   },
   "messages": {
-    "invalid": "輸入格式有誤"
+    "invalid": "輸入格式有誤",
+    "checkReselect": "確定要修改嗎?"
   }
 }

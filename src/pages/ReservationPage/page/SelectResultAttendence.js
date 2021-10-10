@@ -27,7 +27,7 @@ const MySelectResultAttendence = ({ className }) => {
     const handleAttendenceChange = (e) => {
         switch (step) {
             case steps[1]:
-                if (!checkReselect(step)) { //at the fillIn step
+                if (!checkReselect()) { //at the fillIn step
                     e.target.value = attendenceData.attendence;
                     // backClick(step);
                     return;
@@ -46,7 +46,6 @@ const MySelectResultAttendence = ({ className }) => {
             setAttendenceData({});
             return;
         }
-        console.log("why not show attendence: " + e.target.value);
         setAttendenceData({ attendence: e.target.value });
     };
     return <div className={`${className} resultBlock__select`}>
@@ -57,7 +56,7 @@ const MySelectResultAttendence = ({ className }) => {
                     onChange={handleAttendenceChange}
                     key={`attendenceResult${item.label}`}
                     className="resultBlock__select__item resultBlock__select__select"
-                    value={attendenceData.attendence === undefined ? null : attendenceData.attendence}
+                    value={attendenceData.attendence === undefined ? "" : attendenceData.attendence}
                 >
                     {console.log(attendenceData.attendence)}
                     {

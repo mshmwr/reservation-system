@@ -28,10 +28,18 @@ function Reservation() {
   const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
 
 
-  //functions
+  //button action functions
   const nextToFillIn = () => {
     console.log("select region: next");
     console.log({ ...planData, ...attendenceData, date: calendarDate });
+    if (!checkCanNext()) {
+      return;
+    }
+    setSelectedData({ ...planData, ...attendenceData, date: calendarDate });
+    nextClick(step);
+  };
+
+  const nextToFinsh = () => {
     if (!checkCanNext()) {
       return;
     }
@@ -46,7 +54,7 @@ function Reservation() {
       case steps[1]:
         return <>
           <DirectionButton className="reservation__content__buttons__button" direction="left" clickEvent={() => backClick(step)} />
-          <DirectionButton className="reservation__content__buttons__button" direction="right" clickEvent={() => nextClick(step)} />
+          <DirectionButton className="reservation__content__buttons__button" direction="right" clickEvent={nextToFinsh} />
         </>;
       default:
         return <>
