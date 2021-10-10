@@ -93,7 +93,7 @@ const Dropdowns = styled(MyDropdowns)`
     }
 
     .menu__language__list__item:hover{
-        background-color: var(--main-light);
+        background-color: var(--main-bg);
         cursor: pointer;
 
     }

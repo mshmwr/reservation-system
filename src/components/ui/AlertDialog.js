@@ -36,7 +36,7 @@ const Dialog = styled.div`
     width: ${props => props.width};
     height: ${props => props.height};
     color: var(--dark);
-    background-color: var(--main-light);
+    background-color: var(--main-bg);
     top: calc(50% - var(--dialogWidth) / 2);
     left: calc(50% - var(--dialogHeight) / 2);
     border-radius: calc(var(--border-radius) * 4);
