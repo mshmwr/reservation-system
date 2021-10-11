@@ -10,6 +10,7 @@
   align-items: center;
   flex-direction: column;
   outline: 1px solid var(--main-gray);
+  border-radius: var(--border-radius);
 }
 
 .management__frame__bg {
@@ -42,7 +43,7 @@
 .management__frame__selectBlock__item input,
 .management__frame__selectBlock__item select,
 .management__frame__selectBlock__item Button {
-  width: 8rem;
+  width: 8.5rem;
   box-sizing: border-box;
   height: 2rem;
   font-size: initial;
@@ -65,7 +66,7 @@
   top: 0;
   left: 0;
   width: 90%;
-  height: 280px;
+  height: 25rem;
   margin: 0;
   z-index: var(--zIndex-managementWindow);
 }

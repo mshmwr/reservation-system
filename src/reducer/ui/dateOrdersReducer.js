@@ -1,7 +1,7 @@
 
 import { SET_SELECTED_DTAE, SET_SHOW_DATE_ORDER_WINDOW } from "../../action/ui/dateOrderAction"
 const initState = {
-    maxOrdersNumber: 1, //constant number
+    maxOrdersNumber: 3, //constant number
     selectedDate: "",
     showDateOrderWindow: false,
 }
