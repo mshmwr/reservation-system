@@ -114,7 +114,7 @@
         "minLength": 4,
         "maxLength": 100,
         "size": 100,
-        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"
       }
     ],
     "selectStep": {
@@ -329,7 +329,7 @@
         "minLength": 4,
         "maxLength": 100,
         "size": 100,
-        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"
       },
       {
         "name": "password",
@@ -337,7 +337,7 @@
         "value": "",
         "type": "password",
         "required": "required",
-        "placeholder": "Please enter 8~15characters in English or number",
+        "placeholder": "Please enter 8~15 characters or numbers",
         "minLength": 8,
         "maxLength": 15,
         "size": 15,
@@ -367,7 +367,7 @@
         "minLength": 4,
         "maxLength": 100,
         "size": 100,
-        "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"
       },
       {
         "name": "password",
