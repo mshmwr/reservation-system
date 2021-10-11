@@ -70,7 +70,7 @@
   text-decoration: underline;
 }
 .memberSystem__card__instruction__action:hover {
-  color: var(--main-normal);
+  color: var(--dark);
 }
 
 @media screen and (max-width: 1000px) {
