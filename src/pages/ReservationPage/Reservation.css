@@ -18,3 +18,12 @@
 .reservation__content__buttons__button{
   margin: 0 1rem;
 }
+
+@media screen and (max-width: 1000px) {
+  .reservation__content__buttons{
+    margin: 0.25rem 0;
+  }
+}
+
+
+

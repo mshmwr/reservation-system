@@ -72,6 +72,14 @@
 }
 
 @media screen and (max-width: 600px) {
+  .reservation__content__fillInStep{
+    width: auto;
+    margin:0.5rem 0;
+  }
+  .reservation__content__fillInStep__contentBlock{
+    width: 100%;
+  }
+
   .reservation__content__fillInStep__title,
   .planBlock__plan__subtitle {
     justify-content: center;

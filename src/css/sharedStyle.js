@@ -1,4 +1,6 @@
 import { css } from "styled-components";
+
+//resultBlock__select
 export const reservedSelectItemStyle = css`
     display: flex;
     flex-direction: column;
@@ -7,11 +9,6 @@ export const reservedSelectItemStyle = css`
     width: 80%;
     margin: 0 auto;
 
-
-    @media screen and (max-width: 1000px) {
-        flex-direction: row;
-        width: 75%;
-    }
 
     .resultBlock__select__item {
         display: flex;
@@ -45,18 +42,24 @@ export const reservedSelectItemStyle = css`
     }
 
     @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        width: 100%;
+
         .resultBlock__select__item{
             width: 100%;
             margin:0;
+            margin-bottom: 0.5rem;
         }
 
         .resultBlock__select__item__label{
             width: 100%;
             min-width: fit-content;
             text-align: right;
-            padding:0 0.5rem 0 0;
+            padding:0;
         }
-
+        .resultBlock__select__select{
+            padding-top: .9em;
+        }
     }
 
 
