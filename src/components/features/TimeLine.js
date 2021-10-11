@@ -3,6 +3,10 @@ import "./TimeLine.css";
 import { useSelector } from "react-redux";
 import useTimelineAction from "../../action/features/timelineAction";
 import useBoardAction from "../../action/features/boardAction";
+import useConstRoomData from "../../utils/Time"
+import { convertDataTimeToIndex } from "./Board"
+
+
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
@@ -47,25 +51,58 @@ export const TimeLine = ({
   currentRoom,
   isReadOnly,
 }) => {
+
+
   //action
   const { setLineCubeState } = useTimelineAction();
   const { setBoardRefresh } = useBoardAction();
 
-  //useSelector
+  //redux
   const needRefreshBoard = useSelector(
     (state) => state.boardReducer.needRefreshBoard
   );
 
+  //parameters
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
+  const planData = useSelector((state) => state.orderReducer.planData);
+  const { TIME_REGION } = useConstRoomData();
 
-  useEffect(() => {
-    setCubeHover(initCubeHover(timeRegion));
-    setBoardRefresh(false);
-  }, [needRefreshBoard]);
+  //functions
+  const setPlanDataToTimeLine = (roomId, cubeIndex) => {
+    //check planData room, start_time, duration
+    let isPlanDataEmpty = false;
+
+    if (Object.keys(planData).length === 0) { //{}
+      return false;
+    }
+
+    Object.entries(planData).forEach(([key, value]) => {
+      if (value === "") { isPlanDataEmpty = true; }
+    })
+    if (isPlanDataEmpty) {
+      return false;
+    }
+
+    //check the roomId is same or not
+    if (planData.room !== roomId) {
+      return false;
+    }
+
+    //convert start time and duration to index
+    const indexsData = convertDataTimeToIndex(TIME_REGION, planData)[0];
+    const startIndex = indexsData.startIndex;
+    const endIndex = indexsData.endIndex;
+
+    //if cubeIndex is in the range of startIndex and endIndex, return true
+    if (startIndex <= cubeIndex && cubeIndex <= endIndex) {
+      return true;
+    }
+    return false;
+
+  }
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
-    // console.log(roomId + ", " + cubeId);
     if (cubeId === "") return;
     if (roomId === cubeId) return;
     let needInit = switchCurrentRoom(roomId, cubeId);
@@ -128,6 +165,7 @@ export const TimeLine = ({
     // console.log("not needInit");
     setLineCubeState({ ...lineCubeState, [roomId]: cubesState });
   };
+
   const handleBoxToggle = (cubeId) => {
     /*
       起點 < cube 會設定 isSelected = true <= 目前指到的 cube 的位置 (hover) 
@@ -167,11 +205,16 @@ export const TimeLine = ({
     setCubeHover(cubes);
   };
 
+
+  useEffect(() => {
+    setCubeHover(initCubeHover(timeRegion));
+    setBoardRefresh(false);
+  }, [needRefreshBoard]);
+
   return (
     <div
-      className={`board__reservationBoardItem__timeLine ${
-        isReadOnly ? "common__disablePointerEvent" : ""
-      }
+      className={`board__reservationBoardItem__timeLine ${isReadOnly ? "common__disablePointerEvent" : ""
+        }
       `}
       id={roomId}
       onClick={cubeClickHandler}
@@ -186,12 +229,14 @@ export const TimeLine = ({
             className={`timeLineCube
           ${index % 2 ? "timeLineCube__right" : "timeLineCube__left"}
 
-          ${
-            roomId === currentRoom.slice()[0].roomId &&
-            cubeHover.slice()[index].isSelected
-              ? "timeLineCube--selected-hovered"
-              : ""
-          }
+
+          ${setPlanDataToTimeLine(roomId, index) ? "timeLineCube--selected" : ""}
+
+          ${roomId === currentRoom.slice()[0].roomId &&
+                cubeHover.slice()[index].isSelected
+                ? "timeLineCube--selected-hovered"
+                : ""
+              }
 
           ${cube.isReserved ? "timeLineCube--reserved" : ""}
           `}

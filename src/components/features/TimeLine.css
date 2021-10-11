@@ -19,6 +19,9 @@
   background-color: var(--light-gray);
 }
 
+.timeLineCube--selected{
+  background-color: var(--yellow-green);
+}
 
 .timeLineCube--selected-hovered {
   background-color: var(--yellow-green);

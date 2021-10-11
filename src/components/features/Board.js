@@ -356,6 +356,7 @@ const Board = () => {
       // console.log("新的點擊");
       newRoom = [{ roomId: roomId, cubeId: cubeId, index: cubeIdIndex }, empty];
       setCurrentRoom(newRoom);
+      setPlanData({});
       needInit = true;
 
       return needInit;
@@ -449,9 +450,6 @@ const Board = () => {
       newRoom = [empty, empty];
       setCurrentRoom(newRoom);
       needInit = true;
-    }
-    if (!isSelectFinished) {
-      setPlanData({});
     }
     return needInit;
   };
