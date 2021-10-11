@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import "./Thankyou.css";
 import { Stepper } from "../../components/common/Stepper";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -101,14 +100,6 @@ const Thankyou = styled(MyThankyou)`
     transform: scale(0.7);
   }
 
-  .thankyou__content__logo__img img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    content: url("../../img/home.png");
-  }
 
   .thankyou__content__orderId {
     width: 100%;
