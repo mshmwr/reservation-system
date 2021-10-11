@@ -48,7 +48,6 @@ const patchUser = (data = {}) => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = route + "/api/user";
   const method = { method: "PATCH" };
-  // console.log(data);
   parameters = { body: JSON.stringify(data), ...method, ...parameters };
   return fetch(url, parameters)
     .then((response) => {
@@ -57,7 +56,6 @@ const patchUser = (data = {}) => {
     .then((result) => {
       //處理資料
       const parsedData = JSON.parse(result).data;
-      // console.log(parsedData);
       return parsedData;
     });
 };

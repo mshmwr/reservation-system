@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 
 const getBorderRadius = (props) => {
-  console.log(props.borderRadius);
   if (props.borderRadius) {
     return props.borderRadius;
   }
@@ -11,7 +10,6 @@ const getBorderRadius = (props) => {
 }
 
 const getInputValue = (formListItem, formInputValue) => {
-  console.log(formInputValue)
   let inputValue = "";
   Object.entries(formInputValue).forEach(([key, value]) => {
     if (formListItem.name === key) {
@@ -23,7 +21,6 @@ const getInputValue = (formListItem, formInputValue) => {
 }
 
 const MyFormItem = ({ className, formList, formInputValue, handleInputClick, handleChange, isFirstInput, borderRadius }) => {
-  console.log("MyFormItem")
   return <form className={`${className} form`}>
     {
       formList.map((inputItem) => (

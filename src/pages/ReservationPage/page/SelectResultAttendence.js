@@ -58,7 +58,6 @@ const MySelectResultAttendence = ({ className }) => {
                     className="resultBlock__select__item resultBlock__select__select"
                     value={attendenceData.attendence === undefined ? "" : attendenceData.attendence}
                 >
-                    {console.log(attendenceData.attendence)}
                     {
                         item.content.map((text) => (
                             <option key={text}>{text}</option>

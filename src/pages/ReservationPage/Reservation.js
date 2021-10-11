@@ -30,8 +30,6 @@ function Reservation() {
 
   //button action functions
   const nextToFillIn = () => {
-    console.log("select region: next");
-    console.log({ ...planData, ...attendenceData, date: calendarDate });
     if (!checkCanNext()) {
       return;
     }
@@ -89,14 +87,11 @@ function Reservation() {
   };
 
   const setBoardReadOnlyState = () => {
-    console.log("setBoardReadOnlyState");
     switch (step) {
       case steps[2]:
-        console.log("setBoardReadOnlyState steps2");
         setBoardIsReadOnly(true);
         break;
       default:
-        console.log("setBoardReadOnlyState steps default");
         setBoardIsReadOnly(false);
         break;
     }

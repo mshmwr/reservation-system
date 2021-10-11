@@ -37,7 +37,6 @@ export default function useOrderAction() {
   };
 
   const setStep = (inputStep) => {
-    console.log("action inputStep = " + inputStep);
     dispatch({
       type: SET_STEP,
       payload: { step: inputStep },
@@ -45,7 +44,6 @@ export default function useOrderAction() {
   };
 
   const setSelectedData = (inputData) => {
-    console.log("action selectedData = " + inputData);
     dispatch({
       type: SET_SELECTED_DATA,
       payload: { selectedData: inputData },
@@ -82,7 +80,6 @@ export default function useOrderAction() {
   };
 
   const nextClick = async (step) => {
-    console.log("nextClick: " + step);
     //驗證輸入合法性
     const valid = userInfoForm.every((formItem) => validateInput(formItem, userInfoValue) === true);
     switch (step) {

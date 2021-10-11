@@ -118,7 +118,6 @@ function MemberSystem() {
     useState(deepCopy(initOwnerLoginValue));
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // console.log(isLoggedIn);
   useEffect(() => {
     async function fetchData() {
       const isLogin = await checkLoggedIn();
@@ -139,7 +138,6 @@ function MemberSystem() {
   };
 
   const buttonClickHandler = async () => {
-    console.log("buttonClickHandler");
     //check login
     if (isLoggedIn) {
       await sendApi("logout");
@@ -160,7 +158,7 @@ function MemberSystem() {
       setAccountActionStatus,
       multiLangList
     );
-    console.log(errorMsg);
+
     if (errorMsg !== "") {
       setAccountActionMessage(errorMsg);
       return;
@@ -176,9 +174,7 @@ function MemberSystem() {
     Object.entries(formInputValue).forEach(([key, value]) => {
       sendData[key] = value;
     })
-    console.log(sendData);
     const parsedData = await sendApi(accountStatus, sendData);
-    // console.log(parsedData.message);
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);
     if (parsedData.status !== "ok") {
@@ -190,7 +186,6 @@ function MemberSystem() {
         history.push("/");
         break;
       case "register":
-        console.log("register finish");
         history.go(0);
         break;
       case "logout":

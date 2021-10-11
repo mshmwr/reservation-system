@@ -7,7 +7,6 @@ export const SET_BOARD_REFRESH = "SET_BOARD_REFRESH";
 export default function useBoardAction() {
   const dispatch = useDispatch();
   const setBoardCalendarDate = (inputCalendarDate) => {
-    console.log(inputCalendarDate);
     dispatch({
       type: SET_BOARD_CALENDAR_DATE,
       payload: {
