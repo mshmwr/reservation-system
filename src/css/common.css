@@ -130,11 +130,6 @@ html {
   transition: all 0.2s ease;
 }
 
-input:invalid {
-  border: 1px var(--light-red) solid;
-  border-radius: var(--border-radius);
-}
-
 @media screen and (max-width: 600px) {
   .common__buttonGroup {
     display: flex;

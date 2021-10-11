@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import "./Form.css";
+import FormItem from "../ui/FormItem";
 export default class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // list是要外部傳入的 this.props.formItemList
-      // list: [{ label: "name" }, { label: "phone" }, { label: "email" }],
       // list: [
       //   { label: "name", value: "" },
       //   { label: "phone", value: "" },
@@ -13,6 +11,7 @@ export default class Form extends Component {
       //   { label: "test", value: "" },
       // ],
       formInputList: props.formInputList,
+      isFirstInput: props.isFirstInput,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +27,10 @@ export default class Form extends Component {
       }
     }
     this.setState({ list: list });
+
+    if (this.state.isFirstInput) {
+      this.setState({ isFirstInput: false });
+    }
   }
 
   handleSubmit(e) {
@@ -62,28 +65,15 @@ export default class Form extends Component {
     }
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        {this.state.formInputList.map((inputItem) => (
-          <div key={inputItem.label} className="form__item">
-            <label>{inputItem.label}</label>
-            <input
-              onClick={this.handleInputClick}
-              value={inputItem.value}
-              type={inputItem.type}
-              placeholder={inputItem.placeholder}
-              minLength={inputItem.minLength}
-              maxLength={inputItem.maxLength}
-              size={inputItem.size}
-              pattern={inputItem.pattern}
-              required={inputItem.required}
-              onChange={(e) => this.handleChange(inputItem, e.target.value)}
-            ></input>
-          </div>
-        ))}
-        {this.props.needSubmitButton === true ? (
-          <input className="common__submit" type="submit" value="新增"></input>
-        ) : null}
-      </form>
+      <FormItem
+        formList={this.state.formInputList}
+        handleInputClick={this.handleInputClick}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        needSubmitButton={this.props.needSubmitButton}
+        isFirstInput={this.state.isFirstInput}
+        borderRadius={this.props.borderRadius}
+      />
     );
   }
 }

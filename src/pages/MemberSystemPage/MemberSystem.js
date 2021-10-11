@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 import "./MemberSystem.css";
 import { postUser, patchUser, deleteUser } from "../../apis/usersApi";
@@ -6,15 +6,17 @@ import Button from "../../components/ui/Button";
 import { checkLoggedIn } from "../../utils/API";
 import { validateInput } from "../../utils/Utils";
 import { useTranslation } from "react-i18next";
+import FormItem from "../../components/ui/FormItem";
 
 const inputVerifier = (
   ownerFormInputList,
   setAccountActionStatus,
   multiLangList
 ) => {
-  const [msg_invalid, msg_emptyColumns, msg_comma] = multiLangList;
   let errorMsg = "";
+  const [msg_invalid, msg_emptyColumns, msg_comma] = multiLangList;
   const emptyColumns = ownerFormInputList.filter((col) => col.value === "");
+
   if (emptyColumns.length === 0) {
     //都有輸入資料
     //驗證合法性
@@ -27,8 +29,8 @@ const inputVerifier = (
     return errorMsg;
   }
   setAccountActionStatus("");
-  //錯誤訊息：請輸入帳號、密碼...etc
 
+  //錯誤訊息：請輸入帳號、密碼...etc
   errorMsg += msg_emptyColumns; //t("memberSystemPage.errorMessage.emptyColumns");
   emptyColumns.forEach((col, index) => {
     errorMsg += col.label;
@@ -37,6 +39,8 @@ const inputVerifier = (
 
   return errorMsg;
 };
+
+
 const switchAccountStatus = (accountStatus, setAccountStatus) => {
   switch (accountStatus) {
     case "login":
@@ -80,8 +84,12 @@ const switchAccountMessageColor = (accountActionStatus) => {
 };
 
 function MemberSystem() {
-  const { t } = useTranslation();
+
   const history = useHistory();
+  const isFirstInput = useRef(true);
+
+  //i18n
+  const { t } = useTranslation();
   const ownerLoginForm = t("memberSystemPage.ownerLoginForm", {
     returnObjects: true,
   });
@@ -182,6 +190,9 @@ function MemberSystem() {
       }
     }
     setOwnerLoginFormInputList(list);
+    if (isFirstInput.current) {
+      isFirstInput.current = false;
+    }
   };
 
   const handleInputClick = () => {
@@ -199,37 +210,26 @@ function MemberSystem() {
             <p className="memberSystem__card__loggedIn common__subtitle ">
               {t("memberSystemPage.loggedIn")}
             </p>
-          ) : (
+          ) : (<>
             <div className="memberSystem__card__form">
-              <form>
-                {ownerFormInputList.map((inputItem) => (
-                  <div key={inputItem.label} className="form__item">
-                    <label>{inputItem.label}</label>
-                    <input
-                      onClick={handleInputClick}
-                      value={inputItem.value}
-                      type={inputItem.type}
-                      placeholder={inputItem.placeholder}
-                      minLength={inputItem.minLength}
-                      maxLength={inputItem.maxLength}
-                      size={inputItem.size}
-                      pattern={inputItem.pattern}
-                      required={inputItem.required}
-                      onChange={(e) => handleChange(inputItem, e.target.value)}
-                    />
-                  </div>
-                ))}
-              </form>
-              {accountActionMessage !== "" && (
-                <p
-                  className={`memberSystem__card__message ${switchAccountMessageColor(
-                    accountActionStatus
-                  )}`}
-                >
-                  {accountActionMessage}
-                </p>
-              )}
+              <FormItem
+                formList={ownerFormInputList}
+                handleInputClick={handleInputClick}
+                handleChange={handleChange}
+                isFirstInput={isFirstInput.current}
+              />
+
             </div>
+            {accountActionMessage !== "" && (
+              <p
+                className={`memberSystem__card__message ${switchAccountMessageColor(
+                  accountActionStatus
+                )}`}
+              >
+                {accountActionMessage}
+              </p>
+            )}
+          </>
           )}
 
           <div className="memberSystem__card__button">
@@ -242,11 +242,11 @@ function MemberSystem() {
               text={
                 isLoggedIn
                   ? t("memberSystemPage.card.instruction", {
-                      returnObjects: true,
-                    })["logout"]
+                    returnObjects: true,
+                  })["logout"]
                   : t("memberSystemPage.card.instruction", {
-                      returnObjects: true,
-                    })[accountStatus]
+                    returnObjects: true,
+                  })[accountStatus]
               }
               clickEvent={buttonClickHandler}
             />

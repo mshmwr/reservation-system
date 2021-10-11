@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import Form from "../../../components/features/Form";
 import "./FillInRegion.css";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 export const FillInRegin = () => {
+  const isFirstInput = useRef(true);
+
   //i18n
   const { t } = useTranslation();
   const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
@@ -33,6 +35,8 @@ export const FillInRegin = () => {
                 <Form
                   formInputList={formInputList}
                   needSubmitButton={false}
+                  isFirstInput={isFirstInput}
+                  borderRadius="15px"
                 ></Form>
               </div>
             </div>
