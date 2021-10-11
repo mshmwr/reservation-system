@@ -17,6 +17,10 @@
 .calendarBlock__day {
   height: 2.5rem;
   margin: 0 auto 1rem auto;
+  border-radius: var(--border-radius-15);
+  border: 1px solid var(--main-dark);
+  padding: 0 1rem;
+
 }
 /* resultBlock */
 .reservation__content__selectStep__resultBlock {
