@@ -29,7 +29,7 @@ const show = (props) => {
 }
 
 
-const Dialog = styled.div`
+const Dialog = styled.div.attrs({ className: "alertDialog" })`
     --dialogWidth: 250px;
     --dialogHeight: 250px;
     position: fixed;
@@ -45,6 +45,7 @@ const Dialog = styled.div`
     align-items: center;
     visibility: hidden;
     animation: ${show};
+    z-index: var(--zIndex-managementWindow);
 `
 
 

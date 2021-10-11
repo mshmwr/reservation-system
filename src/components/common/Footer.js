@@ -12,6 +12,7 @@ const MyFooter = styled.footer.attrs({ className: "footer" })`
   justify-content: center;
   align-items: center;
   position: relative;
+  z-index: var(--zIndex-managementWindow);
 
   .footer__copyright__paragraph{
     position: absolute;
