@@ -5,6 +5,7 @@ import boardReducer from "../reducer/features/boardReducer";
 import reservationReducer from "../reducer/features/reservationReducer";
 import dialogReducer from "../reducer/ui/dialogReducer";
 import orderEnquiryReducer from "../reducer/ui/orderEnquiryReducer";
+import dateOrdersReducer from "../reducer/ui/dateOrdersReducer";
 
 const rootReducer = combineReducers({
   orderReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   boardReducer,
   reservationReducer,
   dialogReducer,
-  orderEnquiryReducer
+  orderEnquiryReducer,
+  dateOrdersReducer,
 });
 
 const store = createStore(rootReducer);

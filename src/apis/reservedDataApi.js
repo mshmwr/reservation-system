@@ -23,7 +23,7 @@ const getReservedData = (date = "", order_id = "", room = "") => {
   }
   // let url = "/reservation_data?data[date]=" + date;
   let url = route + "/reservation_data?" + urlVar;
-  console.log(url);
+  // console.log(url);
   return fetch(url, {
     method: "GET",
   })
@@ -33,7 +33,7 @@ const getReservedData = (date = "", order_id = "", room = "") => {
     .then((result) => {
       //處理資料
       const parsedData = JSON.parse(result).data;
-      console.log(parsedData);
+      // console.log(parsedData);
       return parsedData;
     });
 };

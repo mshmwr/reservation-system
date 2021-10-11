@@ -22,4 +22,12 @@ const deepCopy = (obj) => {
   return JSON.parse(JSON.stringify(obj))
 }
 
-export { validateInput, route, getSVGURI, deepCopy };
+const reverseDate = (date) => {
+  let dates = date
+    .split("-")
+    .reverse()
+    .map((num) => num.padStart(2, "0")); //十位數補零
+  return dates.join("-");
+};
+
+export { validateInput, route, getSVGURI, deepCopy, reverseDate };

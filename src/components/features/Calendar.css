@@ -73,6 +73,7 @@
   padding: 5px;
   margin: 5px;
   white-space: nowrap;
+  overflow-x:hidden;
 }
 .calendar__dates__date__entries__col--applied {
   background-color: var(--main-normal);
@@ -85,6 +86,10 @@
 }
 .calendar__dates__date__entries__col--conflicted {
   background-color: var(--main-red);
+}
+.calendar__dates__date__entries__col--showPartOf{
+  width: 10%;
+
 }
 
 .dialog__dialogMask {

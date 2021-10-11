@@ -22,8 +22,7 @@ function Management() {
     setBoardRefresh,
   } = useBoardAction();
 
-  //selector
-  //
+  //redux
   const { t } = useTranslation();
   const { ROOM_LIST } = useConstRoomData();
   const history = useHistory();

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import Button from "../ui/Button";
+import { useSelector } from "react-redux";
 import "./Calendar.css";
 import { CalendarDateReservedData } from "./CalendarDateReservedData";
 import { CalendarOrderDialog } from "./CalandarOrderDialog";
 import DirectionButton from "../ui/DirectionButton";
+import DateOrdersWindow from "../features/DateOrdersWindow"
+import { reverseDate } from "../../utils/Utils"
 
 const daysShortArr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const monthNamesArr = [
@@ -139,14 +141,6 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
   };
 };
 
-const reverseDate = (date) => {
-  let dates = date
-    .split("-")
-    .reverse()
-    .map((num) => num.padStart(2, "0")); //十位數補零
-  return dates.join("-");
-};
-
 const Calendar = ({
   needRefreshPage,
   setNeedRefreshPage,
@@ -163,7 +157,13 @@ const Calendar = ({
     getPrevMonth,
     getNextMonth,
   } = useCalendar();
+  //redux
 
+  const showDateOrdersWindow = useSelector((state) => state.dateOrdersReducer.showDateOrderWindow)
+
+
+
+  //variable
   const [showDialog, setShowDialog] = useState(false);
   const [currentOrderIsConflicted, setCurrentOrderIsConflicted] =
     useState(false);
@@ -183,6 +183,8 @@ const Calendar = ({
     setOrderId("");
   };
 
+
+
   return (
     <div className="calendar">
       <CalendarOrderDialog
@@ -195,13 +197,11 @@ const Calendar = ({
       />
       <div className="calendar__month">
         <DirectionButton clickEvent={getPrevMonth} direction="left" />
-        {/* <Button text="prev" clickEvent={getPrevMonth} /> */}
         <p className="common__subtitle common__font--bold">
           {`${monthNames[selectedDate.getMonth()]
             }-${selectedDate.getFullYear()}`}
         </p>
         <DirectionButton clickEvent={getNextMonth} direction="right" />
-        {/* <Button text="next" clickEvent={getNextMonth} /> */}
       </div>
       <div className="calendar__dates">
         {daysShort.map((day) => (
@@ -231,7 +231,6 @@ const Calendar = ({
                   setNeedRefreshPage={setNeedRefreshPage}
                   dateClickHandler={dateClickHandler}
                   selectedRoom={selectedRoom}
-                  setManagementSelectedDate={setManagementSelectedDate}
                 />
               </div>
             ) : (
@@ -255,6 +254,15 @@ const Calendar = ({
           })
         )}
       </div>
+
+
+      {showDateOrdersWindow && <DateOrdersWindow
+        needRefreshPage={needRefreshPage}
+        setNeedRefreshPage={setNeedRefreshPage}
+        dateClickHandler={dateClickHandler}
+        selectedRoom={selectedRoom}
+      />}
+
     </div>
   );
 };

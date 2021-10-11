@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { getReservedData } from "../../apis/reservedDataApi";
 import useConstRoomData from "../../utils/Time";
+import ShowMoreIcon from "../ui/ShowMoreIcon";
 import {
   convertDataTimeToIndex,
   getRoomDatas,
   getEachTimeReservedStatus,
 } from "./Board";
+import useDateOrderAction from "../../action/ui/dateOrderAction"
 
 const checkConflicted = (data, reservedStatus, timeRegion) => {
   //取得當筆資料，把data裡面的時間轉換成index
@@ -33,7 +36,14 @@ export const CalendarDateReservedData = ({
   setNeedRefreshPage,
   dateClickHandler,
   selectedRoom,
+  isShowAll = false,
 }) => {
+  //redux
+  const { setSelectedDate, setShowDateOrderWindow } = useDateOrderAction();
+  const maxOrdersNumber = useSelector((state) => state.dateOrdersReducer.maxOrdersNumber);
+  const showDateOrderWindow = useSelector((state) => state.dateOrdersReducer.showDateOrderWindow);
+
+  //variable
   const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = useConstRoomData();
   const [dateDatas, setDateDatas] = useState(null);
   const fetchReservedData = async () => {
@@ -69,44 +79,66 @@ export const CalendarDateReservedData = ({
   const reservedStatus =
     dateDatas !== null
       ? getEachTimeReservedStatus(
-          getRoomDatas(ROOM_LIST, TIME_REGION, dateDatas),
-          TIME_REGION_MAPPING,
-          ROOM_LIST
-        )
+        getRoomDatas(ROOM_LIST, TIME_REGION, dateDatas),
+        TIME_REGION_MAPPING,
+        ROOM_LIST
+      )
       : null;
+
+  const clickShowMoreIcon = (e) => {
+    setShowDateOrderWindow(true);
+    setSelectedDate(columnDate);
+  }
+
+  const isShowMoreIcon = dateDatas && !showDateOrderWindow && (maxOrdersNumber < dateDatas.length) ? true : false;
+
+
+
+  const checkShowAllOrders = (index) => {
+    if (isShowAll) {
+      return true;
+    }
+    return index < maxOrdersNumber;
+  }
 
   return (
     <div className="calendar__dates__date__entries">
+
       {dateDatas === null || dateDatas.length === 0
         ? "no reserved"
-        : dateDatas
-            .filter((item) =>
-              selectedRoom === ""
-                ? item.room !== selectedRoom
-                : item.room === selectedRoom
-            )
-            .map((item) => (
-              <div
-                key={item.order_id}
-                className={`calendar__dates__date__entries__col 
-              ${
-                checkConflicted(item, reservedStatus, TIME_REGION)
+        : dateDatas.filter((item, index) => checkShowAllOrders(index)) //顯示 maxOrdersNumber 筆資料
+          .filter((item) =>
+            selectedRoom === ""
+              ? item.room !== selectedRoom
+              : item.room === selectedRoom
+          )
+          .map((item) => (
+            <div
+              key={item.order_id}
+              className={`calendar__dates__date__entries__col 
+              ${checkConflicted(item, reservedStatus, TIME_REGION)
                   ? "calendar__dates__date__entries__col--conflicted"
                   : switchOrderStatus(item.order_status)
-              }
-              `}
-                id={item.order_id}
-                onClick={(e) =>
-                  dateClickHandler(
-                    e,
-                    checkConflicted(item, reservedStatus, TIME_REGION),
-                    item.date
-                  )
                 }
-              >
-                {`${item.room}-${item.start_time}-${item.duration}hr`}
-              </div>
-            ))}
-    </div>
+                
+              ${isShowAll ? "" : "calendar__dates__date__entries__col--showPartOf"}
+              
+                `}
+
+              id={item.order_id}
+              onClick={(e) =>
+                dateClickHandler(
+                  e,
+                  checkConflicted(item, reservedStatus, TIME_REGION),
+                  item.date
+                )
+              }
+            >
+              {`${item.room}-${item.start_time}-${item.duration}hr`}
+            </div>
+          ))
+      }
+      {isShowMoreIcon && <ShowMoreIcon clickHandler={clickShowMoreIcon} />}
+    </div >
   );
 };
