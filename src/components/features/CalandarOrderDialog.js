@@ -65,9 +65,8 @@ export const CalendarOrderDialog = ({
     };
     const parsedData = await patchReservedData(patchData);
     if (parsedData.status === "error") {
-      const msg = `${t("apiResponse.reservationData.patchFailed")}\n${
-        parsedData.message
-      }`;
+      const msg = `${t("apiResponse.reservationData.patchFailed")}\n${parsedData.message
+        }`;
       alert(msg);
     }
     closeClickHandler();
@@ -112,106 +111,97 @@ export const CalendarOrderDialog = ({
         <div className="dialog__dialogMask" />
         <div className="dialog__dialogContent">
           <CloseIcon clickHandler={closeClickHandler} />
-          {/* <div className="dialog__icon" onClick={closeClickHandler}>
-            <img />
-          </div> */}
           {orderData === null || orderData.length === 0
             ? "no reserved"
             : orderData.map((item) => (
-                <div key={item.order_id} className="calendar__dialog__table">
-                  {t("orderTableList", { returnObjects: true }).map((data) => (
-                    <div
-                      key={data.key}
-                      className="calendar__dialog__table__item"
-                    >
-                      <p className="calendar__dialog__table__item__label">
-                        {data.label}
-                      </p>
+              <div key={item.order_id} className="calendar__dialog__table">
+                {t("orderTableList", { returnObjects: true }).map((data) => (
+                  <div
+                    key={data.key}
+                    className="calendar__dialog__table__item"
+                  >
+                    <p className="calendar__dialog__table__item__label">
+                      {data.label}
+                    </p>
 
-                      {data.options === undefined ? (
-                        <p className="calendar__dialog__table__item__value">
-                          {item[data.key]}
-                        </p>
-                      ) : (
-                        <div className="board__buttons">
-                          {data.options.map((option) => {
-                            return (
-                              <button
-                                type="button"
-                                key={option}
-                                id={option}
-                                className={`btn board__buttons__button ${
-                                  orderStatusButton === option
-                                    ? "board__buttons__button--selected"
-                                    : ""
+                    {data.options === undefined ? (
+                      <p className="calendar__dialog__table__item__value">
+                        {item[data.key]}
+                      </p>
+                    ) : (
+                      <div className="board__buttons">
+                        {data.options.map((option) => {
+                          return (
+                            <button
+                              type="button"
+                              key={option}
+                              id={option}
+                              className={`btn board__buttons__button ${orderStatusButton === option
+                                ? "board__buttons__button--selected"
+                                : ""
                                 } 
-                                ${
-                                  originOrderStatusButton === option
-                                    ? "common__font--bold board__buttons__button--primary"
-                                    : ""
+                                ${originOrderStatusButton === option
+                                  ? "common__font--bold board__buttons__button--primary"
+                                  : ""
                                 }
-                                ${
-                                  checkOrderStatusButtonIsDisable(
-                                    orderStatusButton,
-                                    option,
-                                    currentOrderIsConflicted,
-                                    originOrderStatusButton,
-                                    item.date
-                                  )
-                                    ? "board__buttons__button--disabled"
-                                    : ""
+                                ${checkOrderStatusButtonIsDisable(
+                                  orderStatusButton,
+                                  option,
+                                  currentOrderIsConflicted,
+                                  originOrderStatusButton,
+                                  item.date
+                                )
+                                  ? "board__buttons__button--disabled"
+                                  : ""
                                 }
                                 `}
-                                disabled={`${
-                                  checkOrderStatusButtonIsDisable(
-                                    orderStatusButton,
-                                    option,
-                                    currentOrderIsConflicted,
-                                    originOrderStatusButton,
-                                    item.date
-                                  )
-                                    ? "disabled"
-                                    : ""
-                                }`}
-                                onClick={(e) =>
-                                  changeOrderStatusClickHandler(e, option)
-                                }
-                              >
-                                {option}
-                              </button>
-                            );
-                          })}
-                          <button
-                            type="button"
-                            className={`btn dialog__confirmButton
-                            ${
-                              checkConfirmButtonIsDisable(
+                              disabled={`${checkOrderStatusButtonIsDisable(
                                 orderStatusButton,
-                                originOrderStatusButton
-                              )
-                                ? "dialog__confirmButton--disabled"
-                                : ""
-                            }
-                            
-                            `}
-                            onClick={orderStatusConfirmButtonClickHandler}
-                            disabled={`${
-                              checkConfirmButtonIsDisable(
-                                orderStatusButton,
-                                orderData[0].order_status
+                                option,
+                                currentOrderIsConflicted,
+                                originOrderStatusButton,
+                                item.date
                               )
                                 ? "disabled"
                                 : ""
+                                }`}
+                              onClick={(e) =>
+                                changeOrderStatusClickHandler(e, option)
+                              }
+                            >
+                              {option}
+                            </button>
+                          );
+                        })}
+                        <button
+                          type="button"
+                          className={`btn dialog__confirmButton
+                            ${checkConfirmButtonIsDisable(
+                            orderStatusButton,
+                            originOrderStatusButton
+                          )
+                              ? "dialog__confirmButton--disabled"
+                              : ""
+                            }
+                            
+                            `}
+                          onClick={orderStatusConfirmButtonClickHandler}
+                          disabled={`${checkConfirmButtonIsDisable(
+                            orderStatusButton,
+                            orderData[0].order_status
+                          )
+                            ? "disabled"
+                            : ""
                             }`}
-                          >
-                            {t("managementPage.dialog.confirmButton")}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ))}
+                        >
+                          {t("managementPage.dialog.confirmButton")}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
         </div>
       </div>
     );

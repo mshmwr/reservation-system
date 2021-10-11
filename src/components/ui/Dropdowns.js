@@ -47,7 +47,7 @@ const Dropdowns = styled(MyDropdowns)`
     .menu__language__list{
         position: absolute;
         top: calc(-1 * (${props => Object.keys(props.langs).length} * ${props => props.listItemHeight} + 1rem)); 
-        /* 1px is for visual error correction */
+        /* 1rem is for visual error correction */
 
         border-radius: var(--border-radius) var(--border-radius) 0 0;
         padding: 0.5rem 0;

@@ -22,30 +22,6 @@ function Home() {
 
   return (
     <div className="home common__pageFrame">
-      {/* {showOrderWindow && (
-        <div className="orderResultWindow">
-          <CloseIcon clickHandler={closeWindowClickHandler} />
-          {orderSearchResult.length !== 0 &&
-            orderSearchResult.map((item) => (
-              <div key={item.order_id} className="orderResultWindow__table">
-                {t("orderTableList", { returnObjects: true }).map((data) => (
-                  <div
-                    key={data.key}
-                    className="orderResultWindow__table__item"
-                  >
-                    <p className="orderResultWindow__table__item__label">
-                      {data.label}
-                    </p>
-                    <p className="orderResultWindow__table__item__value">
-                      {item[data.key]}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ))}
-        </div>
-      )} */}
-
       <div className="home__banner"></div>
       <div className="home__welcome">
         <p className="home__welcome__title common__title common__font--bold">
