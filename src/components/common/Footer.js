@@ -30,11 +30,10 @@ const MyFooter = styled.footer.attrs({ className: "footer" })`
   .footer__copyright__icon{
       width: calc(var(--menu-item-height)/2);
       height: calc(var(--menu-item-height)/2);
-      margin:0 0.25rem;
       background-image: url(${getSVGURI(faCopyright, "#FFFFFF")});
       background-position: center;
       background-size: cover;
-      margin-left: 1rem;
+      margin: 0 0.25rem 0 1rem;
       cursor: pointer;
   }
   
