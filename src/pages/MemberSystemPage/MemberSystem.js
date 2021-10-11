@@ -183,7 +183,7 @@ function MemberSystem() {
 
     switch (accountStatus) {
       case "login":
-        history.push("/");
+        history.go(0);
         break;
       case "register":
         history.go(0);

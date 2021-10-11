@@ -1,9 +1,7 @@
 import { requestParameters } from "../utils/API";
 import { route } from "../utils/Utils";
 
-//取得訂位資訊
-
-//送出訂位資訊
+//取得登入狀態
 const getUser = () => {
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = route + "/api/user";
@@ -20,8 +18,8 @@ const getUser = () => {
     });
 };
 
+//register
 const postUser = (data = {}) => {
-  //register
   if (JSON.stringify(data) === "{}") {
     return;
   }
@@ -40,8 +38,8 @@ const postUser = (data = {}) => {
     });
 };
 
+//login
 const patchUser = (data = {}) => {
-  //login
   if (JSON.stringify(data) === "{}") {
     return;
   }
