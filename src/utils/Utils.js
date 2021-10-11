@@ -2,15 +2,13 @@ import { toHtml, icon } from "@fortawesome/fontawesome-svg-core";
 
 const route = "http://localhost:3100"; //"";
 
-const validateInput = (inputData) => {
-  const str = inputData.value;
-  const regExp = inputData.pattern;
-  console.log("------------")
-  console.log(str);
-  console.log(regExp);
+const validateInput = (formItem, inputValue) => {
+  const regExp = formItem.pattern;
   if (regExp === null) {
     return true; //不須驗證validation
   }
+
+  const str = inputValue[formItem.name];
   return str.search(regExp) !== -1;
 };
 
@@ -20,5 +18,8 @@ const getSVGURI = (faIcon, color) => {
   return `data:image/svg+xml;base64,${btoa(toHtml(abstract))}`;
 };
 
+const deepCopy = (obj) => {
+  return JSON.parse(JSON.stringify(obj))
+}
 
-export { validateInput, route, getSVGURI };
+export { validateInput, route, getSVGURI, deepCopy };

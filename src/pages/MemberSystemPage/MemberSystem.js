@@ -7,21 +7,28 @@ import { checkLoggedIn } from "../../utils/API";
 import { validateInput } from "../../utils/Utils";
 import { useTranslation } from "react-i18next";
 import FormItem from "../../components/ui/FormItem";
+import { deepCopy } from "../../utils/Utils";
+
+
 
 const inputVerifier = (
   ownerFormInputList,
+  formInputValue,
   setAccountActionStatus,
   multiLangList
 ) => {
-  let errorMsg = "";
   const [msg_invalid, msg_emptyColumns, msg_comma] = multiLangList;
-  const emptyColumns = ownerFormInputList.filter((col) => col.value === "");
+  let errorMsg = "";
+  const emptyColumns = ownerFormInputList.filter((col) => {
+    return formInputValue[col.name] === "";
+  })
+
 
   if (emptyColumns.length === 0) {
     //都有輸入資料
     //驗證合法性
     const valid = ownerFormInputList.every(
-      (input) => validateInput(input) === true
+      (formItem) => validateInput(formItem, formInputValue) === true
     );
     if (!valid) {
       errorMsg += msg_invalid; //t("messages.invalid");
@@ -29,6 +36,8 @@ const inputVerifier = (
     return errorMsg;
   }
   setAccountActionStatus("");
+
+
 
   //錯誤訊息：請輸入帳號、密碼...etc
   errorMsg += msg_emptyColumns; //t("memberSystemPage.errorMessage.emptyColumns");
@@ -83,6 +92,11 @@ const switchAccountMessageColor = (accountActionStatus) => {
   }
 };
 
+
+const initOwnerLoginValue = { email: "", password: "" };
+
+const initOwnerRegisterValue = { email: "", password: "", name: "" };
+
 function MemberSystem() {
 
   const history = useHistory();
@@ -97,15 +111,11 @@ function MemberSystem() {
     returnObjects: true,
   });
 
-  const copyOwnerLoginForm = JSON.parse(JSON.stringify(ownerLoginForm));
-
-  const copyOwnerRegisterForm = JSON.parse(JSON.stringify(ownerRegisterForm));
-
   const [accountStatus, setAccountStatus] = useState("login");
   const [accountActionMessage, setAccountActionMessage] = useState("");
   const [accountActionStatus, setAccountActionStatus] = useState("");
-  const [ownerFormInputList, setOwnerLoginFormInputList] =
-    useState(copyOwnerLoginForm);
+  const [formInputValue, setFormInputValue] =
+    useState(deepCopy(initOwnerLoginValue));
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // console.log(isLoggedIn);
@@ -119,20 +129,25 @@ function MemberSystem() {
 
   const clickAccountStatusHandler = () => {
     switchAccountStatus(accountStatus, setAccountStatus);
-    const formInput =
-      accountStatus === "login" ? copyOwnerRegisterForm : copyOwnerLoginForm;
+    const value =
+      accountStatus === "login" ? deepCopy(initOwnerRegisterValue) : deepCopy(initOwnerLoginValue);
     setAccountActionMessage("");
-    setOwnerLoginFormInputList(formInput);
+    setFormInputValue(value);
+    if (!isFirstInput.current) {
+      isFirstInput.current = true;
+    }
   };
 
   const buttonClickHandler = async () => {
     console.log("buttonClickHandler");
+    //check login
     if (isLoggedIn) {
       await sendApi("logout");
       history.push("/");
       return;
     }
-    console.log("buttonClickHandler");
+
+    //get error msg and show
     const multiLangList = [
       t("messages.invalid"),
       t("memberSystemPage.errorMessage.emptyColumns"),
@@ -140,24 +155,28 @@ function MemberSystem() {
     ];
 
     const errorMsg = inputVerifier(
-      ownerFormInputList,
+      accountStatus === "login" ? ownerLoginForm : ownerRegisterForm,
+      formInputValue,
       setAccountActionStatus,
       multiLangList
     );
     console.log(errorMsg);
     if (errorMsg !== "") {
-      // console.log(errorMsg);
       setAccountActionMessage(errorMsg);
       return;
     }
 
-    const formInput =
-      accountStatus === "login" ? copyOwnerLoginForm : copyOwnerRegisterForm;
-    setOwnerLoginFormInputList(formInput);
+    //reset form input value
+    const inputValue =
+      accountStatus === "login" ? deepCopy(initOwnerLoginValue) : deepCopy(initOwnerRegisterValue);
+    setFormInputValue(inputValue);
+
+    //register or login
     let sendData = {};
-    ownerFormInputList.forEach((item) => {
-      sendData[item.name] = item.value;
-    });
+    Object.entries(formInputValue).forEach(([key, value]) => {
+      sendData[key] = value;
+    })
+    console.log(sendData);
     const parsedData = await sendApi(accountStatus, sendData);
     // console.log(parsedData.message);
     setAccountActionStatus(parsedData.status);
@@ -165,6 +184,7 @@ function MemberSystem() {
     if (parsedData.status !== "ok") {
       return;
     }
+
     switch (accountStatus) {
       case "login":
         history.push("/");
@@ -182,17 +202,15 @@ function MemberSystem() {
   };
 
   const handleChange = (formItem, targetValue) => {
-    const list = ownerFormInputList.slice();
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].label === formItem.label) {
-        list[i].value = targetValue;
-        break;
-      }
-    }
-    setOwnerLoginFormInputList(list);
     if (isFirstInput.current) {
       isFirstInput.current = false;
     }
+    Object.keys(formInputValue).forEach((key) => {
+      if (formItem.name === key) {
+        setFormInputValue({ ...formInputValue, [key]: targetValue });
+        return;
+      }
+    })
   };
 
   const handleInputClick = () => {
@@ -213,7 +231,8 @@ function MemberSystem() {
           ) : (<>
             <div className="memberSystem__card__form">
               <FormItem
-                formList={ownerFormInputList}
+                formList={accountStatus === "login" ? ownerLoginForm : ownerRegisterForm}
+                formInputValue={formInputValue}
                 handleInputClick={handleInputClick}
                 handleChange={handleChange}
                 isFirstInput={isFirstInput.current}

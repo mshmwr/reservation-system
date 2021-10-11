@@ -5,39 +5,34 @@ import { useHistory } from "react-router-dom";
 import { validateInput } from "../../utils/Utils";
 import { postReservedData } from "../../apis/reservedDataApi";
 
-export const SET_FORM_INPUT_LIST = "SET_FORM_INPUT_LIST";
+export const SET_USER_INFO_VALUE = "SET_USER_INFO_VALUE";
 export const SET_STEP = "SET_STEP";
 export const SET_SELECTED_DATA = "SET_SELECTED_DATA";
 
-const filterFormData = (formInputList) => {
-  let data = {};
-  formInputList.forEach((item) => {
-    data[item.name] = item.value;
-  });
-  return data;
-};
+
 
 export default function useOrderAction() {
   //history
   const history = useHistory();
+  const dispatch = useDispatch();
   //i18n
   const { t } = useTranslation();
   const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
   const messageCheckReselect = t("messages.checkReselect"); //Are you sure you want to change it?"
+  const userInfoForm = t("reservationPage.userinfoform", { returnObjects: true, });
   //redux
-  const formInputList = useSelector(
-    (state) => state.reservationReducer.formInputList
+  const userInfoValue = useSelector(
+    (state) => state.reservationReducer.userInfoValue
   );
   const selectedData = useSelector(
     (state) => state.reservationReducer.selectedData
   );
 
-  const dispatch = useDispatch();
-  const setFormInputList = (formInput) => {
-    console.log("action formInput = " + formInput);
+  //actions  
+  const setUserInfoValue = (inputValue) => {
     dispatch({
-      type: SET_FORM_INPUT_LIST,
-      payload: { formInputList: formInput },
+      type: SET_USER_INFO_VALUE,
+      payload: { userInfoValue: inputValue },
     });
   };
 
@@ -61,7 +56,7 @@ export default function useOrderAction() {
     const orderStatusData = { order_status: "applied" };
     const sendData = {
       ...selectedData,
-      ...filterFormData(formInputList),
+      ...userInfoValue,
       ...orderStatusData,
     };
     return sendData;
@@ -89,10 +84,7 @@ export default function useOrderAction() {
   const nextClick = async (step) => {
     console.log("nextClick: " + step);
     //驗證輸入合法性
-    const valid = formInputList.every(
-      (input) => validateInput(input) === true
-    );
-    // return;
+    const valid = userInfoForm.every((formItem) => validateInput(formItem, userInfoValue) === true);
     switch (step) {
       case steps[0]:
         setStep(steps[1]);
@@ -105,6 +97,7 @@ export default function useOrderAction() {
 
         setStep(steps[2]);
         break;
+
       default:
         if (!valid) {
           alert(t("messages.invalid"));
@@ -130,5 +123,5 @@ export default function useOrderAction() {
     }
   }
 
-  return { setFormInputList, setStep, setSelectedData, backClick, nextClick, checkReselect };
+  return { setUserInfoValue, setStep, setSelectedData, backClick, nextClick, checkReselect };
 }

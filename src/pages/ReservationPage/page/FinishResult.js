@@ -10,13 +10,15 @@ const MyFinishResult = ({ className }) => {
     const planItems = t("reservationPage.fillInStep.planItems", {
         returnObjects: true,
     });
-
     //redux
     const selectedData = useSelector(
         (state) => state.reservationReducer.selectedData
     );
-    const formInputList = useSelector(
-        (state) => state.reservationReducer.formInputList
+    const userInfoForm = t("reservationPage.userinfoform", {
+        returnObjects: true,
+    });
+    const userInfoValue = useSelector(
+        (state) => state.reservationReducer.userInfoValue
     );
 
     return <div className={`${className} resultBlock__select`}>
@@ -32,7 +34,7 @@ const MyFinishResult = ({ className }) => {
             </div>
         ))}
         {
-            formInputList.map((info) => (
+            userInfoForm.map((info) => (
                 <div
                     key={`timelineResult${info}`}
                     className="resultBlock__select__item"
@@ -41,7 +43,7 @@ const MyFinishResult = ({ className }) => {
                         {info.label}
                     </div>
                     <div className="resultBlock__select__item__value">
-                        {info.value}
+                        {userInfoValue[info.name]}
                     </div>
                 </div>
             ))

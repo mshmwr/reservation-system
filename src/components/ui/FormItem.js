@@ -10,17 +10,29 @@ const getBorderRadius = (props) => {
   return "var(--border-radius)";
 }
 
-const MyFormItem = ({ className, formList, handleInputClick, handleChange, handleSubmit, needSubmitButton, isFirstInput, borderRadius }) => {
+const getInputValue = (formListItem, formInputValue) => {
+  console.log(formInputValue)
+  let inputValue = "";
+  Object.entries(formInputValue).forEach(([key, value]) => {
+    if (formListItem.name === key) {
+      inputValue = value;
+    }
+  })
 
-  return <form className={`${className} form`} onSubmit={handleSubmit}>
+  return inputValue;
+}
+
+const MyFormItem = ({ className, formList, formInputValue, handleInputClick, handleChange, isFirstInput, borderRadius }) => {
+  console.log("MyFormItem")
+  return <form className={`${className} form`}>
     {
       formList.map((inputItem) => (
-        <div key={inputItem.label} className="form__item">
+        <div key={inputItem.name} className="form__item">
           <label className="form__item__label">{inputItem.label}</label>
           <input
             className={`form__item__input ${isFirstInput ? "" : "notFirstInInput"}`}
             onClick={handleInputClick}
-            value={inputItem.value}
+            value={getInputValue(inputItem, formInputValue)}
             type={inputItem.type}
             placeholder={inputItem.placeholder}
             minLength={inputItem.minLength}
@@ -30,9 +42,6 @@ const MyFormItem = ({ className, formList, handleInputClick, handleChange, handl
             required={inputItem.required}
             onChange={(e) => handleChange(inputItem, e.target.value)}
           />
-          {needSubmitButton === true ? (
-            <input className="common__submit" type="submit" value="新增"></input>
-          ) : null}
         </div>
       ))
     }

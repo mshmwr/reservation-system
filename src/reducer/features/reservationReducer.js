@@ -1,19 +1,19 @@
 import {
-  SET_FORM_INPUT_LIST,
+  SET_USER_INFO_VALUE,
   SET_STEP,
   SET_SELECTED_DATA,
 } from "../../action/features/reservationAction";
 
 const initState = {
-  formInputList: [],
+  userInfoValue: { name: "", phone: "", email: "" },
   step: "",
   selectedData: {},//...planData, ...attendenceData, date: calendarDate
 };
 
 const reservationReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_FORM_INPUT_LIST:
-      return { ...state, formInputList: action.payload.formInputList };
+    case SET_USER_INFO_VALUE:
+      return { ...state, userInfoValue: action.payload.userInfoValue };
     case SET_STEP:
       return { ...state, step: action.payload.step };
     case SET_SELECTED_DATA:

@@ -7,22 +7,19 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import useReservationAction from "../../action/features/reservationAction";
 import useBoardAction from "../../action/features/boardAction";
-
 import DirectionButton from "../../components/ui/DirectionButton";
+
+const initUserInfoValue = { name: "", phone: "", email: "" };
 
 function Reservation() {
   //i18n
   const { t } = useTranslation();
   const steps = t("stepper.steps", { returnObjects: true }); //["select", "fillIn", "finish"]
-  const userInfoForm = t("reservationPage.userinfoform", {
-    returnObjects: true,
-  });
-  const copyUserInfoForm = JSON.parse(JSON.stringify(userInfoForm));
+
 
   //redux
-
   const { setBoardIsReadOnly } = useBoardAction();
-  const { setFormInputList, setStep, setSelectedData, backClick, nextClick } = useReservationAction();
+  const { setUserInfoValue, setStep, setSelectedData, backClick, nextClick } = useReservationAction();
   const step = useSelector((state) => state.reservationReducer.step);
   const planData = useSelector((state) => state.orderReducer.planData);
   const attendenceData = useSelector(
@@ -110,7 +107,7 @@ function Reservation() {
   }, [step]);
 
   useLayoutEffect(() => {
-    setFormInputList(copyUserInfoForm);
+    setUserInfoValue(initUserInfoValue);
     setStep(steps[0]);
   }, []);
 
