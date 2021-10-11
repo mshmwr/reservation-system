@@ -67,6 +67,7 @@
   width: 90%;
   height: 280px;
   margin: 0;
+  z-index: var(--zIndex-managementWindow);
 }
 
 @media screen and (max-width: 600px) {

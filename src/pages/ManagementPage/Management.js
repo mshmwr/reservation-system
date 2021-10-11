@@ -68,9 +68,8 @@ function Management() {
         />
       </div>
       <div
-        className={`management__frame ${
-          showTimeLineBoard ? "" : "common__hidden"
-        }`}
+        className={`management__frame ${showTimeLineBoard ? "" : "common__hidden"
+          }`}
       >
         <div className={`management__frame__bg`} />
         <div className="management__frame__selectBlock">

@@ -3,6 +3,7 @@ import Button from "../ui/Button";
 import "./Calendar.css";
 import { CalendarDateReservedData } from "./CalendarDateReservedData";
 import { CalendarOrderDialog } from "./CalandarOrderDialog";
+import DirectionButton from "../ui/DirectionButton";
 
 const daysShortArr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const monthNamesArr = [
@@ -22,9 +23,8 @@ const monthNamesArr = [
 
 const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
   const today = new Date();
-  const todayFormatted = `${today.getDate()}-${
-    today.getMonth() + 1
-  }-${today.getFullYear()}`; //2021-07-25
+  const todayFormatted = `${today.getDate()}-${today.getMonth() + 1
+    }-${today.getFullYear()}`; //2021-07-25
   const daysInWeek = [1, 2, 3, 4, 5, 6, 0]; // Sunday - Saturday : 0 - 6
   const [selectedDate, setSelectedDate] = useState(today);
   const selectedMonthLastDate = new Date(
@@ -64,13 +64,11 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
             ...calendarRows[i],
             {
               classes: "calendar__dates__prevMonth",
-              date: `${prevMonthStartingPoint}-${
-                selectedDate.getMonth() === 0 ? 12 : selectedDate.getMonth()
-              }-${
-                selectedDate.getMonth() === 0
+              date: `${prevMonthStartingPoint}-${selectedDate.getMonth() === 0 ? 12 : selectedDate.getMonth()
+                }-${selectedDate.getMonth() === 0
                   ? selectedDate.getFullYear() - 1
                   : selectedDate.getFullYear()
-              }`,
+                }`,
               value: prevMonthStartingPoint,
             },
           ];
@@ -80,9 +78,8 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
             ...calendarRows[i],
             {
               classes: "",
-              date: `${currentMonthCounter}-${
-                selectedDate.getMonth() + 1
-              }-${selectedDate.getFullYear()}`,
+              date: `${currentMonthCounter}-${selectedDate.getMonth() + 1
+                }-${selectedDate.getFullYear()}`,
               value: currentMonthCounter,
             },
           ];
@@ -93,9 +90,8 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
           ...calendarRows[i],
           {
             classes: "",
-            date: `${currentMonthCounter}-${
-              selectedDate.getMonth() + 1
-            }-${selectedDate.getFullYear()}`,
+            date: `${currentMonthCounter}-${selectedDate.getMonth() + 1
+              }-${selectedDate.getFullYear()}`,
             value: currentMonthCounter,
           },
         ];
@@ -105,15 +101,13 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
           ...calendarRows[i],
           {
             classes: "calendar__dates__nextMonth",
-            date: `${nextMonthCounter}-${
-              selectedDate.getMonth() + 2 === 13
-                ? 1
-                : selectedDate.getMonth() + 2
-            }-${
-              selectedDate.getMonth() + 2 === 13
+            date: `${nextMonthCounter}-${selectedDate.getMonth() + 2 === 13
+              ? 1
+              : selectedDate.getMonth() + 2
+              }-${selectedDate.getMonth() + 2 === 13
                 ? selectedDate.getFullYear() + 1
                 : selectedDate.getFullYear()
-            }`,
+              }`,
             value: nextMonthCounter,
           },
         ];
@@ -200,13 +194,14 @@ const Calendar = ({
         managementSelectedDate={managementSelectedDate}
       />
       <div className="calendar__month">
-        <Button text="prev" clickEvent={getPrevMonth} />
+        <DirectionButton clickEvent={getPrevMonth} direction="left" />
+        {/* <Button text="prev" clickEvent={getPrevMonth} /> */}
         <p className="common__subtitle common__font--bold">
-          {`${
-            monthNames[selectedDate.getMonth()]
-          }-${selectedDate.getFullYear()}`}
+          {`${monthNames[selectedDate.getMonth()]
+            }-${selectedDate.getFullYear()}`}
         </p>
-        <Button text="next" clickEvent={getNextMonth} />
+        <DirectionButton clickEvent={getNextMonth} direction="right" />
+        {/* <Button text="next" clickEvent={getNextMonth} /> */}
       </div>
       <div className="calendar__dates">
         {daysShort.map((day) => (

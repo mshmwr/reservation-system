@@ -2,11 +2,12 @@
   width: 100%;
   margin: 0px auto;
   text-align: center;
+  position: relative;
+  z-index: var(--zIndex-managementCalendar);
 }
 .calendar__month {
   display: flex;
-  width: 100%;
-  margin: 20px 0px;
+  margin: 0 1rem 0.5rem 1rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -33,7 +34,7 @@
   height: auto;
 }
 .calendar__dates__date {
-  height: 20rem;
+  height: 6rem;
 }
 
 .calendar__dates__today {

@@ -36,7 +36,7 @@ const getMarginLeft = (props) => {
 
 }
 
-const MyDirectionButton = ({ className, clickEvent }) => {
+const MyDirectionButton = ({ className, clickEvent, direction }) => {
     return <div className={`${className} directionButton`} onClick={clickEvent}>
         <div className="directionButton__icon" />
     </div>

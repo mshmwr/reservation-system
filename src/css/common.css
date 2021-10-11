@@ -38,11 +38,13 @@
   --tablet-width: 360px;
 
   /* z-index */
-  --zIndex-managementSelectionBlock: 1;
-  --zIndex-managementIcon: 3;
-  --zIndex-footer: 3;
-  --zIndex-dialog: 5;
-  --zIndex-dialogBox: 7;
+  --zIndex-managementCalendar: 1;  
+  --zIndex-managementWindow: 2;  
+  --zIndex-managementSelectionBlock: 3;
+  --zIndex-managementIcon: 5;
+  --zIndex-footer: 5;
+  --zIndex-dialog: 7;
+  --zIndex-dialogBox: 9;
 }
 
 html {
