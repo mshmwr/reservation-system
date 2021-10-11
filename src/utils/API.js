@@ -13,9 +13,10 @@ const requestParameters = {
 };
 
 const checkLoggedIn = async () => {
+  // return true;
+
   const parsedData = await getUser();
   // console.log(parsedData);
-  // return true;
   if (parsedData.status === "ok") {
     return true;
   }

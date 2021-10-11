@@ -120,6 +120,7 @@ function MemberSystem() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     async function fetchData() {
+
       const isLogin = await checkLoggedIn();
       setIsLoggedIn(isLogin);
     }
