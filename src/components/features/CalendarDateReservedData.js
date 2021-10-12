@@ -125,7 +125,7 @@ export const CalendarDateReservedData = ({
             .map((item) => (
               <div
                 key={item.order_id}
-                className={`calendar__dates__date__entries__col 
+                className={`calendar__dates__date__entries__col calendar__dates__date__entries__item
               ${checkConflicted(item, reservedStatus, TIME_REGION)
                     ? "calendar__dates__date__entries__col--conflicted"
                     : switchOrderStatus(item.order_status)
@@ -148,7 +148,8 @@ export const CalendarDateReservedData = ({
               </div>
             ))
       }
-      {isShowMoreIcon && <ShowMoreIcon clickHandler={clickShowMoreIcon} />}
+
+      {isShowMoreIcon && <ShowMoreIcon className="calendar__dates__date__entries__item" clickHandler={clickShowMoreIcon} />}
     </div >
   );
 };

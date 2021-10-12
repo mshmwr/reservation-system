@@ -71,6 +71,8 @@
   flex-wrap: wrap;
   
 }
+
+
 .calendar__dates__date__entries__col {
   display: flex;
   cursor: pointer;
@@ -81,6 +83,11 @@
   border-radius: var(--border-radius);
   width:100%;
 }
+
+.calendar__dates__date__entries__item:last-child{
+  min-width: 1rem;
+}
+
 .calendar__dates__date__entries__col--applied {
   background-color: var(--main-normal);
 }
@@ -215,6 +222,10 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .calendar__dates__date__entries__col--showPartOf{
+    margin:5px 1px;
+  }
+
   .calendar__dialog__table__item {
     width: 80%;
     padding: 1.5rem;
@@ -238,5 +249,9 @@
   }
   .dialog__confirmButton {
     padding: 1rem 0.1rem;
+  }
+  .calendar__dates__date__entries__col--showPartOf{
+    margin: 5px auto;
+    padding: 5px 0;
   }
 }
