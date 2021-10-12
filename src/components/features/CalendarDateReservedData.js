@@ -9,6 +9,7 @@ import {
   getEachTimeReservedStatus,
 } from "./Board";
 import useDateOrderAction from "../../action/ui/dateOrderAction"
+import useBoardAction from "../../action/features/boardAction";
 
 const checkConflicted = (data, reservedStatus, timeRegion) => {
   //取得當筆資料，把data裡面的時間轉換成index
@@ -32,8 +33,6 @@ const checkConflicted = (data, reservedStatus, timeRegion) => {
 
 export const CalendarDateReservedData = ({
   columnDate,
-  needRefreshPage,
-  setNeedRefreshPage,
   dateClickHandler,
   selectedRoom,
   isShowAll = false,
@@ -42,6 +41,10 @@ export const CalendarDateReservedData = ({
   const { setSelectedDate, setShowDateOrderWindow } = useDateOrderAction();
   const maxOrdersNumber = useSelector((state) => state.dateOrdersReducer.maxOrdersNumber);
   const showDateOrderWindow = useSelector((state) => state.dateOrdersReducer.showDateOrderWindow);
+  const needRefreshBoard = useSelector(
+    (state) => state.boardReducer.needRefreshBoard
+  );
+  const { setBoardRefresh } = useBoardAction();
 
   //variable
   const { ROOM_LIST, TIME_REGION, TIME_REGION_MAPPING } = useConstRoomData();
@@ -55,26 +58,28 @@ export const CalendarDateReservedData = ({
     if (resultData.length === 0) {
       // console.log("fetch data is empty array");
     }
-    setNeedRefreshPage(false);
+    setBoardRefresh(false);
     setDateDatas(resultData);
   };
+
+  async function fetchData() {
+    await fetchReservedData();
+  }
   useEffect(() => {
-    async function fetchData() {
-      await fetchReservedData();
-    }
     fetchData();
-  }, [needRefreshPage]);
+  }, []);
+
+  if (needRefreshBoard) {
+    fetchData();
+  }
 
   const switchOrderStatus = (order_status) => {
     switch (order_status) {
       case "reserved":
-        setNeedRefreshPage(true);
         return "calendar__dates__date__entries__col--reserved";
       case "canceled":
-        setNeedRefreshPage(true);
         return "calendar__dates__date__entries__col--canceled";
       default:
-        setNeedRefreshPage(false);
         return "calendar__dates__date__entries__col--applied";
     }
   };

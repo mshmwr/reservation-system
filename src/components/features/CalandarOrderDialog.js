@@ -3,6 +3,7 @@ import { getReservedData, patchReservedData } from "../../apis/reservedDataApi";
 import { TODAY_DATE } from "../../utils/Date";
 import CloseIcon from "../ui/CloseIcon";
 import { useTranslation } from "react-i18next";
+import useBoardAction from "../../action/features/boardAction";
 
 const dateMultiple = [1000, 100, 1];
 const checkDateIsEarlyThanToday = (date, today) => {
@@ -24,14 +25,16 @@ export const CalendarOrderDialog = ({
   isShow,
   orderId,
   closeClickHandler,
-  setNeedRefreshPage,
   currentOrderIsConflicted,
   selectedDate,
 }) => {
   const { t } = useTranslation();
+  //redux
+  const { setBoardRefresh } = useBoardAction();
   const [orderData, setOrderData] = useState(null);
   const [orderStatusButton, setOrderStatusButton] = useState(null);
   const [originOrderStatusButton, setOriginOrderStatusButton] = useState(null);
+
   let selectedOrderStatusButton = orderStatusButton;
   const fetchData = async () => {
     const fetchedData = await getReservedData(undefined, orderId, undefined); //only one record
@@ -70,7 +73,7 @@ export const CalendarOrderDialog = ({
       alert(msg);
     }
     closeClickHandler();
-    setNeedRefreshPage(true);
+    setBoardRefresh(true);
   };
 
   const checkOrderStatusButtonIsDisable = (

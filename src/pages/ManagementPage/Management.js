@@ -28,7 +28,6 @@ function Management() {
   const history = useHistory();
 
   const [selectedRoom, setSelectedRoom] = useState("");
-  const [needRefreshPage, setNeedRefreshPage] = useState(false);
   const [managementSelectedDate, setManagementSelectedDate] =
     useState(TODAY_DATE);
   const [showTimeLineBoard, setShowTimeLineBoard] = useState(false);
@@ -111,8 +110,6 @@ function Management() {
         </div>
       </div>
       <Calendar
-        needRefreshPage={needRefreshPage}
-        setNeedRefreshPage={setNeedRefreshPage}
         selectedRoom={selectedRoom}
         setManagementSelectedDate={setManagementSelectedDate}
         managementSelectedDate={managementSelectedDate}

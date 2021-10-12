@@ -6,6 +6,7 @@ import useConstRoomData from "../../utils/Time";
 import { useSelector } from "react-redux";
 import useOrderAction from "../../action/features/orderAction";
 import useTimelineAction from "../../action/features/timelineAction";
+import useBoardAction from "../../action/features/boardAction";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -258,6 +259,7 @@ const Board = () => {
   const { setPlanData } = useOrderAction();
   const { setReservedData, setLineCubeState, setCurrentRoom } =
     useTimelineAction();
+  const { setBoardRefresh } = useBoardAction();
   const reservedData = useSelector(
     (state) => state.timelineReducer.reservedData
   );
@@ -272,25 +274,32 @@ const Board = () => {
   );
   const isReadOnly = useSelector((state) => state.boardReducer.isReadOnly);
 
+  const fetchData = async () => {
+    const fetchedData = await getReservedData(
+      calendarDate,
+      undefined,
+      selectedRoom
+    );
+    if (fetchedData === null) {
+      return;
+    }
+    const resultData = fetchedData.result;
+    if (resultData === null) {
+      // console.log("fetch data is null");
+    }
+    setReservedData(resultData);
+    setInit(resultData);
+    setBoardRefresh(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const fetchedData = await getReservedData(
-        calendarDate,
-        undefined,
-        selectedRoom
-      );
-      if (fetchedData === null) {
-        return;
-      }
-      const resultData = fetchedData.result;
-      if (resultData === null) {
-        // console.log("fetch data is null");
-      }
-      setReservedData(resultData);
-      setInit(resultData);
-    };
     fetchData();
-  }, [calendarDate, needRefreshBoard, selectedRoom, calendarDate]);
+  }, [calendarDate, selectedRoom]);
+
+  if (needRefreshBoard) {
+    fetchData();
+  }
+
   const setInit = (data) => {
     setLineCubeState(
       setRoomCubes(

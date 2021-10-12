@@ -142,8 +142,6 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
 };
 
 const Calendar = ({
-  needRefreshPage,
-  setNeedRefreshPage,
   selectedRoom = "",
   setManagementSelectedDate,
   managementSelectedDate,
@@ -191,7 +189,6 @@ const Calendar = ({
         isShow={showDialog}
         orderId={orderId}
         closeClickHandler={closeClickHandler}
-        setNeedRefreshPage={setNeedRefreshPage}
         currentOrderIsConflicted={currentOrderIsConflicted}
         managementSelectedDate={managementSelectedDate}
       />
@@ -227,8 +224,6 @@ const Calendar = ({
 
                 <CalendarDateReservedData
                   columnDate={reverseDate(col.date)}
-                  needRefreshPage={needRefreshPage}
-                  setNeedRefreshPage={setNeedRefreshPage}
                   dateClickHandler={dateClickHandler}
                   selectedRoom={selectedRoom}
                 />
@@ -244,8 +239,6 @@ const Calendar = ({
 
                 <CalendarDateReservedData
                   columnDate={reverseDate(col.date)}
-                  needRefreshPage={needRefreshPage}
-                  setNeedRefreshPage={setNeedRefreshPage}
                   dateClickHandler={dateClickHandler}
                   selectedRoom={selectedRoom}
                 />
@@ -257,8 +250,6 @@ const Calendar = ({
 
 
       {showDateOrdersWindow && <DateOrdersWindow
-        needRefreshPage={needRefreshPage}
-        setNeedRefreshPage={setNeedRefreshPage}
         dateClickHandler={dateClickHandler}
         selectedRoom={selectedRoom}
       />}

@@ -49,12 +49,15 @@ export const reservedSelectItemStyle = css`
             width: 100%;
             margin:0;
             margin-bottom: 0.5rem;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
         }
 
         .resultBlock__select__item__label{
             width: 100%;
             min-width: fit-content;
-            text-align: right;
+            text-align: center;
             padding:0;
         }
         .resultBlock__select__select{
@@ -63,15 +66,5 @@ export const reservedSelectItemStyle = css`
     }
 
 
-    @media screen and (max-width: 600px) {
-    
-        .resultBlock__select__item{
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        }
-        .resultBlock__select__item__label{
-        text-align: center;
-        }
-    }
+
 `

@@ -6,7 +6,7 @@ import CloseIcon from "../ui/CloseIcon";
 import useDateOrderAction from "../../action/ui/dateOrderAction";
 import { CalendarDateReservedData } from "./CalendarDateReservedData"
 
-const MyDateOrdersWindow = ({ className, needRefreshPage, setNeedRefreshPage, dateClickHandler, selectedRoom }) => {
+const MyDateOrdersWindow = ({ className, dateClickHandler, selectedRoom }) => {
     //i18n
     const { t } = useTranslation();
 
@@ -26,8 +26,6 @@ const MyDateOrdersWindow = ({ className, needRefreshPage, setNeedRefreshPage, da
         <div className="orderResultWindow__orders">
             <CalendarDateReservedData
                 columnDate={selectedDate}
-                needRefreshPage={needRefreshPage}
-                setNeedRefreshPage={setNeedRefreshPage}
                 dateClickHandler={dateClickHandler}
                 selectedRoom={selectedRoom}
                 isShowAll={showDateOrderWindow}
