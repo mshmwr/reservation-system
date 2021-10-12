@@ -63,10 +63,13 @@
 .calendar__dates__date__entries {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+}
+.calendar__dates__date__entries--window{
+  flex-wrap: wrap;
+  
 }
 .calendar__dates__date__entries__col {
   display: flex;
