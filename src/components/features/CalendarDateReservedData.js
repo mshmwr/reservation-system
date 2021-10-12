@@ -68,10 +68,13 @@ export const CalendarDateReservedData = ({
   const switchOrderStatus = (order_status) => {
     switch (order_status) {
       case "reserved":
+        setNeedRefreshPage(true);
         return "calendar__dates__date__entries__col--reserved";
       case "canceled":
+        setNeedRefreshPage(true);
         return "calendar__dates__date__entries__col--canceled";
       default:
+        setNeedRefreshPage(false);
         return "calendar__dates__date__entries__col--applied";
     }
   };
