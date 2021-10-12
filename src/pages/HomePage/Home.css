@@ -58,7 +58,3 @@
   flex-direction: column;
   margin-bottom: 1rem;
 }
-
-.home__content__btn:last-child {
-  margin-bottom: 0;
-}

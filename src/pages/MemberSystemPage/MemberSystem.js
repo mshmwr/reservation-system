@@ -101,6 +101,7 @@ function MemberSystem() {
 
   const history = useHistory();
   const isFirstInput = useRef(true);
+  const isWaitResponse = useRef(false);
 
   //i18n
   const { t } = useTranslation();
@@ -114,13 +115,11 @@ function MemberSystem() {
   const [accountStatus, setAccountStatus] = useState("login");
   const [accountActionMessage, setAccountActionMessage] = useState("");
   const [accountActionStatus, setAccountActionStatus] = useState("");
-  const [formInputValue, setFormInputValue] =
-    useState(deepCopy(initOwnerLoginValue));
-
+  const [formInputValue, setFormInputValue] = useState(deepCopy(initOwnerLoginValue));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     async function fetchData() {
-
       const isLogin = await checkLoggedIn();
       setIsLoggedIn(isLogin);
     }
@@ -175,7 +174,10 @@ function MemberSystem() {
     Object.entries(formInputValue).forEach(([key, value]) => {
       sendData[key] = value;
     })
+
+    isWaitResponse.current = true;
     const parsedData = await sendApi(accountStatus, sendData);
+    isWaitResponse.current = false;
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);
     if (parsedData.status !== "ok") {
@@ -224,28 +226,31 @@ function MemberSystem() {
             <p className="memberSystem__card__loggedIn common__subtitle ">
               {t("memberSystemPage.loggedIn")}
             </p>
-          ) : (<>
-            <div className="memberSystem__card__form">
-              <FormItem
-                formList={accountStatus === "login" ? ownerLoginForm : ownerRegisterForm}
-                formInputValue={formInputValue}
-                handleInputClick={handleInputClick}
-                handleChange={handleChange}
-                isFirstInput={isFirstInput.current}
-              />
+          ) :
+            isWaitResponse.current ?
+              (<p className="common_heading">waiting...</p>) :
+              (<>
+                <div className="memberSystem__card__form">
+                  <FormItem
+                    formList={accountStatus === "login" ? ownerLoginForm : ownerRegisterForm}
+                    formInputValue={formInputValue}
+                    handleInputClick={handleInputClick}
+                    handleChange={handleChange}
+                    isFirstInput={isFirstInput.current}
+                  />
 
-            </div>
-            {accountActionMessage !== "" && (
-              <p
-                className={`memberSystem__card__message ${switchAccountMessageColor(
-                  accountActionStatus
-                )}`}
-              >
-                {accountActionMessage}
-              </p>
-            )}
-          </>
-          )}
+                </div>
+                {accountActionMessage !== "" && (
+                  <p
+                    className={`memberSystem__card__message ${switchAccountMessageColor(
+                      accountActionStatus
+                    )}`}
+                  >
+                    {accountActionMessage}
+                  </p>
+                )}
+              </>
+              )}
 
           <div className="memberSystem__card__button">
             {isLoggedIn && (

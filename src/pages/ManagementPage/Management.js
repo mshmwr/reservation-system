@@ -38,6 +38,7 @@ function Management() {
   };
   const closeClickHandler = () => {
     setShowTimeLineBoard(!showTimeLineBoard);
+    setBoardRefresh(!showTimeLineBoard)
   };
 
   const handleManagementDateChange = (e) => {

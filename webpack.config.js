@@ -60,11 +60,6 @@ module.exports = {
     new HtmlWebpackPlugin({ //根据模板插入css/js等生成最终HTML
       filename: './index.html', //生成的html存放路径，相对于path的路径
       template: './public/index.html', //html模板路径
-      inject: 'body', //js插入的位置，true/'head'/'body'/false
-      minify: { //压缩HTML文件
-        removeComments: true, //移除HTML中的注释
-        collapseWhitespace: false //删除空白符与换行符
-      },
       favicon: './public/favicon.ico',//favicon路径
     }),
   ],
