@@ -10,6 +10,7 @@ import {
 } from "./Board";
 import useDateOrderAction from "../../action/ui/dateOrderAction"
 import useBoardAction from "../../action/features/boardAction";
+import Loader from "../ui/Loader";
 
 const checkConflicted = (data, reservedStatus, timeRegion) => {
   //取得當筆資料，把data裡面的時間轉換成index
@@ -112,39 +113,41 @@ export const CalendarDateReservedData = ({
   return (
     <div className="calendar__dates__date__entries">
 
-      {dateDatas === null || dateDatas.length === 0
-        ? "no reserved"
-        : dateDatas.filter((item, index) => checkShowAllOrders(index)) //顯示 maxOrdersNumber 筆資料
-          .filter((item) =>
-            selectedRoom === ""
-              ? item.room !== selectedRoom
-              : item.room === selectedRoom
-          )
-          .map((item) => (
-            <div
-              key={item.order_id}
-              className={`calendar__dates__date__entries__col 
+      {dateDatas === null
+        ? <Loader />
+        : dateDatas.length === 0
+          ? "no reserved"
+          : dateDatas.filter((item, index) => checkShowAllOrders(index)) //顯示 maxOrdersNumber 筆資料
+            .filter((item) =>
+              selectedRoom === ""
+                ? item.room !== selectedRoom
+                : item.room === selectedRoom
+            )
+            .map((item) => (
+              <div
+                key={item.order_id}
+                className={`calendar__dates__date__entries__col 
               ${checkConflicted(item, reservedStatus, TIME_REGION)
-                  ? "calendar__dates__date__entries__col--conflicted"
-                  : switchOrderStatus(item.order_status)
-                }
+                    ? "calendar__dates__date__entries__col--conflicted"
+                    : switchOrderStatus(item.order_status)
+                  }
                 
               ${isShowAll ? "" : "calendar__dates__date__entries__col--showPartOf"}
               
                 `}
 
-              id={item.order_id}
-              onClick={(e) =>
-                dateClickHandler(
-                  e,
-                  checkConflicted(item, reservedStatus, TIME_REGION),
-                  item.date
-                )
-              }
-            >
-              {`${item.room}-${item.start_time}-${item.duration}hr`}
-            </div>
-          ))
+                id={item.order_id}
+                onClick={(e) =>
+                  dateClickHandler(
+                    e,
+                    checkConflicted(item, reservedStatus, TIME_REGION),
+                    item.date
+                  )
+                }
+              >
+                {`${item.room}-${item.start_time}-${item.duration}hr`}
+              </div>
+            ))
       }
       {isShowMoreIcon && <ShowMoreIcon clickHandler={clickShowMoreIcon} />}
     </div >

@@ -4,6 +4,7 @@ import { TODAY_DATE } from "../../utils/Date";
 import CloseIcon from "../ui/CloseIcon";
 import { useTranslation } from "react-i18next";
 import useBoardAction from "../../action/features/boardAction";
+import Loader from "../ui/Loader";
 
 const dateMultiple = [1000, 100, 1];
 const checkDateIsEarlyThanToday = (date, today) => {
@@ -114,97 +115,99 @@ export const CalendarOrderDialog = ({
         <div className="dialog__dialogMask" />
         <div className="dialog__dialogContent">
           <CloseIcon clickHandler={closeClickHandler} />
-          {orderData === null || orderData.length === 0
-            ? "no reserved"
-            : orderData.map((item) => (
-              <div key={item.order_id} className="calendar__dialog__table">
-                {t("orderTableList", { returnObjects: true }).map((data) => (
-                  <div
-                    key={data.key}
-                    className="calendar__dialog__table__item"
-                  >
-                    <p className="calendar__dialog__table__item__label">
-                      {data.label}
-                    </p>
-
-                    {data.options === undefined ? (
-                      <p className="calendar__dialog__table__item__value">
-                        {item[data.key]}
+          {orderData === null
+            ? <Loader />
+            : orderData.length === 0
+              ? "no reserved"
+              : orderData.map((item) => (
+                <div key={item.order_id} className="calendar__dialog__table">
+                  {t("orderTableList", { returnObjects: true }).map((data) => (
+                    <div
+                      key={data.key}
+                      className="calendar__dialog__table__item"
+                    >
+                      <p className="calendar__dialog__table__item__label">
+                        {data.label}
                       </p>
-                    ) : (
-                      <div className="board__buttons">
-                        {data.options.map((option) => {
-                          return (
-                            <button
-                              type="button"
-                              key={option}
-                              id={option}
-                              className={`btn board__buttons__button ${orderStatusButton === option
-                                ? "board__buttons__button--selected"
-                                : ""
-                                } 
-                                ${originOrderStatusButton === option
-                                  ? "common__font--bold board__buttons__button--primary"
+
+                      {data.options === undefined ? (
+                        <p className="calendar__dialog__table__item__value">
+                          {item[data.key]}
+                        </p>
+                      ) : (
+                        <div className="board__buttons">
+                          {data.options.map((option) => {
+                            return (
+                              <button
+                                type="button"
+                                key={option}
+                                id={option}
+                                className={`btn board__buttons__button ${orderStatusButton === option
+                                  ? "board__buttons__button--selected"
                                   : ""
-                                }
+                                  } 
+                                ${originOrderStatusButton === option
+                                    ? "common__font--bold board__buttons__button--primary"
+                                    : ""
+                                  }
                                 ${checkOrderStatusButtonIsDisable(
+                                    orderStatusButton,
+                                    option,
+                                    currentOrderIsConflicted,
+                                    originOrderStatusButton,
+                                    item.date
+                                  )
+                                    ? "board__buttons__button--disabled"
+                                    : ""
+                                  }
+                                `}
+                                disabled={`${checkOrderStatusButtonIsDisable(
                                   orderStatusButton,
                                   option,
                                   currentOrderIsConflicted,
                                   originOrderStatusButton,
                                   item.date
                                 )
-                                  ? "board__buttons__button--disabled"
+                                  ? "disabled"
                                   : ""
+                                  }`}
+                                onClick={(e) =>
+                                  changeOrderStatusClickHandler(e, option)
                                 }
-                                `}
-                              disabled={`${checkOrderStatusButtonIsDisable(
-                                orderStatusButton,
-                                option,
-                                currentOrderIsConflicted,
-                                originOrderStatusButton,
-                                item.date
-                              )
-                                ? "disabled"
-                                : ""
-                                }`}
-                              onClick={(e) =>
-                                changeOrderStatusClickHandler(e, option)
-                              }
-                            >
-                              {option}
-                            </button>
-                          );
-                        })}
-                        <button
-                          type="button"
-                          className={`btn dialog__confirmButton
+                              >
+                                {option}
+                              </button>
+                            );
+                          })}
+                          <button
+                            type="button"
+                            className={`btn dialog__confirmButton
                             ${checkConfirmButtonIsDisable(
-                            orderStatusButton,
-                            originOrderStatusButton
-                          )
-                              ? "dialog__confirmButton--disabled"
-                              : ""
-                            }
+                              orderStatusButton,
+                              originOrderStatusButton
+                            )
+                                ? "dialog__confirmButton--disabled"
+                                : ""
+                              }
                             
                             `}
-                          onClick={orderStatusConfirmButtonClickHandler}
-                          disabled={`${checkConfirmButtonIsDisable(
-                            orderStatusButton,
-                            orderData[0].order_status
-                          )
-                            ? "disabled"
-                            : ""
-                            }`}
-                        >
-                          {t("managementPage.dialog.confirmButton")}
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ))}
+                            onClick={orderStatusConfirmButtonClickHandler}
+                            disabled={`${checkConfirmButtonIsDisable(
+                              orderStatusButton,
+                              orderData[0].order_status
+                            )
+                              ? "disabled"
+                              : ""
+                              }`}
+                          >
+                            {t("managementPage.dialog.confirmButton")}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
         </div>
       </div>
     );

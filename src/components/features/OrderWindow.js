@@ -23,7 +23,7 @@ const MyOrderWindow = ({ className }) => {
 
     return <div className={`${className} orderResultWindow`}>
         <CloseIcon clickHandler={closeWindowClickHandler} />
-        {orderSearchResult.length !== 0 &&
+        {orderSearchResult.length === 0 &&
             orderSearchResult.map((item) => (
                 <div key={item.order_id} className="orderResultWindow__table">
                     {t("orderTableList", { returnObjects: true }).map((data) => (

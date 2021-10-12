@@ -8,6 +8,7 @@ import { validateInput } from "../../utils/Utils";
 import { useTranslation } from "react-i18next";
 import FormItem from "../../components/ui/FormItem";
 import { deepCopy } from "../../utils/Utils";
+import Loader from "../../components/ui/Loader";
 
 
 
@@ -228,16 +229,17 @@ function MemberSystem() {
             </p>
           ) :
             isWaitResponse.current ?
-              (<p className="common_heading">waiting...</p>) :
+              (
+                <Loader />) :
               (<>
                 <div className="memberSystem__card__form">
-                  <FormItem
+                  {!isLoggedIn && <FormItem
                     formList={accountStatus === "login" ? ownerLoginForm : ownerRegisterForm}
                     formInputValue={formInputValue}
                     handleInputClick={handleInputClick}
                     handleChange={handleChange}
                     isFirstInput={isFirstInput.current}
-                  />
+                  />}
 
                 </div>
                 {accountActionMessage !== "" && (
