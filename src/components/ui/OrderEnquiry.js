@@ -15,7 +15,6 @@ const MyOrderEnquiry = ({ className, }) => {
     const [inputOrderId, setInputOrderId] = useState("");
 
     const orderSearchClickHandler = async () => {
-
         const orderId = inputOrderId;
         if (orderId === "") {
             setDialogText("no input");
@@ -31,7 +30,6 @@ const MyOrderEnquiry = ({ className, }) => {
             setDialogHeight("100px");
             return;
         }
-
         const fetchedData = await getReservedData(undefined, orderId, undefined); //only one record
         if (fetchedData === null) {
             return;
