@@ -41,6 +41,8 @@ const DateOrdersWindow = styled(MyDateOrdersWindow)`
     padding: 1rem;
     width: 90%;
     min-height: 200px;
+    max-height: 400px;
+    overflow-y: scroll;
     right: 20px;
     top: 18%;
     background-color: var(--main-bg);
