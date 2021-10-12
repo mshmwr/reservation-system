@@ -11,7 +11,9 @@
 
 .memberSystem__card {
   width: 45%;
-  height: 60%;
+  min-height: 60%;
+  padding-top: 1rem;
+  height: auto;
   background-color: var(--main-bg);
   box-sizing: border-box;
   border-radius: calc(var(--border-radius) * 4);
