@@ -65,7 +65,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 90%;
+  width: 70%;
   height: 25rem;
   margin: 0;
   z-index: var(--zIndex-managementWindow);
