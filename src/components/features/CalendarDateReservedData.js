@@ -111,8 +111,7 @@ export const CalendarDateReservedData = ({
   }
 
   return (
-    <div className="calendar__dates__date__entries">
-
+    <div className={`calendar__dates__date__entries ${showDateOrderWindow ? "calendar__dates__date__entries--window" : ""}`}>
       {dateDatas === null
         ? <Loader />
         : dateDatas.length === 0
