@@ -184,7 +184,8 @@ const Calendar = ({
 
 
   return (
-    <div className="calendar">
+    <>
+
       <CalendarOrderDialog
         isShow={showDialog}
         orderId={orderId}
@@ -192,69 +193,71 @@ const Calendar = ({
         currentOrderIsConflicted={currentOrderIsConflicted}
         managementSelectedDate={managementSelectedDate}
       />
-      <div className="calendar__month">
-        <DirectionButton clickEvent={getPrevMonth} direction="left" />
-        <p className="common__subtitle common__font--bold">
-          {`${monthNames[selectedDate.getMonth()]
-            }-${selectedDate.getFullYear()}`}
-        </p>
-        <DirectionButton clickEvent={getNextMonth} direction="right" />
-      </div>
-      <div className="calendar__dates">
-        {daysShort.map((day) => (
-          <div
-            key={day}
-            className={`calendar__dates__days calendar__dates__item common__font--bold common__subtitle`}
-          >
-            {day}
-          </div>
-        ))}
-        {Object.values(calendarRows).map((cols) =>
-          cols.map((col) => {
-            return col.date === todayFormatted ? (
-              <div
-                key={col.date}
-                className={`${col.classes} calendar__dates__date calendar__dates__item`}
-              >
-                <div className="common__font--bold common__heading">
-                  <div className="calendar__dates__date__number calendar__dates__today">
+      <div className="calendar">
+        <div className="calendar__month">
+          <DirectionButton clickEvent={getPrevMonth} direction="left" />
+          <p className="common__subtitle common__font--bold">
+            {`${monthNames[selectedDate.getMonth()]
+              }-${selectedDate.getFullYear()}`}
+          </p>
+          <DirectionButton clickEvent={getNextMonth} direction="right" />
+        </div>
+        <div className="calendar__dates">
+          {daysShort.map((day) => (
+            <div
+              key={day}
+              className={`calendar__dates__days calendar__dates__item common__font--bold common__subtitle`}
+            >
+              {day}
+            </div>
+          ))}
+          {Object.values(calendarRows).map((cols) =>
+            cols.map((col) => {
+              return col.date === todayFormatted ? (
+                <div
+                  key={col.date}
+                  className={`${col.classes} calendar__dates__date calendar__dates__item`}
+                >
+                  <div className="common__font--bold common__heading">
+                    <div className="calendar__dates__date__number calendar__dates__today">
+                      {col.value}
+                    </div>
+                  </div>
+
+                  <CalendarDateReservedData
+                    columnDate={reverseDate(col.date)}
+                    dateClickHandler={dateClickHandler}
+                    selectedRoom={selectedRoom}
+                  />
+                </div>
+              ) : (
+                <div
+                  key={col.date}
+                  className={`${col.classes} calendar__dates__date calendar__dates__item`}
+                >
+                  <div className="calendar__dates__date__number common__font--bold common__heading">
                     {col.value}
                   </div>
-                </div>
 
-                <CalendarDateReservedData
-                  columnDate={reverseDate(col.date)}
-                  dateClickHandler={dateClickHandler}
-                  selectedRoom={selectedRoom}
-                />
-              </div>
-            ) : (
-              <div
-                key={col.date}
-                className={`${col.classes} calendar__dates__date calendar__dates__item`}
-              >
-                <div className="calendar__dates__date__number common__font--bold common__heading">
-                  {col.value}
+                  <CalendarDateReservedData
+                    columnDate={reverseDate(col.date)}
+                    dateClickHandler={dateClickHandler}
+                    selectedRoom={selectedRoom}
+                  />
                 </div>
+              );
+            })
+          )}
+        </div>
 
-                <CalendarDateReservedData
-                  columnDate={reverseDate(col.date)}
-                  dateClickHandler={dateClickHandler}
-                  selectedRoom={selectedRoom}
-                />
-              </div>
-            );
-          })
-        )}
+
+        {showDateOrdersWindow && <DateOrdersWindow
+          dateClickHandler={dateClickHandler}
+          selectedRoom={selectedRoom}
+        />}
+
       </div>
-
-
-      {showDateOrdersWindow && <DateOrdersWindow
-        dateClickHandler={dateClickHandler}
-        selectedRoom={selectedRoom}
-      />}
-
-    </div>
+    </>
   );
 };
 
