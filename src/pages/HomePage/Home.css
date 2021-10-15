@@ -29,7 +29,11 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: 2rem auto;
+  margin: 0 auto;
+  align-items: center;
+  border: 1px solid var(--main-dark);
+  border-radius: var(--border-radius-15);
+  padding: 2rem;
 }
 
 
@@ -54,5 +58,15 @@
   align-items: center;
   text-decoration: none;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin: 2rem 0;
+}
+
+@media screen and (max-width: 600px) {
+  .home__welcome{
+    width: 80%;
+  } 
+  .home__content__instruction{
+    width: 95%;
+  }
+  
 }
