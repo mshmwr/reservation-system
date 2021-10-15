@@ -3,22 +3,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./Home.css";
 import Button from "../../components/ui/Button";
-import { checkLoggedIn } from "../../utils/API";
 
 function Home() {
   const { t } = useTranslation();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
-  useEffect(() => {
-    async function fetchData() {
-      const isLogin = await checkLoggedIn();
-      setIsLoggedIn(isLogin);
-    }
-    fetchData();
-  }, [isLoggedIn]);
-
 
   return (
     <div className="home common__pageFrame">
@@ -66,17 +53,6 @@ function Home() {
         <Link to="/notice" className="common__block home__content__btn">
           <Button text={t("homePage.button")}></Button>
         </Link>
-        {/* {isLoggedIn && (
-          <Link to="/management" className="common__block home__content__btn">
-            <Button text={t("features.management")}></Button>
-          </Link>
-        )}
-
-        {isLoggedIn && (
-          <Link to="/memberSystem" className="common__block home__content__btn">
-            <Button text={t("features.memberSystem")}></Button>
-          </Link>
-        )} */}
       </div>
     </div>
   );
