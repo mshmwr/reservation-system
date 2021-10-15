@@ -65,8 +65,7 @@
   margin-left: 10px;
 }
 .notice__form__accept__button--hidden {
-  /* visibility: hidden; */
-  visibility: visible;
+  visibility: hidden;
   transform: translateY(-30px);
   opacity: 0;
 }
