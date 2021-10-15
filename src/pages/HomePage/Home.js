@@ -50,7 +50,7 @@ function Home() {
             ))}
           </ul>
         </div>
-        <Link to="/notice" className="common__block home__content__btn">
+        <Link to="/notice" className="home__content__btn">
           <Button text={t("homePage.button")}></Button>
         </Link>
       </div>
