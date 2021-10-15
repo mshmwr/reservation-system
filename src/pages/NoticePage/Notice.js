@@ -12,7 +12,7 @@ function Notice() {
 
   return (
     <div className="notice common__pageFrame">
-      <div className="common__titleBlock">
+      <div className="notice__titleBlock">
         {t("noticePage.noticeTitle", { returnObjects: true }).map((title) => {
           return (
             <div
@@ -34,29 +34,34 @@ function Notice() {
         )}
       </div>
 
-      <div className="notice__list common__text common__block">
-        <ul>
-          {t("noticePage.noticeList", { returnObjects: true }).map((notice) => {
-            return <li key={notice}>{notice}</li>;
-          })}
-        </ul>
+      <div className="notice__list common__text">
+        <div className="notice__list__frame">
+          <ul className="notice__list__frame--ul">
+            {t("noticePage.noticeList", { returnObjects: true }).map(
+              (notice) => {
+                return <li key={notice} className="notice__list__frame--li">{notice}</li>;
+              }
+            )}
+          </ul>
+        </div>
       </div>
       <form name="notice-form" className="notice__form" onChange={handleChange}>
-        <div className="notice__form__accept common__block">
+        <div className="notice__form__accept">
           <input
+            className="notice__form__accept--input"
             type="checkbox"
             id="accept-notice-rule"
             name="accept-notice-rule"
             value="false"
           ></input>
-          <label htmlFor="accept-notice-rule" className="common__heading">
+          <label htmlFor="accept-notice-rule" className="notice__form__accept--label common__heading">
             {t("noticePage.accept")}
           </label>
         </div>
 
         <Link
           to="/reservation"
-          className={`common__block  ${check ? "" : "common__hidden"}`}
+          className={`common__block  ${check ? "notice__form__accept__button--show" : "notice__form__accept__button--hidden"}`}
         >
           <Button text={t("noticePage.button.next")}></Button>
         </Link>

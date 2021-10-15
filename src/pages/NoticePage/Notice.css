@@ -1,6 +1,11 @@
 .notice {
-  background-color: var(--main-light);
+  background-color: var(--main-bg);
   text-align: center;
+}
+
+.notice__titleBlock {
+  width: 62.5%;
+  margin: 2rem auto;
 }
 
 .notice__title {
@@ -12,19 +17,29 @@
 }
 
 .notice__list {
-  width: 90%;
-  height: 350px;
-  overflow: auto;
-  background-color: var(--main-bg);
-  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.notice__list ul {
+.notice__list__frame {
+  padding: 1rem 0;
+  width: 62.5%;
+  border: 1px solid var(--main-dark);
+  text-align: left;
+  border-radius: var(--border-radius);
+}
+
+.notice__list__frame--ul {
+  width: 100%;
+  height: 400px;
   padding: 2rem 2rem 0px 4rem;
+  overflow: auto;
   line-height: calc(var(--text-font-size) * var(--line-height-multiple));
 }
 
-.notice__list li {
+.notice__list__frame--li {
   list-style-type: disc;
   padding-bottom: 2rem;
 }
@@ -39,35 +54,59 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 2rem 0;
 }
 
-.notice__form__accept > input {
+.notice__form__accept--input {
   transform: scale(1.5);
 }
 
-.notice__form__accept > label {
+.notice__form__accept--label {
   margin-left: 10px;
 }
+.notice__form__accept__button--hidden {
+  visibility: hidden;
+  transform: translateY(-30px);
+  opacity: 0;
+}
+.notice__form__accept__button--show {
+  visibility: visible;
+  transform: translateY(0px);
+  opacity: 1;
 
-/* notice__list scrollbar style */
+  transition-property: transform, opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+/* notice__list__frame scrollbar style */
 
 /* width */
-.notice__list::-webkit-scrollbar {
+.notice__list__frame--ul::-webkit-scrollbar {
   width: var(--scrollbar-width);
 }
 
 /* Track */
-.notice__list::-webkit-scrollbar-track {
+.notice__list__frame--ul::-webkit-scrollbar-track {
   background: var(--light-gray);
 }
 
 /* Handle */
-.notice__list::-webkit-scrollbar-thumb {
+.notice__list__frame--ul::-webkit-scrollbar-thumb {
   background: var(--main-light);
   border: 1px solid var(--light-gray);
 }
 
 /* Handle on hover */
-.notice__list::-webkit-scrollbar-thumb:hover {
+.notice__list__frame--ul::-webkit-scrollbar-thumb:hover {
   background: var(--main-normal);
+}
+
+@media screen and (max-width: 600px) {
+  .notice__titleBlock {
+    width: 80%;
+  }
+  .notice__list__frame {
+    width: 95%;
+  }
 }

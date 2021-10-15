@@ -14,7 +14,7 @@ function Home() {
         <p className="home__welcome__title common__title common__font--bold">
           {t("homePage.welcomeTitle")}
         </p>
-        <ul>
+        <ul className="common__text">
           {t("homePage.welcomeTexts", { returnObjects: true }).map((text) => (
             <li key={`welcomeText${text}`}>{text}</li>
           ))}
@@ -28,7 +28,7 @@ function Home() {
           {t("homePage.instructionTexts", { returnObjects: true }).map(
             (text) => (
               <p
-                className="home__content__instruction__texts common__interval--normal "
+                className="home__content__instruction__texts common__text common__interval--normal "
                 key={`instructionText${text}`}
               >
                 {text}
@@ -36,10 +36,10 @@ function Home() {
             )
           )}
 
-          <p className="home__content__instruction__ruleTitle common__font--bold common__heading ">
+          <p className="home__content__instruction__ruleTitle common__subtitle common__font--bold  ">
             {t("homePage.ruleTitle")}
           </p>
-          <ul className="home__content__instruction__ruleText--ul">
+          <ul className="home__content__instruction__ruleText--ul common__text">
             {t("homePage.ruleTexts", { returnObjects: true }).map((text) => (
               <li
                 className="home__content__instruction__ruleText--li"
