@@ -55,6 +55,7 @@
 
 html {
   font-size: 16px;
+  font-family: "Playfair Display", serif;
 }
 
 .common__title {
@@ -62,7 +63,6 @@ html {
 }
 .common__subtitle {
   font-size: var(--subtitle-font-size);
-  line-height: var(--subtitle-font-size);
 }
 
 .common__heading {
