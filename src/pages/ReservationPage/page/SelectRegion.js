@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import useOrderAction from "../../../action/features/orderAction";
 import useBoardAction from "../../../action/features/boardAction";
-import useReservationAction from "../../../action/features/reservationAction"
+import useReservationAction from "../../../action/features/reservationAction";
 import { FillInRegin } from "./FillInRegion";
 import SelectResultTimeLine from "./SelectResultTimeLine";
 import SelectResultAttendence from "./SelectResultAttendence";
@@ -27,14 +27,13 @@ export const SelectRegion = () => {
   } = useBoardAction();
   const { checkReselect } = useReservationAction();
   const step = useSelector((state) => state.reservationReducer.step);
-  const calendarDate = useSelector(
-    (state) => state.boardReducer.calendarDate
-  );
+  const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
 
   const handleDateChange = (e) => {
     switch (step) {
       case steps[1]:
-        if (!checkReselect()) { //at the fillIn step
+        if (!checkReselect()) {
+          //at the fillIn step
           e.target.value = calendarDate;
           return;
         }
@@ -63,8 +62,8 @@ export const SelectRegion = () => {
       </div>
 
       <div className="reservation__content__selectStep__resultBlock">
-        {step !== steps[2]
-          ? <>
+        {step !== steps[2] ? (
+          <>
             <input
               onChange={handleDateChange}
               type="date"
@@ -76,12 +75,12 @@ export const SelectRegion = () => {
             <SelectResultTimeLine />
             <SelectResultAttendence />
           </>
-          : <>
+        ) : (
+          <>
             <FinishResult />
           </>
-        }
-        {step !== steps[0] && (<FillInRegin />)}
-
+        )}
+        {step === steps[1] && <FillInRegin />}
       </div>
     </div>
   );

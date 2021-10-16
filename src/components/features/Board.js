@@ -471,10 +471,10 @@ const Board = () => {
             : room.id === selectedRoom
         ).map((room) => (
           <div key={`room${room.title}`} className="board__reservationBoardItem">
-            <p className="board__reservationBoardItem__room__title">{`${room.title}-${room.subtitle}`}</p>
-            <p className="board__reservationBoardItem__room__machine">
+            <p className="board__reservationBoardItem__room__title">{`${room.title}`}</p>
+            {/* <p className="board__reservationBoardItem__room__machine">
               {room.machine}
-            </p>
+            </p> */}
           </div>))
 
         }

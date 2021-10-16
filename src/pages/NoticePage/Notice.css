@@ -5,7 +5,7 @@
 
 .notice__titleBlock {
   width: 62.5%;
-  margin: 2rem auto;
+  margin: 3rem auto;
 }
 
 .notice__title {
@@ -68,13 +68,14 @@
   visibility: hidden;
   transform: translateY(-30px);
   opacity: 0;
+  height: 0;
 }
 .notice__form__accept__button--show {
   visibility: visible;
   transform: translateY(0px);
   opacity: 1;
-
-  transition-property: transform, opacity;
+  height: 100%;
+  transition-property: transform, opacity, display;
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }

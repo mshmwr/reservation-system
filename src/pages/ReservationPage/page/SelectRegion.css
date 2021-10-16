@@ -1,5 +1,5 @@
 .reservation__content__selectStep {
-  width: 100%;
+  width: 62.5%;
   display: flex;
   flex-direction: row;
 }
@@ -9,10 +9,10 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: 1rem 2rem 0 2rem;
   box-sizing: border-box;
   background-color: var(--main-normal);
   border-radius: var(--border-radius-15);
+  border: 1px solid var(--main-dark);
 }
 .calendarBlock__day {
   height: 2.5rem;
@@ -20,17 +20,13 @@
   border-radius: var(--border-radius-15);
   border: 1px solid var(--main-dark);
   padding: 0 1rem;
-
 }
 /* resultBlock */
 .reservation__content__selectStep__resultBlock {
   display: flex;
   flex-direction: column;
   width: 380px;
-  margin-top: 1rem;
 }
-
-
 
 .resultBlock__buttonGroup {
   flex-grow: 1;
@@ -38,11 +34,9 @@
   margin: 0 auto 1rem 0;
 }
 
-
-
-
 @media screen and (max-width: 1000px) {
   .reservation__content__selectStep {
+    width: 95%;
     flex-direction: column;
   }
   .calendarBlock__reservationBoard {
@@ -61,8 +55,7 @@
     align-items: center;
   }
 
-
-  .resultBlock__buttonGroup{
+  .resultBlock__buttonGroup {
     width: auto;
   }
 
