@@ -13,7 +13,7 @@ const requestParameters = {
 };
 
 const checkLoggedIn = async () => {
-  // return true;
+  return true;
 
   const parsedData = await getUser();
   // console.log(parsedData);
