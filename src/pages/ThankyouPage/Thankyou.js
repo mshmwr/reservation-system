@@ -81,7 +81,7 @@ const Thankyou = styled(MyThankyou)`
   }
   .thankyou__content__texts {
     width: 90%;
-    margin: 0 2rem;
+    margin: 0 auto;
     box-sizing: border-box;
   }
 
@@ -121,9 +121,20 @@ const Thankyou = styled(MyThankyou)`
   }
 
   @media screen and (max-width: 600px) {
+    .thankyou__content__messages {
+      width: 80%;
+    }
     .thankyou__content__orderId,
     .thankyou__content__texts {
       width: 90%;
+    }
+  }
+  @media screen and (max-width: 360px) {
+    .thankyou__content__messages {
+      width: 95%;
+    }
+    .thankyou__content__texts {
+      margin: 0 auto;
     }
   }
 `;
