@@ -7,8 +7,7 @@
   top: 10px;
   cursor: pointer;
   background-color: var(--main-bg);
-  border: 1px solid var(--main-normal);
-
+  border: 1px solid var(--main-dark);
   transition: top 2s;
 }
 
@@ -21,7 +20,7 @@
   top: 50%;
   right: calc(25% + 1px);
   display: block;
-  background-color: var(--main-light);
+  background-color: var(--main-dark);
 }
 
 .hamburgerIcon__hamburger--normal::before {
@@ -31,7 +30,7 @@
   position: relative;
   top: 4.6px;
   display: block;
-  background-color: var(--main-light);
+  background-color: var(--main-dark);
 }
 
 .hamburgerIcon__hamburger--normal::after {
@@ -41,7 +40,7 @@
   position: relative;
   top: -5.6px;
   display: block;
-  background-color: var(--main-light);
+  background-color: var(--main-dark);
   transition: top 0.1s;
 }
 
@@ -62,7 +61,7 @@
   top: 50%;
   right: calc(25% + 1px);
   display: block;
-  background-color: var(--main-light);
+  background-color: var(--main-dark);
 }
 
 .hamburgerIcon__hamburger--open::before {
@@ -72,7 +71,7 @@
   position: relative;
   top: 6.6px;
   display: block;
-  background-color: var(--main-light);
+  background-color: var(--main-dark);
 }
 
 .hamburgerIcon__hamburger--open::after {
@@ -82,7 +81,7 @@
   position: relative;
   top: -7.6px;
   display: block;
-  background-color: var(--main-light);
+  background-color: var(--main-dark);
 }
 .hamburgerIcon:hover .hamburgerIcon__hamburger--open::before {
   top: 0px;
@@ -96,6 +95,5 @@
   .hamburgerIcon {
     right: 20px;
     top: 10px;
-    border: 1px solid var(--main-light);
   }
 }

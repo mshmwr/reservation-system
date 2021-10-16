@@ -10,8 +10,6 @@ import FormItem from "../../components/ui/FormItem";
 import { deepCopy } from "../../utils/Utils";
 import Loader from "../../components/ui/Loader";
 
-
-
 const inputVerifier = (
   ownerFormInputList,
   formInputValue,
@@ -22,8 +20,7 @@ const inputVerifier = (
   let errorMsg = "";
   const emptyColumns = ownerFormInputList.filter((col) => {
     return formInputValue[col.name] === "";
-  })
-
+  });
 
   if (emptyColumns.length === 0) {
     //都有輸入資料
@@ -38,8 +35,6 @@ const inputVerifier = (
   }
   setAccountActionStatus("");
 
-
-
   //錯誤訊息：請輸入帳號、密碼...etc
   errorMsg += msg_emptyColumns; //t("memberSystemPage.errorMessage.emptyColumns");
   emptyColumns.forEach((col, index) => {
@@ -49,7 +44,6 @@ const inputVerifier = (
 
   return errorMsg;
 };
-
 
 const switchAccountStatus = (accountStatus, setAccountStatus) => {
   switch (accountStatus) {
@@ -85,21 +79,19 @@ const sendApi = async (accountStatus, sendData) => {
 const switchAccountMessageColor = (accountActionStatus) => {
   switch (accountActionStatus) {
     case "ok":
-      return "memberSystem__card__message--ok";
+      return "memberSystem__content__card__message--ok";
     case "error":
-      return "memberSystem__card__message--error";
+      return "memberSystem__content__card__message--error";
     default:
-      return "memberSystem__card__message--error";
+      return "memberSystem__content__card__message--error";
   }
 };
-
 
 const initOwnerLoginValue = { email: "", password: "" };
 
 const initOwnerRegisterValue = { email: "", password: "", name: "" };
 
 function MemberSystem() {
-
   const history = useHistory();
   const isFirstInput = useRef(true);
   const isWaitResponse = useRef(false);
@@ -116,7 +108,9 @@ function MemberSystem() {
   const [accountStatus, setAccountStatus] = useState("login");
   const [accountActionMessage, setAccountActionMessage] = useState("");
   const [accountActionStatus, setAccountActionStatus] = useState("");
-  const [formInputValue, setFormInputValue] = useState(deepCopy(initOwnerLoginValue));
+  const [formInputValue, setFormInputValue] = useState(
+    deepCopy(initOwnerLoginValue)
+  );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -130,7 +124,9 @@ function MemberSystem() {
   const clickAccountStatusHandler = () => {
     switchAccountStatus(accountStatus, setAccountStatus);
     const value =
-      accountStatus === "login" ? deepCopy(initOwnerRegisterValue) : deepCopy(initOwnerLoginValue);
+      accountStatus === "login"
+        ? deepCopy(initOwnerRegisterValue)
+        : deepCopy(initOwnerLoginValue);
     setAccountActionMessage("");
     setFormInputValue(value);
     if (!isFirstInput.current) {
@@ -167,14 +163,16 @@ function MemberSystem() {
 
     //reset form input value
     const inputValue =
-      accountStatus === "login" ? deepCopy(initOwnerLoginValue) : deepCopy(initOwnerRegisterValue);
+      accountStatus === "login"
+        ? deepCopy(initOwnerLoginValue)
+        : deepCopy(initOwnerRegisterValue);
     setFormInputValue(inputValue);
 
     //register or login
     let sendData = {};
     Object.entries(formInputValue).forEach(([key, value]) => {
       sendData[key] = value;
-    })
+    });
 
     isWaitResponse.current = true;
     const parsedData = await sendApi(accountStatus, sendData);
@@ -209,7 +207,7 @@ function MemberSystem() {
         setFormInputValue({ ...formInputValue, [key]: targetValue });
         return;
       }
-    })
+    });
   };
 
   const handleInputClick = () => {
@@ -218,43 +216,47 @@ function MemberSystem() {
 
   return (
     <div className="memberSystem common__pageFrame">
-      <p className="common__block common__block--bilateral common__subtitle">
-        {t("memberSystemPage.welcome")}
-      </p>
       <div className="memberSystem__content">
-        <div className="memberSystem__card">
+        <p className="memberSystem__content__title common__subtitle">
+          {t("memberSystemPage.welcome")}
+        </p>
+        <div className="memberSystem__content__card">
           {isLoggedIn ? (
-            <p className="memberSystem__card__loggedIn common__subtitle ">
+            <p className="memberSystem__content__card__loggedIn common__subtitle ">
               {t("memberSystemPage.loggedIn")}
             </p>
-          ) :
-            isWaitResponse.current ?
-              (
-                <Loader />) :
-              (<>
-                <div className="memberSystem__card__form">
-                  {!isLoggedIn && <FormItem
-                    formList={accountStatus === "login" ? ownerLoginForm : ownerRegisterForm}
+          ) : isWaitResponse.current ? (
+            <Loader />
+          ) : (
+            <>
+              <div className="memberSystem__content__card__form">
+                {!isLoggedIn && (
+                  <FormItem
+                    formList={
+                      accountStatus === "login"
+                        ? ownerLoginForm
+                        : ownerRegisterForm
+                    }
                     formInputValue={formInputValue}
                     handleInputClick={handleInputClick}
                     handleChange={handleChange}
                     isFirstInput={isFirstInput.current}
-                  />}
-
-                </div>
-                {accountActionMessage !== "" && (
-                  <p
-                    className={`memberSystem__card__message ${switchAccountMessageColor(
-                      accountActionStatus
-                    )}`}
-                  >
-                    {accountActionMessage}
-                  </p>
+                  />
                 )}
-              </>
+              </div>
+              {accountActionMessage !== "" && (
+                <p
+                  className={`memberSystem__content__card__message ${switchAccountMessageColor(
+                    accountActionStatus
+                  )}`}
+                >
+                  {accountActionMessage}
+                </p>
               )}
+            </>
+          )}
 
-          <div className="memberSystem__card__button">
+          <div className="memberSystem__content__card__button">
             {isLoggedIn && (
               <Link to="/management" className="home__content__btn">
                 <Button text={t("features.management")}></Button>
@@ -264,19 +266,19 @@ function MemberSystem() {
               text={
                 isLoggedIn
                   ? t("memberSystemPage.card.instruction", {
-                    returnObjects: true,
-                  })["logout"]
+                      returnObjects: true,
+                    })["logout"]
                   : t("memberSystemPage.card.instruction", {
-                    returnObjects: true,
-                  })[accountStatus]
+                      returnObjects: true,
+                    })[accountStatus]
               }
               clickEvent={buttonClickHandler}
             />
           </div>
           {isLoggedIn ? null : (
-            <div className="memberSystem__card__instruction ">
+            <div className="memberSystem__content__card__instruction ">
               <p
-                className="memberSystem__card__instruction__action"
+                className="memberSystem__content__card__instruction__action"
                 onClick={clickAccountStatusHandler}
               >
                 {

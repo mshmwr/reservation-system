@@ -1,147 +1,16 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useSelector } from "react-redux";
 import "./Calendar.css";
 import { CalendarDateReservedData } from "./CalendarDateReservedData";
-import { CalendarOrderDialog } from "./CalandarOrderDialog";
+import CalendarOrderDialog from "./CalendarOrderDialog";
 import DirectionButton from "../ui/DirectionButton";
-import DateOrdersWindow from "../features/DateOrdersWindow"
-import { reverseDate } from "../../utils/Utils"
+import DateOrdersWindow from "../features/DateOrdersWindow";
+import { reverseDate } from "../../utils/Utils";
+import { useCalendar } from "../customHook/CalendarFrame";
 
-const daysShortArr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const monthNamesArr = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
-  const today = new Date();
-  const todayFormatted = `${today.getDate()}-${today.getMonth() + 1
-    }-${today.getFullYear()}`; //2021-07-25
-  const daysInWeek = [1, 2, 3, 4, 5, 6, 0]; // Sunday - Saturday : 0 - 6
-  const [selectedDate, setSelectedDate] = useState(today);
-  const selectedMonthLastDate = new Date(
-    selectedDate.getFullYear(),
-    selectedDate.getMonth() + 1,
-    0
-  ); //2021-07-31
-  const prevMonthLastDate = new Date(
-    selectedDate.getFullYear(),
-    selectedDate.getMonth(),
-    0
-  ); //2021-06-30
-  const daysInMonth = selectedMonthLastDate.getDate(); //31
-  const firstDayInMonth = new Date(
-    selectedDate.getFullYear(),
-    selectedDate.getMonth(),
-    1
-  ).getDay(); // Sunday - Saturday : 0 - 6
-  const startingPoint = daysInWeek.indexOf(firstDayInMonth) + 1;
-  let prevMonthStartingPoint =
-    prevMonthLastDate.getDate() - daysInWeek.indexOf(firstDayInMonth) + 1;
-  let currentMonthCounter = 1;
-  let nextMonthCounter = 1;
-  const rows = 6;
-  const cols = 7;
-  const calendarRows = {};
-
-  for (let i = 1; i < rows + 1; i++) {
-    for (let j = 1; j < cols + 1; j++) {
-      if (!calendarRows[i]) {
-        calendarRows[i] = [];
-      }
-
-      if (i === 1) {
-        if (j < startingPoint) {
-          calendarRows[i] = [
-            ...calendarRows[i],
-            {
-              classes: "calendar__dates__prevMonth",
-              date: `${prevMonthStartingPoint}-${selectedDate.getMonth() === 0 ? 12 : selectedDate.getMonth()
-                }-${selectedDate.getMonth() === 0
-                  ? selectedDate.getFullYear() - 1
-                  : selectedDate.getFullYear()
-                }`,
-              value: prevMonthStartingPoint,
-            },
-          ];
-          prevMonthStartingPoint++;
-        } else {
-          calendarRows[i] = [
-            ...calendarRows[i],
-            {
-              classes: "",
-              date: `${currentMonthCounter}-${selectedDate.getMonth() + 1
-                }-${selectedDate.getFullYear()}`,
-              value: currentMonthCounter,
-            },
-          ];
-          currentMonthCounter++;
-        }
-      } else if (i > 1 && currentMonthCounter < daysInMonth + 1) {
-        calendarRows[i] = [
-          ...calendarRows[i],
-          {
-            classes: "",
-            date: `${currentMonthCounter}-${selectedDate.getMonth() + 1
-              }-${selectedDate.getFullYear()}`,
-            value: currentMonthCounter,
-          },
-        ];
-        currentMonthCounter++;
-      } else {
-        calendarRows[i] = [
-          ...calendarRows[i],
-          {
-            classes: "calendar__dates__nextMonth",
-            date: `${nextMonthCounter}-${selectedDate.getMonth() + 2 === 13
-              ? 1
-              : selectedDate.getMonth() + 2
-              }-${selectedDate.getMonth() + 2 === 13
-                ? selectedDate.getFullYear() + 1
-                : selectedDate.getFullYear()
-              }`,
-            value: nextMonthCounter,
-          },
-        ];
-        nextMonthCounter++;
-      }
-    }
-  }
-  const getPrevMonth = () => {
-    setSelectedDate(
-      (prevValue) =>
-        new Date(prevValue.getFullYear(), prevValue.getMonth() - 1, 1)
-    );
-  };
-  const getNextMonth = () => {
-    setSelectedDate(
-      (prevValue) =>
-        new Date(prevValue.getFullYear(), prevValue.getMonth() + 1, 1)
-    );
-  };
-
-  return {
-    daysShort,
-    monthNames,
-    todayFormatted,
-    calendarRows,
-    selectedDate,
-    getPrevMonth,
-    getNextMonth,
-  };
-};
-
-const Calendar = ({
+const MyCalendar = ({
+  className,
   selectedRoom = "",
   setManagementSelectedDate,
   managementSelectedDate,
@@ -156,10 +25,9 @@ const Calendar = ({
     getNextMonth,
   } = useCalendar();
   //redux
-
-  const showDateOrdersWindow = useSelector((state) => state.dateOrdersReducer.showDateOrderWindow)
-
-
+  const showDateOrdersWindow = useSelector(
+    (state) => state.dateOrdersReducer.showDateOrderWindow
+  );
 
   //variable
   const [showDialog, setShowDialog] = useState(false);
@@ -181,24 +49,23 @@ const Calendar = ({
     setOrderId("");
   };
 
-
-
   return (
     <>
-
-      <CalendarOrderDialog
-        isShow={showDialog}
-        orderId={orderId}
-        closeClickHandler={closeClickHandler}
-        currentOrderIsConflicted={currentOrderIsConflicted}
-        managementSelectedDate={managementSelectedDate}
-      />
-      <div className="calendar">
+      {showDialog && (
+        <CalendarOrderDialog
+          orderId={orderId}
+          closeClickHandler={closeClickHandler}
+          currentOrderIsConflicted={currentOrderIsConflicted}
+          managementSelectedDate={managementSelectedDate}
+        />
+      )}
+      <div className={`${className} calendar`}>
         <div className="calendar__month">
           <DirectionButton clickEvent={getPrevMonth} direction="left" />
-          <p className="common__subtitle common__font--bold">
-            {`${monthNames[selectedDate.getMonth()]
-              }-${selectedDate.getFullYear()}`}
+          <p className="common__heading common__font--bold">
+            {`${
+              monthNames[selectedDate.getMonth()]
+            }-${selectedDate.getFullYear()}`}
           </p>
           <DirectionButton clickEvent={getNextMonth} direction="right" />
         </div>
@@ -206,7 +73,7 @@ const Calendar = ({
           {daysShort.map((day) => (
             <div
               key={day}
-              className={`calendar__dates__days calendar__dates__item common__font--bold common__subtitle`}
+              className={`calendar__dates__days calendar__dates__item common__font--bold common__text`}
             >
               {day}
             </div>
@@ -218,13 +85,14 @@ const Calendar = ({
                   key={col.date}
                   className={`${col.classes} calendar__dates__date calendar__dates__item`}
                 >
-                  <div className="common__font--bold common__heading">
+                  <div className="common__font--bold common__text">
                     <div className="calendar__dates__date__number calendar__dates__today">
                       {col.value}
                     </div>
                   </div>
 
                   <CalendarDateReservedData
+                    orderClassName="calendar__dates__date__entries"
                     columnDate={reverseDate(col.date)}
                     dateClickHandler={dateClickHandler}
                     selectedRoom={selectedRoom}
@@ -235,11 +103,12 @@ const Calendar = ({
                   key={col.date}
                   className={`${col.classes} calendar__dates__date calendar__dates__item`}
                 >
-                  <div className="calendar__dates__date__number common__font--bold common__heading">
+                  <div className="calendar__dates__date__number common__font--bold common__text">
                     {col.value}
                   </div>
 
                   <CalendarDateReservedData
+                    orderClassName="calendar__dates__date__entries"
                     columnDate={reverseDate(col.date)}
                     dateClickHandler={dateClickHandler}
                     selectedRoom={selectedRoom}
@@ -250,15 +119,23 @@ const Calendar = ({
           )}
         </div>
 
-
-        {showDateOrdersWindow && <DateOrdersWindow
-          dateClickHandler={dateClickHandler}
-          selectedRoom={selectedRoom}
-        />}
-
+        {showDateOrdersWindow && (
+          <DateOrdersWindow
+            dateClickHandler={dateClickHandler}
+            selectedRoom={selectedRoom}
+          />
+        )}
       </div>
     </>
   );
 };
+
+const Calendar = styled(MyCalendar)`
+  width: 100%;
+  margin: 0px auto;
+  text-align: center;
+  position: relative;
+  z-index: var(--zIndex-managementCalendar);
+`;
 
 export default Calendar;
