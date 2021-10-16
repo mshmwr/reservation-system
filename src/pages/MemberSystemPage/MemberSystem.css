@@ -2,39 +2,44 @@
   background-color: var(--main-bg);
 }
 .memberSystem__content {
-  background-color: var(--main-light);
   display: flex;
   flex-grow: 1;
-  justify-content: center;
   align-items: center;
+  width: 100%;
+  flex-direction: column;
 }
 
-.memberSystem__card {
+.memberSystem__content__title {
+  margin: 3rem auto;
+}
+
+.memberSystem__content__card {
   width: 45%;
-  min-height: 60%;
+  min-height: 50%;
   padding-top: 1rem;
   height: auto;
   background-color: var(--main-bg);
   box-sizing: border-box;
   border-radius: calc(var(--border-radius) * 4);
+  border: 1px solid var(--main-dark);
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.memberSystem__card__form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 2rem 1rem 2rem;
+.memberSystem__content__card__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2rem 1rem 2rem;
 }
 
-.memberSystem__card__loggedIn {
+.memberSystem__content__card__loggedIn {
   margin: 2rem auto;
 }
-.memberSystem__card__message {
+.memberSystem__content__card__message {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,23 +47,23 @@
   height: 30px;
   margin-bottom: 0.5rem;
 }
-.memberSystem__card__message--error {
+.memberSystem__content__card__message--error {
   color: var(--main-red);
 }
-.memberSystem__card__message--ok {
+.memberSystem__content__card__message--ok {
   color: var(--light-green);
 }
 
-.memberSystem__card__button {
+.memberSystem__content__card__button {
   width: 100%;
   text-align: center;
 }
-.memberSystem__card__button .btn {
+.memberSystem__content__card__button .btn {
   min-width: auto;
   width: 80%;
   padding: 0.2rem 0;
 }
-.memberSystem__card__instruction {
+.memberSystem__content__card__instruction {
   width: 80%;
   height: 50px;
   display: flex;
@@ -67,27 +72,27 @@
   align-items: center;
 }
 
-.memberSystem__card__instruction__action {
+.memberSystem__content__card__instruction__action {
   cursor: pointer;
   text-decoration: underline;
 }
-.memberSystem__card__instruction__action:hover {
+.memberSystem__content__card__instruction__action:hover {
   color: var(--dark);
 }
 
 @media screen and (max-width: 1000px) {
-  .memberSystem__card {
+  .memberSystem__content__card {
     width: 50%;
   }
 }
 @media screen and (max-width: 600px) {
-  .memberSystem__card {
+  .memberSystem__content__card {
     width: 80%;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .memberSystem__card {
+  .memberSystem__content__card {
     width: 85%;
   }
 }
