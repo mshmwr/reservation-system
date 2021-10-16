@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 :root {
   /* color */
   --dark: #77613b;
@@ -32,15 +32,15 @@
   --logo-height: 120px;
   --logo-width: 120px;
   --scrollbar-width: 15px;
-  --menu-item-height:30px;
+  --menu-item-height: 30px;
 
   /* RWD size*/
   --mobile-width: 360px;
   --tablet-width: 360px;
 
   /* z-index */
-  --zIndex-managementCalendar: 1;  
-  --zIndex-managementWindow: 2;  
+  --zIndex-managementCalendar: 1;
+  --zIndex-managementWindow: 2;
   --zIndex-managementSelectionBlock: 3;
   --zIndex-managementIcon: 5;
   --zIndex-footer: 5;
@@ -48,9 +48,9 @@
   --zIndex-dialogBox: 9;
 }
 
-*{
+* {
   box-sizing: border-box;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
 }
 
 html {
@@ -99,7 +99,8 @@ html {
 .common__pageFrame {
   width: 100%;
   display: flex;
-  align-items: stretch;
+  /* align-items: stretch; */
+  align-items: center;
   flex-direction: column;
 }
 .common__buttonGroup {
@@ -137,7 +138,6 @@ html {
   transition: all 0.2s ease;
 }
 
-
 @media screen and (max-width: 600px) {
   .common__buttonGroup {
     display: flex;
@@ -146,5 +146,3 @@ html {
     align-items: center;
   }
 }
-
-

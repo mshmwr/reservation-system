@@ -35,6 +35,7 @@ const Stepper = styled(MyStepper).attrs({ className: "stepper" })`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   .stepper__content {
     display: flex;
