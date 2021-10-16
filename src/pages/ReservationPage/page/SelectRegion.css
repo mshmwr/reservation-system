@@ -36,6 +36,7 @@
 
 @media screen and (max-width: 1000px) {
   .reservation__content__selectStep {
+    width: 95%;
     flex-direction: column;
   }
   .calendarBlock__reservationBoard {

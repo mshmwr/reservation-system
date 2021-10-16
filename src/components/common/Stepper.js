@@ -18,10 +18,11 @@ const MyStepper = ({ currentStep, className }) => {
         {STEP_STATES.map((step, index) => (
           <div
             key={`step${step}`}
-            className={`stepper__content__step ${currentStep === STEP_STATES[index]
-              ? STEP_COLORS[1]
-              : STEP_COLORS[0]
-              }`}
+            className={`stepper__content__step ${
+              currentStep === STEP_STATES[index]
+                ? STEP_COLORS[1]
+                : STEP_COLORS[0]
+            }`}
           >
             {STEP_STATES_NAME[index]}
           </div>
@@ -59,6 +60,12 @@ const Stepper = styled(MyStepper).attrs({ className: "stepper" })`
 
   .stepper__content__step--selected {
     background-color: var(--main-dark);
+  }
+
+  @media screen and (max-width: 1000px) {
+    .stepper__content {
+      width: 100%;
+    }
   }
 `;
 
