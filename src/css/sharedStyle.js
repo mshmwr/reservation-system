@@ -16,16 +16,19 @@ export const reservedSelectItemStyle = css`
         align-items: center;
         height: 3rem;
         width: 100%;
-        background-color: var(--main-normal);
         margin: 0 auto 1rem auto;
         font-size: inherit;
         border-radius: var(--border-radius-15);
+        border: 1px solid var(--main-dark);
+        background-color: var(--main-bg);
     }
 
     .resultBlock__select__select {
         padding-left: 1.4rem;
     }
-
+    .resultBlock__select__select:focus{
+        outline-color: var(--main-dark);
+    }
 
     .resultBlock__select__item__label {
         width: 20%;

@@ -39,19 +39,21 @@ const Stepper = styled(MyStepper).attrs({ className: "stepper" })`
   .stepper__content {
     display: flex;
     justify-content: center;
-    width: 90%;
-    margin: 1rem 0;
+    width: 62.5%;
+    margin: 3rem 0;
+    border-top: 1px solid var(--main-dark);
+    border-bottom: 1px solid var(--main-dark);
   }
   .stepper__content__step {
     display: flex;
     align-items: center;
     clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
-    min-height: 40px;
+    min-height: 5rem;
     padding: 0px 1.5rem 0px 2rem;
+    margin: -1px 0;
   }
 
   .stepper__content__step--primary {
-    background-color: var(--main-normal);
   }
 
   .stepper__content__step--selected {

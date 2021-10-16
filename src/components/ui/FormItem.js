@@ -65,6 +65,10 @@ const FormItem = styled(MyFormItem)`
     border-radius: ${getBorderRadius};
     border: 1px solid var(--main-dark);
   }
+
+  .form__item__input:focus{
+    outline-color: var(--main-dark);
+  }
   
   .form__item:last-child{
     margin-bottom: 0;
