@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import useOrderAction from "../../action/features/orderAction";
 import useTimelineAction from "../../action/features/timelineAction";
 import useBoardAction from "../../action/features/boardAction";
+import Loader from "../ui/Loader";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -489,7 +490,9 @@ const Board = () => {
                   currentRoom={currentRoom}
                   isReadOnly={isReadOnly}
                 ></TimeLine>
-              ) : null}
+              ) : (
+                <Loader />
+              )}
             </div>
           </div>
         ))}
