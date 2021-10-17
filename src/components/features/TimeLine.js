@@ -3,10 +3,8 @@ import "./TimeLine.css";
 import { useSelector } from "react-redux";
 import useTimelineAction from "../../action/features/timelineAction";
 import useBoardAction from "../../action/features/boardAction";
-import useConstRoomData from "../../utils/Time"
-import { convertDataTimeToIndex } from "./Board"
-
-
+import useConstRoomData from "../../utils/Time";
+import { convertDataTimeToIndex } from "./Board";
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
@@ -51,8 +49,6 @@ export const TimeLine = ({
   currentRoom,
   isReadOnly,
 }) => {
-
-
   //action
   const { setLineCubeState } = useTimelineAction();
   const { setBoardRefresh } = useBoardAction();
@@ -72,13 +68,16 @@ export const TimeLine = ({
     //check planData room, start_time, duration
     let isPlanDataEmpty = false;
 
-    if (Object.keys(planData).length === 0) { //{}
+    if (Object.keys(planData).length === 0) {
+      //{}
       return false;
     }
 
     Object.entries(planData).forEach(([key, value]) => {
-      if (value === "") { isPlanDataEmpty = true; }
-    })
+      if (value === "") {
+        isPlanDataEmpty = true;
+      }
+    });
     if (isPlanDataEmpty) {
       return false;
     }
@@ -98,8 +97,7 @@ export const TimeLine = ({
       return true;
     }
     return false;
-
-  }
+  };
 
   const cubeClickHandler = (e) => {
     const cubeId = e.target.id;
@@ -205,7 +203,6 @@ export const TimeLine = ({
     setCubeHover(cubes);
   };
 
-
   useEffect(() => {
     setCubeHover(initCubeHover(timeRegion));
     setBoardRefresh(false);
@@ -213,8 +210,9 @@ export const TimeLine = ({
 
   return (
     <div
-      className={`board__reservationBoardItem__timeLine ${isReadOnly ? "common__disablePointerEvent" : ""
-        }
+      className={`board__reservationBoardItem__timeLine ${
+        isReadOnly ? "common__disablePointerEvent" : ""
+      }
       `}
       id={roomId}
       onClick={cubeClickHandler}
@@ -227,22 +225,25 @@ export const TimeLine = ({
           <div
             onMouseOver={() => handleBoxToggle(`${cube.cubeId}${cube.label}`)}
             className={`timeLineCube
-          ${index % 2 ? "timeLineCube__right" : "timeLineCube__left"}
+          ${index % 2 ? "timeLineCube__bottom" : "timeLineCube__top"}
 
 
-          ${setPlanDataToTimeLine(roomId, index) ? "timeLineCube--selected" : ""}
+          ${
+            setPlanDataToTimeLine(roomId, index) ? "timeLineCube--selected" : ""
+          }
 
-          ${roomId === currentRoom.slice()[0].roomId &&
-                cubeHover.slice()[index].isSelected
-                ? "timeLineCube--selected-hovered"
-                : ""
-              }
+          ${
+            roomId === currentRoom.slice()[0].roomId &&
+            cubeHover.slice()[index].isSelected
+              ? "timeLineCube--selected-hovered"
+              : ""
+          }
 
           ${cube.isReserved ? "timeLineCube--reserved" : ""}
           `}
             id={`${cube.cubeId}${cube.label}`}
           >
-            {index % 2 ? null : `${cube.cubeId}`}
+            {index % 2 ? `${cube.cubeId}:30` : `${cube.cubeId}:00`}
           </div>
         </div>
       ))}

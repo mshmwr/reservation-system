@@ -12,7 +12,7 @@
   cursor: pointer;
   box-sizing: border-box;
   outline: 0.5px solid var(--main-dark);
-  border-radius: var(--border-radius);
+  margin-bottom: 1px;
 }
 .timeLineCube:hover {
   background-color: var(--light-gray);
@@ -52,4 +52,11 @@
   background-color: var(--white);
   box-sizing: border-box;
   margin-left: -1px;
+}
+
+.board__reservationBoardItem__timeLine__cube:first-child .timeLineCube__top {
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+.board__reservationBoardItem__timeLine__cube:last-child .timeLineCube__bottom {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
