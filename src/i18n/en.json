@@ -5,11 +5,7 @@
     "headerSubtitle": "kitani music center"
   },
   "stepper": {
-    "steps": [
-      "select",
-      "fillIn",
-      "finish"
-    ],
+    "steps": ["select", "fillIn", "finish"],
     "steps_name": [
       "select date and time",
       "fill in the information",
@@ -40,9 +36,7 @@
     "button": "Start Reservation"
   },
   "noticePage": {
-    "noticeTitle": [
-      "Notice"
-    ],
+    "noticeTitle": ["Notice"],
     "noticeSubtitles": [
       "In order to protect the rights of both you and the Music Center, please read the following notes and confirm your agreement before proceeding with the reservation process"
     ],
@@ -69,16 +63,8 @@
   "reservationPage": {
     "startTime": 9,
     "endTime": 24,
-    "titles": [
-      "",
-      "fill in the information",
-      "fill in the information"
-    ],
-    "subTitles": [
-      "",
-      "The Plan",
-      "Check and confirm the Information"
-    ],
+    "titles": ["", "fill in the information", "fill in the information"],
+    "subTitles": ["", "The Plan", "Check and confirm the Information"],
     "userinfoform": [
       {
         "name": "name",
@@ -137,18 +123,7 @@
         {
           "name": "attendence",
           "label": "attendence",
-          "content": [
-            "attendence",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"
-          ]
+          "content": ["attendence", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         }
       ],
       "button": {
@@ -272,11 +247,7 @@
     {
       "key": "order_status",
       "label": "order_status",
-      "options": [
-        "applied",
-        "reserved",
-        "canceled"
-      ]
+      "options": ["applied", "reserved", "canceled"]
     },
     {
       "key": "name",
@@ -304,10 +275,7 @@
     "welcome": "Welcome to the membership system",
     "loggedIn": "You are logged in.",
     "card": {
-      "action": [
-        "login",
-        "register"
-      ],
+      "action": ["login", "register"],
       "instruction": {
         "login": "Merchant Login",
         "register": "Merchant Registration",
@@ -389,7 +357,7 @@
   },
   "multiLanguages": {
     "CHT": {
-      "label": "CHT",
+      "label": "繁體中文",
       "multiLang": "zh-TW"
     },
     "EN": {

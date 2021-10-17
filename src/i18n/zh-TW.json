@@ -5,16 +5,8 @@
     "headerSubtitle": "kitani music center"
   },
   "stepper": {
-    "steps": [
-      "select",
-      "fillIn",
-      "finish"
-    ],
-    "steps_name": [
-      "選擇日期與時段",
-      "填入預約資訊",
-      "完成預約申請"
-    ]
+    "steps": ["select", "fillIn", "finish"],
+    "steps_name": ["選擇日期與時段", "填入預約資訊", "完成預約申請"]
   },
   "homePage": {
     "logoUrl": "",
@@ -26,9 +18,7 @@
       "※早場最晚入場時間為10:00"
     ],
     "instructionTitle": "使用說明",
-    "instructionTexts": [
-      "預約前下列注意事項請詳閱遵守"
-    ],
+    "instructionTexts": ["預約前下列注意事項請詳閱遵守"],
     "ruleTitle": "訂位規則",
     "ruleTexts": [
       "預約者請於預約時間10分鐘內報到，若未報到視同取消訂位，且留下不良紀錄乙次，滿兩次不良紀錄將會禁止該位預約者線上預約。",
@@ -40,9 +30,7 @@
     "button": "開始預約"
   },
   "noticePage": {
-    "noticeTitle": [
-      "注意事項"
-    ],
+    "noticeTitle": ["注意事項"],
     "noticeSubtitles": [
       "為了保護您以及音樂中心雙方的權益，",
       "請先詳細閱讀以下預約注意事項並確認同意後，再進行預約步驟"
@@ -70,16 +58,8 @@
   "reservationPage": {
     "startTime": 9,
     "endTime": 24,
-    "titles": [
-      "",
-      "填入預約資訊",
-      "填入預約資訊"
-    ],
-    "subTitles": [
-      "",
-      "當日方案",
-      "預約總確認"
-    ],
+    "titles": ["", "填入預約資訊", "填入預約資訊"],
+    "subTitles": ["", "當日方案", "預約總確認"],
     "userinfoform": [
       {
         "name": "name",
@@ -138,18 +118,7 @@
         {
           "name": "attendence",
           "label": "選擇人數",
-          "content": [
-            "唱歌人數",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"
-          ]
+          "content": ["唱歌人數", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         }
       ],
       "button": {
@@ -273,11 +242,7 @@
     {
       "key": "order_status",
       "label": "訂單狀態",
-      "options": [
-        "applied",
-        "reserved",
-        "canceled"
-      ]
+      "options": ["applied", "reserved", "canceled"]
     },
     {
       "key": "name",
@@ -305,10 +270,7 @@
     "welcome": "歡迎使用會員系統",
     "loggedIn": "您已經登入",
     "card": {
-      "action": [
-        "login",
-        "register"
-      ],
+      "action": ["login", "register"],
       "instruction": {
         "login": "商家登入",
         "register": "商家註冊",
@@ -390,7 +352,7 @@
   },
   "multiLanguages": {
     "CHT": {
-      "label": "CHT",
+      "label": "繁體中文",
       "multiLang": "zh-TW"
     },
     "EN": {
