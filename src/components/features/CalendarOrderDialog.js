@@ -73,6 +73,7 @@ const MyCalendarOrderDialog = ({
                       originOrderStatusButton={originOrderStatusButton}
                       orderStatusButton={orderStatusButton}
                       setOrderStatusButton={setOrderStatusButton}
+                      closeClickHandler={closeClickHandler}
                     />
                   )}
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { TODAY_DATE } from "../../utils/Date";
@@ -54,6 +54,7 @@ const MyCalendarOrderDialogButtons = ({
   currentOrderIsConflicted,
   originOrderStatusButton,
   setOrderStatusButton,
+  closeClickHandler,
 }) => {
   const { t } = useTranslation();
   //redux
