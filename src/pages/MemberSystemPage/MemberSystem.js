@@ -121,6 +121,10 @@ function MemberSystem() {
     fetchData();
   }, [isLoggedIn]);
 
+  if (isWaitResponse.current) {
+    // isWaitResponse.current = false;
+  }
+
   const clickAccountStatusHandler = () => {
     switchAccountStatus(accountStatus, setAccountStatus);
     const value =
@@ -138,7 +142,7 @@ function MemberSystem() {
     //check login
     if (isLoggedIn) {
       await sendApi("logout");
-      history.push("/");
+      history.go(0);
       return;
     }
 
@@ -176,26 +180,13 @@ function MemberSystem() {
 
     isWaitResponse.current = true;
     const parsedData = await sendApi(accountStatus, sendData);
-    isWaitResponse.current = false;
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);
     if (parsedData.status !== "ok") {
       return;
     }
 
-    switch (accountStatus) {
-      case "login":
-        history.go(0);
-        break;
-      case "register":
-        history.go(0);
-        break;
-      case "logout":
-        history.push("/");
-        break;
-      default:
-        break;
-    }
+    history.go(0);
   };
 
   const handleChange = (formItem, targetValue) => {
