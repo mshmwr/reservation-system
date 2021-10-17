@@ -64,7 +64,7 @@ const DateOrdersWindow = styled(MyDateOrdersWindow)`
 
   .orderResultWindow__orders {
     margin: 0 3rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     min-height: 200px;
     max-height: 400px;
   }
@@ -72,7 +72,7 @@ const DateOrdersWindow = styled(MyDateOrdersWindow)`
   .orderResultWindow__orders__entries {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin: 0 30px 0 2rem;
   }
 
