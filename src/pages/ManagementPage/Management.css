@@ -54,7 +54,7 @@
 }
 
 .management__frame__timeline__board {
-  --left: 8rem;
+  --left: 9.5rem;
   margin-left: var(--left);
   padding-top: 1rem;
   width: calc(100% - var(--left));
