@@ -13,7 +13,7 @@ import CloseIcon from "../ui/CloseIcon";
 import useDateOrderAction from "../../action/ui/dateOrderAction";
 import { CalendarDateReservedData } from "./CalendarDateReservedData";
 
-const MyDateOrdersWindow = ({ className, dateClickHandler, selectedRoom }) => {
+const MyDateOrdersWindow = ({ className, dateClickHandler }) => {
   //i18n
   const { t } = useTranslation();
 
@@ -39,7 +39,6 @@ const MyDateOrdersWindow = ({ className, dateClickHandler, selectedRoom }) => {
           orderClassName="orderResultWindow__orders__entries"
           columnDate={selectedDate}
           dateClickHandler={dateClickHandler}
-          selectedRoom={selectedRoom}
           isShowAll={showDateOrderWindow}
         />
       </div>

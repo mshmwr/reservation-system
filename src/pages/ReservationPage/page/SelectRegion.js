@@ -19,12 +19,7 @@ export const SelectRegion = () => {
 
   //redux
   const { setAttendenceData, setPlanData } = useOrderAction();
-  const {
-    setBoardCalendarDate,
-    setBoardSelectedRoom,
-    setBoardRefresh,
-    setBoardIsReadOnly,
-  } = useBoardAction();
+  const { setBoardCalendarDate, setBoardRefresh } = useBoardAction();
   const { checkReselect } = useReservationAction();
   const step = useSelector((state) => state.reservationReducer.step);
   const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
@@ -48,7 +43,6 @@ export const SelectRegion = () => {
   };
 
   useEffect(() => {
-    setBoardSelectedRoom("");
     setBoardCalendarDate(TODAY_DATE);
     setBoardRefresh(false);
     setAttendenceData({});

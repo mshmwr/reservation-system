@@ -36,7 +36,6 @@ export const CalendarDateReservedData = ({
   columnDate,
   orderClassName,
   dateClickHandler,
-  selectedRoom,
   isShowAll = false,
 }) => {
   //redux
@@ -144,11 +143,6 @@ export const CalendarDateReservedData = ({
       ) : (
         dateDatas
           .filter((item, index) => checkShowAllOrders(index)) //顯示 maxOrdersNumber 筆資料
-          .filter((item) =>
-            selectedRoom === ""
-              ? item.room !== selectedRoom
-              : item.room === selectedRoom
-          )
           .map((item) => (
             <div
               key={item.order_id}

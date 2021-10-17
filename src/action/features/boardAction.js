@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 export const SET_BOARD_CALENDAR_DATE = "SET_BOARD_CALENDAR_DATE";
-export const SET_BOARD_SELECTED_ROOM = "SET_BOARD_SELECTED_ROOM";
 export const SET_BOARD_IS_READ_ONLY = "SET_BOARD_IS_READ_ONLY";
 export const SET_BOARD_REFRESH = "SET_BOARD_REFRESH";
 
@@ -14,14 +13,7 @@ export default function useBoardAction() {
       },
     });
   };
-  const setBoardSelectedRoom = (inputSelectedRoom) => {
-    dispatch({
-      type: SET_BOARD_SELECTED_ROOM,
-      payload: {
-        selectedRoom: inputSelectedRoom,
-      },
-    });
-  };
+
   const setBoardIsReadOnly = (isBoardReadOnly) => {
     dispatch({
       type: SET_BOARD_IS_READ_ONLY,
@@ -39,7 +31,6 @@ export default function useBoardAction() {
 
   return {
     setBoardCalendarDate,
-    setBoardSelectedRoom,
     setBoardIsReadOnly,
     setBoardRefresh,
   };

@@ -2,7 +2,7 @@ import { requestParameters } from "../utils/API";
 import { route } from "../utils/Utils";
 
 //取得訂位資訊
-const getReservedData = (date = "", order_id = "", room = "") => {
+const getReservedData = (date = "", order_id = "") => {
   // date = date.replace(/-/g, ".");
   // let url = "/reservation_data?data[date]=" + date;
   if (date === "" && order_id === "") {
@@ -18,12 +18,7 @@ const getReservedData = (date = "", order_id = "", room = "") => {
         ? `data[order_id]=${order_id}`
         : `&data[order_id]=${order_id}`;
   }
-  if (room !== "") {
-    urlVar += `&data[room]=${room}`;
-  }
-  // let url = "/reservation_data?data[date]=" + date;
   let url = route + "/reservation_data?" + urlVar;
-  // console.log(url);
   return fetch(url, {
     method: "GET",
   })
