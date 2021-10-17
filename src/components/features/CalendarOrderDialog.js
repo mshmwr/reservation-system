@@ -68,6 +68,7 @@ const MyCalendarOrderDialog = ({
                       item={item}
                       data={data}
                       orderData={orderData}
+                      orderId={orderId}
                       currentOrderIsConflicted={currentOrderIsConflicted}
                       originOrderStatusButton={originOrderStatusButton}
                       orderStatusButton={orderStatusButton}
@@ -97,7 +98,7 @@ const CalendarOrderDialog = styled(MyCalendarOrderDialog)`
   }
 
   .dialog__dialogContent {
-    --dialog-width: 95%;
+    --dialog-width: 62.5%;
     --dialog-height: 85%;
     background-color: var(--white);
     position: fixed;
@@ -153,24 +154,6 @@ const CalendarOrderDialog = styled(MyCalendarOrderDialog)`
   .dialog__dialogContent__table__item__value {
     min-height: 2rem;
     word-break: break-all;
-  }
-
-  .dialog__confirmButton {
-    width: 50%;
-    padding: 0.3rem 0.1rem;
-    margin: 0.4rem 0px 0px auto;
-    min-width: auto;
-    background-color: var(--main-bg);
-    font-size: initial;
-  }
-  .dialog__confirmButton--disabled {
-    background-color: var(--main-bg);
-    color: var(--main-gray);
-    cursor: auto;
-  }
-
-  .dialog__confirmButton--disabled:hover {
-    background-color: var(--main-bg);
   }
 
   @media screen and (max-width: 1000px) {

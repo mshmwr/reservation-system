@@ -1,6 +1,6 @@
 import { toHtml, icon } from "@fortawesome/fontawesome-svg-core";
 
-const route = ""; //"http://localhost:3100";//""
+const route = "http://localhost:3100"; //""
 
 const validateInput = (formItem, inputValue) => {
   const regExp = formItem.pattern;

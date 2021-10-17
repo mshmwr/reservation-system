@@ -48,6 +48,7 @@ const MyCalendarOrderDialogButtons = ({
   className,
   item,
   data,
+  orderId,
   orderData,
   orderStatusButton,
   currentOrderIsConflicted,
@@ -141,14 +142,14 @@ const MyCalendarOrderDialogButtons = ({
       })}
       <button
         type="button"
-        className={`btn dialog__confirmButton
+        className={`btn board__buttons__confirmButton
           ${
             checkConfirmButtonIsDisable(
               orderStatusButton,
               originOrderStatusButton
             )
-              ? "dialog__confirmButton--disabled"
-              : ""
+              ? "board__buttons__confirmButton--disabled"
+              : "board__buttons__confirmButton--enable"
           }
           
           `}
@@ -197,6 +198,27 @@ const CalendarOrderDialogButtons = styled(MyCalendarOrderDialogButtons)`
   }
   .board__buttons__button--disabled {
     cursor: auto;
+  }
+
+  .board__buttons__confirmButton {
+    width: 50%;
+    padding: 0.3rem 0.1rem;
+    margin: 0.4rem 0px 0px auto;
+    min-width: auto;
+    background-color: var(--main-bg);
+    font-size: initial;
+  }
+
+  .board__buttons__confirmButton--disabled {
+    background-color: var(--main-bg);
+    color: var(--main-gray);
+    cursor: auto;
+  }
+  .board__buttons__confirmButton--enable {
+    color: var(--dark);
+  }
+  .board__buttons__confirmButton--enable:hover {
+    background-color: var(--main-normal);
   }
 
   @media screen and (max-width: 600px) {
