@@ -91,10 +91,16 @@ const initOwnerLoginValue = { email: "", password: "" };
 
 const initOwnerRegisterValue = { email: "", password: "", name: "" };
 
+const userLoginStateEnum = {
+  none: 0,
+  login: 1,
+  isWaitingResponse: 2,
+  logout: 3,
+};
+
 function MemberSystem() {
   const history = useHistory();
   const isFirstInput = useRef(true);
-  const isWaitResponse = useRef(false);
 
   //i18n
   const { t } = useTranslation();
@@ -111,19 +117,19 @@ function MemberSystem() {
   const [formInputValue, setFormInputValue] = useState(
     deepCopy(initOwnerLoginValue)
   );
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginState, setLoginState] = useState(
+    userLoginStateEnum.isWaitingResponse
+  );
 
   useEffect(() => {
     async function fetchData() {
       const isLogin = await checkLoggedIn();
-      setIsLoggedIn(isLogin);
+      setLoginState(
+        isLogin ? userLoginStateEnum.login : userLoginStateEnum.logout
+      );
     }
     fetchData();
-  }, [isLoggedIn]);
-
-  if (isWaitResponse.current) {
-    // isWaitResponse.current = false;
-  }
+  }, []);
 
   const clickAccountStatusHandler = () => {
     switchAccountStatus(accountStatus, setAccountStatus);
@@ -140,7 +146,7 @@ function MemberSystem() {
 
   const buttonClickHandler = async () => {
     //check login
-    if (isLoggedIn) {
+    if (loginState === userLoginStateEnum.login) {
       await sendApi("logout");
       history.go(0);
       return;
@@ -178,7 +184,8 @@ function MemberSystem() {
       sendData[key] = value;
     });
 
-    isWaitResponse.current = true;
+    setLoginState(userLoginStateEnum.isWaitingResponse);
+    console.log("setLoginIsWaiting");
     const parsedData = await sendApi(accountStatus, sendData);
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);
@@ -212,73 +219,74 @@ function MemberSystem() {
           {t("memberSystemPage.welcome")}
         </p>
         <div className="memberSystem__content__card">
-          {isLoggedIn ? (
-            <p className="memberSystem__content__card__loggedIn common__subtitle ">
+          {loginState === userLoginStateEnum.login ? (
+            <p className="memberSystem__content__card__loggedIn common__subtitle">
               {t("memberSystemPage.loggedIn")}
             </p>
-          ) : isWaitResponse.current ? (
-            <Loader />
+          ) : loginState === userLoginStateEnum.logout ? (
+            <div className="memberSystem__content__card__form">
+              <FormItem
+                formList={
+                  accountStatus === "login" ? ownerLoginForm : ownerRegisterForm
+                }
+                formInputValue={formInputValue}
+                handleInputClick={handleInputClick}
+                handleChange={handleChange}
+                isFirstInput={isFirstInput.current}
+              />
+            </div>
           ) : (
-            <>
-              <div className="memberSystem__content__card__form">
-                {!isLoggedIn && (
-                  <FormItem
-                    formList={
-                      accountStatus === "login"
-                        ? ownerLoginForm
-                        : ownerRegisterForm
-                    }
-                    formInputValue={formInputValue}
-                    handleInputClick={handleInputClick}
-                    handleChange={handleChange}
-                    isFirstInput={isFirstInput.current}
-                  />
-                )}
-              </div>
-              {accountActionMessage !== "" && (
-                <p
-                  className={`memberSystem__content__card__message ${switchAccountMessageColor(
-                    accountActionStatus
-                  )}`}
-                >
-                  {accountActionMessage}
-                </p>
-              )}
-            </>
+            <Loader />
           )}
 
-          <div className="memberSystem__content__card__button">
-            {isLoggedIn && (
-              <Link to="/management" className="home__content__btn">
-                <Button text={t("features.management")}></Button>
-              </Link>
-            )}
-            <Button
-              text={
-                isLoggedIn
-                  ? t("memberSystemPage.card.instruction", {
-                      returnObjects: true,
-                    })["logout"]
-                  : t("memberSystemPage.card.instruction", {
-                      returnObjects: true,
-                    })[accountStatus]
-              }
-              clickEvent={buttonClickHandler}
-            />
-          </div>
-          {isLoggedIn ? null : (
-            <div className="memberSystem__content__card__instruction ">
+          {loginState === userLoginStateEnum.logout &&
+            accountActionMessage !== "" && (
               <p
-                className="memberSystem__content__card__instruction__action"
-                onClick={clickAccountStatusHandler}
+                className={`memberSystem__content__card__message ${switchAccountMessageColor(
+                  accountActionStatus
+                )}`}
               >
-                {
-                  t("memberSystemPage.card.hint", {
-                    returnObjects: true,
-                  })[accountStatus]
-                }
+                {accountActionMessage}
               </p>
-            </div>
+            )}
+
+          {loginState !== userLoginStateEnum.isWaitingResponse && (
+            <>
+              <div className="memberSystem__content__card__button">
+                {loginState === userLoginStateEnum.login && (
+                  <Link to="/management" className="home__content__btn">
+                    <Button text={t("features.management")}></Button>
+                  </Link>
+                )}
+                <Button
+                  text={
+                    loginState === userLoginStateEnum.login
+                      ? t("memberSystemPage.card.instruction", {
+                          returnObjects: true,
+                        })["logout"]
+                      : t("memberSystemPage.card.instruction", {
+                          returnObjects: true,
+                        })[accountStatus]
+                  }
+                  clickEvent={buttonClickHandler}
+                />
+              </div>
+
+              {loginState === userLoginStateEnum.logout && (
+                <div className="memberSystem__content__card__instruction ">
+                  <p
+                    className="memberSystem__content__card__instruction__action"
+                    onClick={clickAccountStatusHandler}
+                  >
+                    {
+                      t("memberSystemPage.card.hint", {
+                        returnObjects: true,
+                      })[accountStatus]
+                    }
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
