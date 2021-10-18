@@ -5,6 +5,7 @@ import useTimelineAction from "../../action/features/timelineAction";
 import useBoardAction from "../../action/features/boardAction";
 import useConstRoomData from "../../utils/Time";
 import { convertDataTimeToIndex } from "./Board";
+import Cube from "./Cube";
 
 let hoverCube_clicked_first = -1;
 let hoverCube_clicked_second = -1;
@@ -218,34 +219,16 @@ export const TimeLine = ({
       onClick={cubeClickHandler}
     >
       {lineCubeState[roomId].map((cube, index) => (
-        <div
-          key={`${cube.cubeId}${cube.label}`}
-          className="board__reservationBoardItem__timeLine__cube"
-        >
-          <div
-            onMouseOver={() => handleBoxToggle(`${cube.cubeId}${cube.label}`)}
-            className={`timeLineCube
-          ${index % 2 ? "timeLineCube__bottom" : "timeLineCube__top"}
-
-
-          ${
-            setPlanDataToTimeLine(roomId, index) ? "timeLineCube--selected" : ""
-          }
-
-          ${
-            roomId === currentRoom.slice()[0].roomId &&
-            cubeHover.slice()[index].isSelected
-              ? "timeLineCube--selected-hovered"
-              : ""
-          }
-
-          ${cube.isReserved ? "timeLineCube--reserved" : ""}
-          `}
-            id={`${cube.cubeId}${cube.label}`}
-          >
-            {index % 2 ? `${cube.cubeId}:30` : `${cube.cubeId}:00`}
-          </div>
-        </div>
+        <Cube
+          key={`cube${roomId}${index}`}
+          handleBoxToggle={handleBoxToggle}
+          cube={cube}
+          index={index}
+          setPlanDataToTimeLine={setPlanDataToTimeLine}
+          roomId={roomId}
+          currentRoom={currentRoom}
+          cubeHover={cubeHover}
+        />
       ))}
     </div>
   );

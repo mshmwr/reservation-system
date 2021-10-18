@@ -363,7 +363,6 @@ const Board = () => {
       setCurrentRoom(newRoom);
       setPlanData({});
       needInit = true;
-
       return needInit;
     }
 

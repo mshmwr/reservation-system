@@ -22,10 +22,12 @@
   background-color: var(--yellow-green);
 }
 
-.timeLineCube--selected-hovered {
+.timeLineCube--selected-hovered,
+.timeLineCube--selected-clicked {
   background-color: var(--main-normal);
 }
-.timeLineCube--selected-hovered:hover {
+.timeLineCube--selected-hovered:hover,
+.timeLineCube--selected-clicked:hover {
   background-color: var(--main-dark);
 }
 
@@ -54,9 +56,9 @@
   margin-left: -1px;
 }
 
-.board__reservationBoardItem__timeLine__cube:first-child .timeLineCube__top {
+.board__reservationBoardItem__timeLine .timeLineCube__top:first-child {
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
-.board__reservationBoardItem__timeLine__cube:last-child .timeLineCube__bottom {
+.board__reservationBoardItem__timeLine .timeLineCube__bottom:last-child {
   border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
