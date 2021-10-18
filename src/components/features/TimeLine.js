@@ -61,6 +61,7 @@ export const TimeLine = ({
 
   //parameters
   const [cubeHover, setCubeHover] = useState(initCubeHover(timeRegion));
+  const [cubeClicked, setCubeClicked] = useState(initCubeHover(timeRegion));
   const planData = useSelector((state) => state.orderReducer.planData);
   const { TIME_REGION } = useConstRoomData();
 
@@ -115,6 +116,7 @@ export const TimeLine = ({
       hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
       hoverCube_clicked_second = -1;
       setCubeHover(initCubeHover(timeRegion));
+      restoreClickedCube(cubeId);
       // console.log("新的點擊");
       return;
     }
@@ -129,6 +131,7 @@ export const TimeLine = ({
         hoverCube_clicked_first = timeRegionMapping.indexOf(cubeId);
         hoverCube_clicked_second = -1;
         setCubeHover(initCubeHover(timeRegion));
+        restoreClickedCube(cubeId);
         callSetLineCubeState(cubeId, needInit);
         return;
       }
@@ -136,6 +139,7 @@ export const TimeLine = ({
       // console.log("選擇完成");
       hoverCube_clicked_second = timeRegionMapping.indexOf(cubeId);
       callSetLineCubeState(cubeId, needInit);
+      restoreClickedCube(cubeId);
     }
     if (hoverCube_clicked_first === -1) {
       //還沒選擇 起點 和 終點
@@ -204,8 +208,26 @@ export const TimeLine = ({
     setCubeHover(cubes);
   };
 
+  const restoreClickedCube = (cubeId) => {
+    /*
+      只儲存最新點擊的cube
+    */
+    const cubes = cubeClicked.slice();
+    const clickedCubeIndex = timeRegionMapping.indexOf(cubeId); //目前指到的 cube 的位置
+
+    cubes.forEach((cube) => {
+      if (cube.index === clickedCubeIndex) {
+        cube.isClicked = true; //cube的位置 < 目前指到的 cube 的位置
+        return;
+      }
+      cube.isClicked = false;
+    });
+    setCubeClicked(cubes);
+  };
+
   useEffect(() => {
     setCubeHover(initCubeHover(timeRegion));
+    setCubeClicked(initCubeHover(timeRegion));
     setBoardRefresh(false);
   }, [needRefreshBoard]);
 
@@ -228,6 +250,8 @@ export const TimeLine = ({
           roomId={roomId}
           currentRoom={currentRoom}
           cubeHover={cubeHover}
+          restoreClickedCube={restoreClickedCube}
+          cubeClicked={cubeClicked}
         />
       ))}
     </div>

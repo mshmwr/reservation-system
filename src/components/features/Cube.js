@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 const Cube = ({
   handleBoxToggle,
   cube,
@@ -7,10 +7,11 @@ const Cube = ({
   roomId,
   currentRoom,
   cubeHover,
+  restoreClickedCube,
+  cubeClicked,
 }) => {
-  const isCubeClicked = useRef(false);
-  const toggleCubeClicked = () => {
-    isCubeClicked.current = !isCubeClicked.current;
+  const toggleCubeClicked = (cubeID) => {
+    restoreClickedCube(cubeID);
   };
 
   const setSelectedHover = () => {
@@ -18,8 +19,17 @@ const Cube = ({
       roomId === currentRoom.slice()[0].roomId &&
       cubeHover.slice()[index].isSelected
     ) {
-      isCubeClicked.current = false;
       return "timeLineCube--selected-hovered";
+    }
+    return "";
+  };
+
+  const setCubeClicked = () => {
+    if (
+      roomId === currentRoom.slice()[0].roomId &&
+      cubeClicked.slice()[index].isClicked
+    ) {
+      return "timeLineCube--selected-clicked";
     }
     return "";
   };
@@ -27,15 +37,15 @@ const Cube = ({
   return (
     <div
       onMouseOver={() => handleBoxToggle(`${cube.cubeId}${cube.label}`)}
-      onClick={toggleCubeClicked}
+      onClick={() => toggleCubeClicked(`${cube.cubeId}${cube.label}`)}
       className={`timeLineCube
         ${index % 2 ? "timeLineCube__bottom" : "timeLineCube__top"}
 
         ${setPlanDataToTimeLine(roomId, index) ? "timeLineCube--selected" : ""}
 
-        ${isCubeClicked.current ? "timeLineCube--selected-clicked" : ""}
-        ${setSelectedHover()}
 
+        ${setSelectedHover()}
+        ${setCubeClicked()}
 
         ${cube.isReserved ? "timeLineCube--reserved" : ""}
   `}
