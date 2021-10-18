@@ -18,10 +18,7 @@
   background-color: var(--light-gray);
 }
 
-.timeLineCube--selected {
-  background-color: var(--yellow-green);
-}
-
+.timeLineCube--selected,
 .timeLineCube--selected-hovered,
 .timeLineCube--selected-clicked {
   background-color: var(--main-normal);
