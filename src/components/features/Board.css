@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: var(--main-bg);
   padding-top: 1rem;
   border-radius: 0 0 var(--border-radius-15) var(--border-radius-15);

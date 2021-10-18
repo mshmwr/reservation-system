@@ -12,7 +12,7 @@
   cursor: pointer;
   box-sizing: border-box;
   outline: 0.5px solid var(--main-dark);
-  border-radius: var(--border-radius);
+  margin-bottom: 1px;
 }
 .timeLineCube:hover {
   background-color: var(--light-gray);
@@ -22,10 +22,12 @@
   background-color: var(--yellow-green);
 }
 
-.timeLineCube--selected-hovered {
+.timeLineCube--selected-hovered,
+.timeLineCube--selected-clicked {
   background-color: var(--main-normal);
 }
-.timeLineCube--selected-hovered:hover {
+.timeLineCube--selected-hovered:hover,
+.timeLineCube--selected-clicked:hover {
   background-color: var(--main-dark);
 }
 
@@ -52,4 +54,11 @@
   background-color: var(--white);
   box-sizing: border-box;
   margin-left: -1px;
+}
+
+.board__reservationBoardItem__timeLine .timeLineCube__top:first-child {
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+.board__reservationBoardItem__timeLine .timeLineCube__bottom:last-child {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }

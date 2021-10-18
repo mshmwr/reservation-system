@@ -11,7 +11,6 @@ import { useCalendar } from "../customHook/CalendarFrame";
 
 const MyCalendar = ({
   className,
-  selectedRoom = "",
   setManagementSelectedDate,
   managementSelectedDate,
 }) => {
@@ -95,7 +94,6 @@ const MyCalendar = ({
                     orderClassName="calendar__dates__date__entries"
                     columnDate={reverseDate(col.date)}
                     dateClickHandler={dateClickHandler}
-                    selectedRoom={selectedRoom}
                   />
                 </div>
               ) : (
@@ -111,7 +109,6 @@ const MyCalendar = ({
                     orderClassName="calendar__dates__date__entries"
                     columnDate={reverseDate(col.date)}
                     dateClickHandler={dateClickHandler}
-                    selectedRoom={selectedRoom}
                   />
                 </div>
               );
@@ -120,10 +117,7 @@ const MyCalendar = ({
         </div>
 
         {showDateOrdersWindow && (
-          <DateOrdersWindow
-            dateClickHandler={dateClickHandler}
-            selectedRoom={selectedRoom}
-          />
+          <DateOrdersWindow dateClickHandler={dateClickHandler} />
         )}
       </div>
     </>

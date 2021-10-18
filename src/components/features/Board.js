@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import useOrderAction from "../../action/features/orderAction";
 import useTimelineAction from "../../action/features/timelineAction";
 import useBoardAction from "../../action/features/boardAction";
+import Loader from "../ui/Loader";
 
 const initLineCube = (start, end, roomId) => {
   /* lineCube
@@ -268,18 +269,13 @@ const Board = () => {
   );
   const currentRoom = useSelector((state) => state.timelineReducer.currentRoom);
   const calendarDate = useSelector((state) => state.boardReducer.calendarDate);
-  const selectedRoom = useSelector((state) => state.boardReducer.selectedRoom);
   const needRefreshBoard = useSelector(
     (state) => state.boardReducer.needRefreshBoard
   );
   const isReadOnly = useSelector((state) => state.boardReducer.isReadOnly);
 
   const fetchData = async () => {
-    const fetchedData = await getReservedData(
-      calendarDate,
-      undefined,
-      selectedRoom
-    );
+    const fetchedData = await getReservedData(calendarDate, undefined);
     if (fetchedData === null) {
       return;
     }
@@ -294,7 +290,7 @@ const Board = () => {
 
   useEffect(() => {
     fetchData();
-  }, [calendarDate, selectedRoom]);
+  }, [calendarDate]);
 
   if (needRefreshBoard) {
     fetchData();
@@ -367,7 +363,6 @@ const Board = () => {
       setCurrentRoom(newRoom);
       setPlanData({});
       needInit = true;
-
       return needInit;
     }
 
@@ -426,8 +421,9 @@ const Board = () => {
           setPlanData({
             room: roomId,
             duration: duration,
-            start_time: `${firstCubeIdNum}:${firstRoom.cubeId.includes("L") ? "00" : "30"
-              }`,
+            start_time: `${firstCubeIdNum}:${
+              firstRoom.cubeId.includes("L") ? "00" : "30"
+            }`,
           }); //{ room: "A包廂", duration: 3, startTime: "11:00" };
           isSelectFinished = true;
           // console.log("選擇完成");
@@ -465,28 +461,21 @@ const Board = () => {
   return (
     <div className="board">
       <div className="board__room">
-        {ROOM_LIST.filter((room) =>
-          selectedRoom === ""
-            ? room.id !== selectedRoom
-            : room.id === selectedRoom
-        ).map((room) => (
-          <div key={`room${room.title}`} className="board__reservationBoardItem">
+        {ROOM_LIST.map((room) => (
+          <div
+            key={`room${room.title}`}
+            className="board__reservationBoardItem"
+          >
             <p className="board__reservationBoardItem__room__title">{`${room.title}`}</p>
-            {/* <p className="board__reservationBoardItem__room__machine">
-              {room.machine}
-            </p> */}
-          </div>))
-
-        }
+          </div>
+        ))}
       </div>
       <div className="board__timeline">
-        {ROOM_LIST.filter((room) =>
-          selectedRoom === ""
-            ? room.id !== selectedRoom
-            : room.id === selectedRoom
-        ).map((room) => (
-          <div key={`timeline${room.title}`} className="board__reservationBoardItem">
-
+        {ROOM_LIST.map((room) => (
+          <div
+            key={`timeline${room.title}`}
+            className="board__reservationBoardItem"
+          >
             <div className="board__reservationBoardItem__reservedBoard">
               {Object.keys(lineCubeState).length !== 0 ? (
                 <TimeLine
@@ -500,13 +489,13 @@ const Board = () => {
                   currentRoom={currentRoom}
                   isReadOnly={isReadOnly}
                 ></TimeLine>
-              ) : null}
+              ) : (
+                <Loader />
+              )}
             </div>
           </div>
-        ))}</div>
-
-
-
+        ))}
+      </div>
     </div>
   );
 };

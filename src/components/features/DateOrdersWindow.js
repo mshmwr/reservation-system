@@ -13,7 +13,7 @@ import CloseIcon from "../ui/CloseIcon";
 import useDateOrderAction from "../../action/ui/dateOrderAction";
 import { CalendarDateReservedData } from "./CalendarDateReservedData";
 
-const MyDateOrdersWindow = ({ className, dateClickHandler, selectedRoom }) => {
+const MyDateOrdersWindow = ({ className, dateClickHandler }) => {
   //i18n
   const { t } = useTranslation();
 
@@ -39,7 +39,6 @@ const MyDateOrdersWindow = ({ className, dateClickHandler, selectedRoom }) => {
           orderClassName="orderResultWindow__orders__entries"
           columnDate={selectedDate}
           dateClickHandler={dateClickHandler}
-          selectedRoom={selectedRoom}
           isShowAll={showDateOrderWindow}
         />
       </div>
@@ -64,7 +63,7 @@ const DateOrdersWindow = styled(MyDateOrdersWindow)`
 
   .orderResultWindow__orders {
     margin: 0 3rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     min-height: 200px;
     max-height: 400px;
   }
@@ -72,7 +71,7 @@ const DateOrdersWindow = styled(MyDateOrdersWindow)`
   .orderResultWindow__orders__entries {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin: 0 30px 0 2rem;
   }
 

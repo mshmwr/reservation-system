@@ -17,65 +17,62 @@ const update = keyframes`
 `;
 
 const show = (props) => {
-    const animationStyle = props.isFirst.current ?
-        props.toggle
-            ? css`
-    ${update} 2s linear forwards
-    `
-            : css`
-    ${enter} 2s linear forwards
-    `: "";
-    return animationStyle;
-}
-
+  const animationStyle = props.isFirst.current
+    ? props.toggle
+      ? css`
+          ${update} 2s linear forwards
+        `
+      : css`
+          ${enter} 2s linear forwards
+        `
+    : "";
+  return animationStyle;
+};
 
 const Dialog = styled.div.attrs({ className: "alertDialog" })`
-    --dialogWidth: 250px;
-    --dialogHeight: 250px;
-    position: fixed;
-    width: ${props => props.width};
-    height: ${props => props.height};
-    color: var(--dark);
-    background-color: var(--main-bg);
-    top: calc(50% - var(--dialogWidth) / 2);
-    left: calc(50% - var(--dialogHeight) / 2);
-    border-radius: calc(var(--border-radius) * 4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    animation: ${show};
-    z-index: var(--zIndex-managementWindow);
-`
-
+  --dialogWidth: 250px;
+  --dialogHeight: 250px;
+  position: fixed;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  color: var(--dark);
+  background-color: var(--white);
+  top: calc(50% - var(--dialogWidth) / 2);
+  left: calc(50% - var(--dialogHeight) / 2);
+  border-radius: calc(var(--border-radius) * 4);
+  border: 1px solid var(--main-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  animation: ${show};
+  z-index: var(--zIndex-managementWindow);
+`;
 
 const AlertDialog = () => {
-    const isFirst = useRef(false);
+  const isFirst = useRef(false);
 
-    const width = useSelector(
-        (state) => state.dialogReducer.dialogWidth
-    )
-    const height = useSelector(
-        (state) => state.dialogReducer.dialogHeight
-    )
-    const text = useSelector(
-        (state) => state.dialogReducer.dialogText
-    )
-    const dialogToggle = useSelector(
-        (state) => state.dialogReducer.dialogToggle
-    )
+  const width = useSelector((state) => state.dialogReducer.dialogWidth);
+  const height = useSelector((state) => state.dialogReducer.dialogHeight);
+  const text = useSelector((state) => state.dialogReducer.dialogText);
+  const dialogToggle = useSelector((state) => state.dialogReducer.dialogToggle);
 
-    useEffect(
-        () => {
-            if (isFirst.current === false) {
-                isFirst.current = true;
-            }
-        }
-    );
+  useEffect(() => {
+    if (isFirst.current === false) {
+      isFirst.current = true;
+    }
+  });
 
-
-    return <Dialog width={width} height={height} toggle={dialogToggle} isFirst={isFirst}>{text}</Dialog>;
-}
-
+  return (
+    <Dialog
+      width={width}
+      height={height}
+      toggle={dialogToggle}
+      isFirst={isFirst}
+    >
+      {text}
+    </Dialog>
+  );
+};
 
 export default AlertDialog;

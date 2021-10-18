@@ -1,6 +1,6 @@
 .btn {
-  background-color: var(--main-dark);
-  color:var(--main-light);
+  background-color: var(--main-normal);
+  color: var(--dark);
   min-width: 10rem;
   padding: 0.8rem 3rem;
   border: 1px solid var(--main-normal);
@@ -13,7 +13,8 @@
 
 .btn:hover {
   background-color: var(--dark);
-  border: 1px solid var(--main-normal);
+  color: var(--main-light);
+  border: 1px solid var(--dark);
   transition: all 0.2s ease;
 }
 
