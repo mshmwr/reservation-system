@@ -35,8 +35,6 @@ const getReservedData = (date = "", order_id = "") => {
 
 //送出訂位資訊
 const postReservedData = (data = {}) => {
-  console.log("postReservedData");
-  console.log(data);
   let parameters = JSON.parse(JSON.stringify(requestParameters)); //deep copy
   let url = route + "/reservation_data";
   const method = { method: "POST" };
