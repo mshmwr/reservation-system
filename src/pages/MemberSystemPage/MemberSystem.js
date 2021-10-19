@@ -185,7 +185,6 @@ function MemberSystem() {
     });
 
     setLoginState(userLoginStateEnum.isWaitingResponse);
-    console.log("setLoginIsWaiting");
     const parsedData = await sendApi(accountStatus, sendData);
     setAccountActionStatus(parsedData.status);
     setAccountActionMessage(parsedData.message);

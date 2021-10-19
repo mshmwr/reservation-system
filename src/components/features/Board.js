@@ -17,6 +17,7 @@ const initLineCube = (start, end, roomId) => {
       label:"L", 
       isSelected: boolean,
       isReserved: boolean,
+      isClicked: boolean,
       index: number
     }
    */
@@ -29,6 +30,7 @@ const initLineCube = (start, end, roomId) => {
       label: "L",
       isSelected: false,
       isReserved: false,
+      isClicked: false,
       index: (i - start) * 2,
     });
     lineCube.push({
@@ -37,6 +39,7 @@ const initLineCube = (start, end, roomId) => {
       label: "R",
       isSelected: false,
       isReserved: false,
+      isClicked: false,
       name: null,
       index: (i - start) * 2 + 1,
     });
